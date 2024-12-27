@@ -1,6 +1,6 @@
 Package: screen
 Type: Package
-Title: Yahoo Finance Screeners
+Title: Yahoo Finance Screener
 Version: 0.1
 Author: Jason Foster
 Maintainer: Jason Foster <jason.j.foster@gmail.com>
