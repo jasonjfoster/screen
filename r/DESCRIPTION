@@ -1,0 +1,14 @@
+Package: screen
+Type: Package
+Title: Yahoo Finance Screeners
+Version: 0.1
+Author: Jason Foster
+Maintainer: Jason Foster <jason.j.foster@gmail.com>
+Description: Fast and efficient access to Yahoo Finance's screener functionality for querying and retrieval of financial data.
+License: GPL (>= 2)
+URL: https://github.com/jasonjfoster/screen/r
+BugReports: https://github.com/jasonjfoster/screen/r/issues
+Imports: curl, jsonlite
+Encoding: UTF-8
+Roxygen: list(old_usage = TRUE)
+RoxygenNote: 7.3.2
