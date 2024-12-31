@@ -2,39 +2,31 @@ import requests
 import pandas as pd
 import json
 
-# def process_filter(filter):
+class Filter:
   
-#   operator, operands = filter
+  @staticmethod
+  def process(filter):
   
-#   result = {
-#     "operator": operator,
-#     "operands": [
-#       process_filter(operand) if isinstance(operand, list) else operand
-#       for operand in operands
-#       ],
-#     }
+    operator, operands = filter
     
-#   return result
+    result = {
+      "operator": operator,
+      "operands": [
+          {"operator": operand[0], "operands": operand[1]} for operand in operands
+      ],
+    }
+    
+    return result
 
-def process_filter(filter):
+class Query:
   
-  operator, operands = filter
-  
-  result = {
-    "operator": operator,
-    "operands": [
-        {"operator": operand[0], "operands": operand[1]} for operand in operands
-    ],
-  }
-  
-  return result
-
-def create_query(filters = [("or", [("eq", ["region", "us"])])],
-                 top_operator = "and"):
+  @staticmethod
+  def create(filters = [("or", [("eq", ["region", "us"])])],
+             top_operator = "and"):
     """
     Create a Structured Query for the Yahoo Finance API
     
-    A function to create a list defining a query for the Yahoo Finance API with
+    A method to create a list defining a query for the Yahoo Finance API with
     logical operations and nested conditions defined in a structured format.
     
     Parameters:
@@ -66,30 +58,33 @@ def create_query(filters = [("or", [("eq", ["region", "us"])])],
         ])
       )
       
-      query = create_query(filters)
+      query = Query.create(filters)
     """
     
     result = {
       "operator": top_operator,
-      "operands": [process_filter(filter) for filter in filters],
+      "operands": [Filter.process(filter) for filter in filters],
     }
 
     return result
 
-def create_payload(quote_type = "equity", query = create_query(),
-                   size = 25, offset = 0,
-                   sort_field = None, sort_type = None,
-                   top_operator = "and"):
+class Payload:
+  
+  @staticmethod
+  def create(quote_type = "equity", query = Query.create(),
+             size = 25, offset = 0,
+             sort_field = None, sort_type = None,
+             top_operator = "and"):
     """
     Create a Payload for the Yahoo Finance API
     
-    A function to create a payload to query the Yahoo Finance API with customizable parameters.
+    A method to create a payload to query the Yahoo Finance API with customizable parameters.
     
     Parameters:
       quote_type (str): type of quote to search
         (i.e., "equity", "mutualfund", "etf", "index", "future").
       query (list or tuple): structured query to filter results created by
-        the `create_query` function.
+        the `Query.create` method.
       size (int): number of results to return.
       offset (int): starting position of the results.
       sort_field (str): field to sort the results.
@@ -108,9 +103,9 @@ def create_payload(quote_type = "equity", query = create_query(),
       )]
     ]
     
-    query = create_query(filters)
+    query = Query.create(filters)
     
-    payload = create_payload(
+    payload = Payload.create(
       quote_type = "equity", query = query,
       size = 25, offset = 0,
       sort_field = "intradaymarketcap", sort_type = "desc",
@@ -131,163 +126,158 @@ def create_payload(quote_type = "equity", query = create_query(),
     
     return result
 
-def get_crumb_and_cookies():
-  """
-  Get the Crumb, Cookies, and Handle for Yahoo Finance API
+class Session:
   
-  A function to get the crumb, cookies, and handle required to authenticate and interact
-  with the Yahoo Finance API.
+  @staticmethod
+  def get():
+    """
+    Get the Crumb, Cookies, and Handle for Yahoo Finance API
+    
+    A method to get the crumb, cookies, and handle required to authenticate and interact
+    with the Yahoo Finance API.
+    
+    Returns:
+      A dictionary containing the following elements:
+        - "handle": a session handle object to be used for subsequent requests.
+        - "crumb": a string representing the crumb value for authentication.
+        - "cookies": a data frame of cookies retrieved during the request.
+        
+      Examples:
+        session = Session.get()
+    """
+    
+    session = requests.Session()
+    
+    api_url = "https://query1.finance.yahoo.com/v1/test/getcrumb"
+    
+    headers = {
+      "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+    }
+    
+    session.headers.update(headers)
   
-  Returns:
-    A dictionary containing the following elements:
-      - "handle": a session handle object to be used for subsequent requests.
-      - "crumb": a string representing the crumb value for authentication.
-      - "cookies": a data frame of cookies retrieved during the request.
-      
+    response = session.get(api_url)
+    
+    crumb = response.text.strip()
+    cookies = session.cookies.get_dict()
+  
+    result = {
+      "handle": session,
+      "crumb": crumb,
+      "cookies": cookies
+    }
+    
+    return result
+
+class Screen:
+  
+  # @staticmethod
+  # def encode(params):
+  #   
+  #   result = "?" + "&".join(f"{key}={value}" for key, value in params.items())
+  #   
+  #   return result
+  
+  @staticmethod
+  def get(payload = Payload.create()):
+    """
+    Get Screen Data from the Yahoo Finance API
+  
+    A method to send payload to the Yahoo Finance API and get data for the screen.
+  
+    Parameters:
+      payload (dict): payload to send to the Yahoo Finance API created using
+        the `Query.create` and `Payload.create` methods.
+  
+    Returns:
+      A data frame containing data from the Yahoo Finance API for the specified screen.
+  
     Examples:
-      session = get_crumb_and_cookies()
-  """
+      filters = [
+        ("or", [
+          ("eq", ["region", "us"])
+        ])
+      ]
   
-  session = requests.Session()
+      query = Query.create(filters)
   
-  api_url = "https://query1.finance.yahoo.com/v1/test/getcrumb"
+      payload = Payload.create(
+        quote_type = "equity", query = query,
+        size = 25, offset = 0,
+        sort_field = "intradaymarketcap", sort_type = "desc",
+        top_operator = "and"
+      )
   
-  headers = {
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
-  }
+      screen = Screen.get(payload)
+    """
   
-  session.headers.update(headers)
-
-  response = session.get(api_url)
+    session = Session.get()
+    crumb = session["crumb"]
+    cookies = session["cookies"]
+    handle = session["handle"]
   
-  crumb = response.text.strip()
-  cookies = session.cookies.get_dict()
-
-  result = {
-    "handle": session,
-    "crumb": crumb,
-    "cookies": cookies
-  }
+    params = {
+      "crumb": crumb,
+      "lang": "en-US",
+      "region": "US",
+      "formatted": "true",
+      "corsDomain": "finance.yahoo.com",
+    }
   
-  return result
-
-# def build_query_string(params):
-#     return "?" + "&".join(f"{key}={value}" for key, value in params.items())
-
-def get_screen(payload = create_payload()):
-  """
-  Get Screen Data from the Yahoo Finance API
-
-  A function to send payload to the Yahoo Finance API and get data for the screen.
-
-  Parameters:
-    payload (dict): payload to send to the Yahoo Finance API created using
-      the `create_query` and `create_payload` functions.
-
-  Returns:
-    A data.frame containing data from the Yahoo Finance API for the specified screen.
-
-  Examples:
-    filters = [
-      ("or", [
-        ("eq", ["region", "us"])
-      ])
-    ]
-
-    query = create_query(filters)
-
-    payload = create_payload(
-      quote_type = "equity", query = query,
-      size = 25, offset = 0,
-      sort_field = "intradaymarketcap", sort_type = "desc",
-      top_operator = "and"
-    )
-
-    screen = get_screen(payload)
-  """
-
-  session = get_crumb_and_cookies()
-  crumb = session["crumb"]
-  cookies = session["cookies"]
-  handle = session["handle"]
-
-  params = {
-    "crumb": crumb,
-    "lang": "en-US",
-    "region": "US",
-    "formatted": "true",
-    "corsDomain": "finance.yahoo.com",
-  }
-
-  api_url = "https://query1.finance.yahoo.com/v1/finance/screener" # + build_query_string(params)
-
-  headers = {
-    # "Content-Type": "application/json",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
-  }
-
-  max_size = 250
-  size = payload["size"]
-  offset = payload["offset"]
+    api_url = "https://query1.finance.yahoo.com/v1/finance/screener" # + Screen.encode(params)
   
-  result_cols = set()
-  result_ls = []
+    headers = {
+      # "Content-Type": "application/json",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+    }
+  
+    max_size = 250
+    size = payload["size"]
+    offset = payload["offset"]
+    
+    result_cols = set()
+    result_ls = []
 
-  while size > 0:
-
-    chunk_size = min(size, max_size)
-    payload["size"] = chunk_size
-    payload["offst"] = offset
-
-    for key, value in cookies.items():
-      handle.cookies.set(key, value)
-
-    response = handle.post(api_url, params = params, json = payload, headers = headers)
-
-    result = response.json()
-    result_df = result["finance"]["result"][0]["quotes"]
-
-    if (result_df is not None):
+    while size > 0:
+  
+      chunk_size = min(size, max_size)
+      payload["size"] = chunk_size
+      payload["offst"] = offset
+  
+      for key, value in cookies.items():
+        handle.cookies.set(key, value)
+  
+      response = handle.post(api_url, params = params, json = payload, headers = headers)
+  
+      result = response.json()
+      result_df = result["finance"]["result"][0]["quotes"]
+  
+      if (result_df is not None):
+        
+        result_df = pd.json_normalize(result_df)
+        
+        result_ls.append(result_df)
+        result_cols.update(result_df.columns)
+  
+        size -= chunk_size
+        offset += chunk_size
+  
+      else:
+        size = 0
+        
+    result_cols = list(result_cols)
+    
+    for i in range(len(result_ls)):
       
-      result_df = pd.json_normalize(result_df)
+      x = result_ls[i]
+      cols_na = set(result_cols) - set(x.columns)
       
-      result_ls.append(result_df)
-      result_cols.update(result_df.columns)
-
-      size -= chunk_size
-      offset += chunk_size
-
-    else:
-      size = 0
-    
-  result_cols = list(result_cols)
-  # harmonized_result_ls = []
-  # 
-  # for x in result_ls:
-  #   
-  #   cols_na = set(result_cols) - set(x.columns)
-  #   
-  #   for j in cols_na:
-  #     x[j] = None
-  #   
-  #   harmonized_result_ls.append(x[result_cols])
-  # 
-  # result = pd.concat(harmonized_result_ls, ignore_index = True)
-  
-  for i in range(len(result_ls)):
-    
-    x = result_ls[i]
-    cols_na = set(result_cols) - set(x.columns)
-    
-    for j in cols_na:
+      for j in cols_na:
         x[j] = None
+        
+      result_ls[i] = x[result_cols]
     
-    result_ls[i] = x[result_cols]
-  
-  result = pd.concat(result_ls, ignore_index = True)
-
-  return result
-
-payload = create_payload(size = 275)
-get_screen(payload)
+    result = pd.concat(result_ls, ignore_index = True)
+    
+    return result
