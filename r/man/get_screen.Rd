@@ -11,7 +11,7 @@ get_screen(payload = create_payload())
 the \code{\link{create_query}} and \code{\link{create_payload}} functions.}
 }
 \value{
-A data.frame containing data from the Yahoo Finance API for the specified screen.
+A data frame containing data from the Yahoo Finance API for the specified screen.
 }
 \description{
 A function to send payload to the Yahoo Finance API and get data for the screen.

@@ -165,7 +165,7 @@ build_query_string <- function(params) {
 ##'
 ##' @param payload list. Payload to send to the Yahoo Finance API created using
 ##' the \code{\link{create_query}} and \code{\link{create_payload}} functions.
-##' @return A data.frame containing data from the Yahoo Finance API for the specified screen.
+##' @return A data frame containing data from the Yahoo Finance API for the specified screen.
 ##'
 ##' @examples
 ##' filters <- list(
