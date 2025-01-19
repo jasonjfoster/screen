@@ -125,9 +125,9 @@ create_payload <- function(quote_type = "equity", query = create_query(),
 ##' \item{crumb}{A string representing the crumb value for authentication.}
 ##' \item{cookies}{A data frame of cookies retrieved during the request.}
 ##' @examples
-##' session <- get_crumb_and_cookies()
+##' session <- get_session()
 ##' @export
-get_crumb_and_cookies <- function() {
+get_session <- function() {
 
   handle <- curl::new_handle()
 
@@ -161,7 +161,7 @@ build_query_string <- function(params) {
 
 ##' Get Screen Data from the Yahoo Finance API
 ##'
-##' A function to send payload to the Yahoo Finance API and get data for the screen.
+##' A function to send a payload to the Yahoo Finance API and get data for the screen.
 ##'
 ##' @param payload list. Payload to send to the Yahoo Finance API created using
 ##' the \code{\link{create_query}} and \code{\link{create_payload}} functions.
@@ -187,7 +187,7 @@ build_query_string <- function(params) {
 ##' @export
 get_screen <- function(payload = create_payload()) {
 
-  session <- get_crumb_and_cookies()
+  session <- get_session()
 
   crumb <- session[["crumb"]]
   cookies <- session[["cookies"]]
@@ -207,7 +207,7 @@ get_screen <- function(payload = create_payload()) {
 
   headers <- c(
     `Content-Type` = "application/json",
-    `Cookie` = paste0("A1=", cookies[cookies["name"] == "A1", "value"])
+    `Cookie` = paste0(cookies[["name"]], "=", cookies[["value"]], collapse = "; ")
   )
 
   max_size <- 250

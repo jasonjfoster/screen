@@ -1,6 +1,5 @@
 import requests
 import pandas as pd
-import json
 
 class Filter:
   
@@ -184,7 +183,7 @@ class Screen:
     """
     Get Screen Data from the Yahoo Finance API
   
-    A method to send payload to the Yahoo Finance API and get data for the screen.
+    A method to send a payload to the Yahoo Finance API and get data for the screen.
   
     Parameters:
       payload (dict): payload to send to the Yahoo Finance API created using

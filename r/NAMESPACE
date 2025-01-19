@@ -2,5 +2,5 @@
 
 export(create_payload)
 export(create_query)
-export(get_crumb_and_cookies)
 export(get_screen)
+export(get_session)
