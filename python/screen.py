@@ -1,10 +1,10 @@
 import requests
 import pandas as pd
 
-class Filter:
+class Process:
   
   @staticmethod
-  def process(filter):
+  def filter(filter):
   
     operator, operands = filter
     
@@ -16,6 +16,64 @@ class Filter:
     }
     
     return result
+    
+  # @staticmethod
+  # def url(params):
+  #   
+  #   result = "?" + "&".join(f"{key}={value}" for key, value in params.items())
+  #   
+  #   return result
+  
+  @staticmethod
+  def cols(df):
+    
+  	df = df.copy()
+  	
+  	for col in df.columns:
+  	  
+  		if df[col].apply(lambda x: isinstance(x, list)).all():
+  			
+  			status_df = df[col].apply(lambda x: all(isinstance(i, dict) for i in x)).all()
+  			
+  			if status_df:
+  				
+  				cols = set()
+  				
+  				for row in df[col]:
+  					for item in row:
+  					  
+  						flattened_item = pd.json_normalize(item, sep = ".", max_level = None)
+  						cols.update(flattened_item.columns)
+  				
+  				row_na = {key: None for key in cols}
+  				
+  				result_ls = []
+  				
+  				for row in df[col]:
+  					
+  					if not row:
+  						result_ls.append(row_na)
+  					else:
+  					  
+  						flattened_row = pd.json_normalize(row[0]).to_dict(orient = "records")[0]
+  						result = {key: flattened_row.get(key, None) for key in cols}
+  						
+  						cols_na = cols - result.keys()
+  						
+  						for col_na in cols_na:
+  							result[col_na] = None
+  						
+  						result_ls.append(result)
+  				
+  				result_df = pd.DataFrame(result_ls)
+  				df = pd.concat([df.reset_index(drop = True), result_df], axis = 1)
+  				
+  				df.drop(columns = [col], inplace=True)
+  				
+  			else:
+  				df[col] = None
+  	
+  	return df
 
 class Query:
   
@@ -62,7 +120,7 @@ class Query:
     
     result = {
       "operator": top_operator,
-      "operands": [Filter.process(filter) for filter in filters],
+      "operands": [Process.filter(filter) for filter in filters],
     }
 
     return result
@@ -171,13 +229,6 @@ class Session:
 
 class Screen:
   
-  # @staticmethod
-  # def encode(params):
-  #   
-  #   result = "?" + "&".join(f"{key}={value}" for key, value in params.items())
-  #   
-  #   return result
-  
   @staticmethod
   def get(payload = Payload.create()):
     """
@@ -224,7 +275,7 @@ class Screen:
       "corsDomain": "finance.yahoo.com",
     }
   
-    api_url = "https://query1.finance.yahoo.com/v1/finance/screener" # + Screen.encode(params)
+    api_url = "https://query1.finance.yahoo.com/v1/finance/screener" # + Process.url(params)
   
     headers = {
       # "Content-Type": "application/json",
@@ -255,6 +306,7 @@ class Screen:
       if (result_df is not None):
         
         result_df = pd.json_normalize(result_df)
+        result_df = Process.cols(result_df)
         
         result_ls.append(result_df)
         result_cols.update(result_df.columns)

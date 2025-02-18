@@ -15,6 +15,63 @@ process_filter <- function(filter) {
 
 }
 
+process_url <- function(params) {
+  paste0("?", paste(names(params), params, sep = "=", collapse = "&"))
+}
+
+process_cols <- function(df) {
+
+  for (col in colnames(df)) {
+
+    if (all(vapply(df[[col]], is.list, logical(1)))) {
+
+      status_df <- all(vapply(df[[col]], is.data.frame, logical(1)))
+
+      if (status_df) {
+
+        cols <- lapply(df[[col]], function(x) {
+          colnames(jsonlite::flatten(x))
+        })
+        cols <- unique(unlist(cols))
+
+        row_na <- data.frame(matrix(NA, nrow = 1, ncol = length(cols),
+                                    dimnames = list(NULL, cols)))
+
+        result_ls <- lapply(df[[col]], function(x) {
+
+          x <- jsonlite::flatten(x)
+
+          if (nrow(x) == 0) {
+            return(row_na)
+          } else {
+
+            cols_na <- setdiff(cols, colnames(x))
+
+            for (col_na in cols_na) {
+              x[[col_na]] <- NA
+            }
+
+            x[1, cols, drop = FALSE]
+          }
+
+        })
+
+        result <- do.call(rbind, result_ls)
+        df <- cbind(df, result)
+
+        df[[col]] <- NULL
+
+      } else {
+        df[[col]] <- NA
+      }
+
+    }
+  }
+
+  return(df)
+
+}
+
 ##' Create a Structured Query for the Yahoo Finance API
 ##'
 ##' A function to create a list defining a query for the Yahoo Finance API with
@@ -155,10 +212,6 @@ get_session <- function() {
 
 }
 
-build_query_string <- function(params) {
-  paste0("?", paste(names(params), params, sep = "=", collapse = "&"))
-}
-
 ##' Get Screen Data from the Yahoo Finance API
 ##'
 ##' A function to send a payload to the Yahoo Finance API and get data for the screen.
@@ -201,7 +254,7 @@ get_screen <- function(payload = create_payload()) {
     corsDomain = "finance.yahoo.com"
   )
 
-  api_url <- paste0("https://query1.finance.yahoo.com/v1/finance/screener", build_query_string(params))
+  api_url <- paste0("https://query1.finance.yahoo.com/v1/finance/screener", process_url(params))
 
   json_payload <- jsonlite::toJSON(payload, auto_unbox = TRUE)
 
@@ -236,6 +289,7 @@ get_screen <- function(payload = create_payload()) {
     if (!is.null(result_df)) {
 
       result_df <- jsonlite::flatten(result_df)
+      result_df <- process_cols(result_df)
 
       result_ls <- append(result_ls, list(result_df))
       result_cols <- union(result_cols, colnames(result_df))
