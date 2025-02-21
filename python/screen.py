@@ -27,53 +27,53 @@ class Process:
   @staticmethod
   def cols(df):
     
-  	df = df.copy()
-  	
-  	for col in df.columns:
+    df = df.copy()
+
+    for col in df.columns:
   	  
-  		if df[col].apply(lambda x: isinstance(x, list)).all():
+      if df[col].apply(lambda x: isinstance(x, list)).all():
   			
-  			status_df = df[col].apply(lambda x: all(isinstance(i, dict) for i in x)).all()
+        status_df = df[col].apply(lambda x: all(isinstance(i, dict) for i in x)).all()
   			
-  			if status_df:
+        if status_df:
   				
-  				cols = set()
+          cols = set()
   				
-  				for row in df[col]:
-  					for item in row:
+          for row in df[col]:
+            for item in row:
   					  
-  						flattened_item = pd.json_normalize(item, sep = ".", max_level = None)
-  						cols.update(flattened_item.columns)
+              flattened_item = pd.json_normalize(item, sep = ".", max_level = None)
+              cols.update(flattened_item.columns)
   				
-  				row_na = {key: None for key in cols}
+          row_na = {key: None for key in cols}
   				
-  				result_ls = []
+          result_ls = []
   				
-  				for row in df[col]:
-  					
-  					if not row:
-  						result_ls.append(row_na)
-  					else:
+          for row in df[col]:
+  				
+            if not row:
+              result_ls.append(row_na)
+            else:
   					  
-  						flattened_row = pd.json_normalize(row[0]).to_dict(orient = "records")[0]
-  						result = {key: flattened_row.get(key, None) for key in cols}
+              flattened_row = pd.json_normalize(row[0]).to_dict(orient = "records")[0]
+              result = {key: flattened_row.get(key, None) for key in cols}
   						
-  						cols_na = cols - result.keys()
+              cols_na = cols - result.keys()
   						
-  						for col_na in cols_na:
-  							result[col_na] = None
+              for col_na in cols_na:
+                result[col_na] = None
   						
-  						result_ls.append(result)
+              result_ls.append(result)
   				
-  				result_df = pd.DataFrame(result_ls)
-  				df = pd.concat([df.reset_index(drop = True), result_df], axis = 1)
+          result_df = pd.DataFrame(result_ls)
+          df = pd.concat([df.reset_index(drop = True), result_df], axis = 1)
   				
-  				df.drop(columns = [col], inplace=True)
-  				
-  			else:
-  				df[col] = None
+          df.drop(columns = [col], inplace=True)
+  			
+        else:
+          df[col] = None
   	
-  	return df
+    return df
 
 class Query:
   
