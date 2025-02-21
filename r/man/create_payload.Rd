@@ -34,11 +34,7 @@ with the specified parameters.
 A function to create a payload to query the Yahoo Finance API with customizable parameters.
 }
 \examples{
-filters <- list(
-  list("or", list(
-    list("eq", list("region", "us"))
-  ))
-)
+filters <- list("eq", list("region", "us"))
 
 query <- create_query(filters)
 

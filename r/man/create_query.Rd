@@ -4,8 +4,8 @@
 \alias{create_query}
 \title{Create a Structured Query for the Yahoo Finance API}
 \usage{
-create_query(filters = list(list("or", list(list("eq", list("region",
-  "us"))))), top_operator = "and")
+create_query(filters = list("eq", list("region", "us")),
+  top_operator = "and")
 }
 \arguments{
 \item{filters}{list. Each element is a sublist defining a filtering condition.
@@ -32,17 +32,11 @@ logical operations and nested conditions defined in a structured format.
 }
 \examples{
 filters <- list(
-  list("or", list(
-    list("eq", list("region", "us"))
-  )),
-  list("or", list(
-    list("btwn", list("intradaymarketcap", 2000000000, 10000000000)),
-    list("btwn", list("intradaymarketcap", 10000000000, 100000000000)),
-    list("gt", list("intradaymarketcap", 100000000000))
-  )),
-  list("or", list(
-    list("gt", list("dayvolume", 5000000))
-  ))
+  list("eq", list("region", "us")),
+  list("btwn", list("intradaymarketcap", 2000000000, 10000000000)),
+  list("btwn", list("intradaymarketcap", 10000000000, 100000000000)),
+  list("gt", list("intradaymarketcap", 100000000000)),
+  list("gt", list("dayvolume", 5000000))
 )
 
 query <- create_query(filters)

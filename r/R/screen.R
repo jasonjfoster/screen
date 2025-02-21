@@ -1,17 +1,26 @@
-process_filter <- function(filter) {
+process_filters <- function(filters) {
 
-  result <- list(
-    operator = filter[[1]],
-    operands = lapply(filter[[2]], function(operand) {
-      if (is.list(operand)) {
-        process_filter(operand)
-      } else {
-        operand
-      }
-    })
-  )
+  if (!is.list(filters[[1]])) {
+    filters <- list(filters)
+  }
 
-  return(result)
+  result_ls <- list()
+
+  for (filter in filters) {
+
+    operator <- filter[[1]]
+    operands <- filter[[2]]
+    key <- operands[[1]]
+
+    if (!key %in% names(result_ls)) {
+      result_ls[[key]] <- list()
+    }
+
+    result_ls[[key]] <- append(result_ls[[key]], list(list(operator = operator, operands = operands)))
+
+  }
+
+  return(result_ls)
 
 }
 
@@ -93,28 +102,24 @@ process_cols <- function(df) {
 ##' nested conditions formatted for the Yahoo Finance API.
 ##' @examples
 ##' filters <- list(
-##'   list("or", list(
-##'     list("eq", list("region", "us"))
-##'   )),
-##'   list("or", list(
-##'     list("btwn", list("intradaymarketcap", 2000000000, 10000000000)),
-##'     list("btwn", list("intradaymarketcap", 10000000000, 100000000000)),
-##'     list("gt", list("intradaymarketcap", 100000000000))
-##'   )),
-##'   list("or", list(
-##'     list("gt", list("dayvolume", 5000000))
-##'   ))
+##'   list("eq", list("region", "us")),
+##'   list("btwn", list("intradaymarketcap", 2000000000, 10000000000)),
+##'   list("btwn", list("intradaymarketcap", 10000000000, 100000000000)),
+##'   list("gt", list("intradaymarketcap", 100000000000)),
+##'   list("gt", list("dayvolume", 5000000))
 ##' )
 ##'
 ##' query <- create_query(filters)
 ##' @export
-create_query <- function(filters = list(list("or", list(list("eq", list("region", "us"))))),
+create_query <- function(filters = list("eq", list("region", "us")),
                          top_operator = "and") {
 
-  result <- list(
-    operator = top_operator,
-    operands = lapply(filters, process_filter)
-  )
+  result_ls <- process_filters(filters)
+  result <- list(operator = "and", operands = list())
+
+  for (key in names(result_ls)) {
+    result[["operands"]] <- append(result[["operands"]], list(list(operator = "or", operands = result_ls[[key]])))
+  }
 
   return(result)
 
@@ -137,11 +142,7 @@ create_query <- function(filters = list(list("or", list(list("eq", list("region"
 ##' @return A list representing the payload to be sent to the Yahoo Finance API
 ##' with the specified parameters.
 ##' @examples
-##' filters <- list(
-##'   list("or", list(
-##'     list("eq", list("region", "us"))
-##'   ))
-##' )
+##' filters <- list("eq", list("region", "us"))
 ##'
 ##' query <- create_query(filters)
 ##'
@@ -221,11 +222,7 @@ get_session <- function() {
 ##' @return A data frame containing data from the Yahoo Finance API for the specified screen.
 ##'
 ##' @examples
-##' filters <- list(
-##'   list("or", list(
-##'     list("eq", list("region", "us"))
-##'   ))
-##' )
+##' filters <- list("eq", list("region", "us"))
 ##'
 ##' query <- create_query(filters)
 ##'

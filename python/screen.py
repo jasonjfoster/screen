@@ -4,18 +4,24 @@ import pandas as pd
 class Process:
   
   @staticmethod
-  def filter(filter):
-  
-    operator, operands = filter
+  def filters(filters):
     
-    result = {
-      "operator": operator,
-      "operands": [
-          {"operator": operand[0], "operands": operand[1]} for operand in operands
-      ],
-    }
+    if isinstance(filters[0], str):
+      filters = [filters]
     
-    return result
+    result_ls = {}
+
+    for filter in filters:
+      
+      operator, operands = filter[0], tuple(filter[1])
+      key = operands[0]
+      
+      if key not in result_ls:
+        result_ls[key] = []
+      
+      result_ls[key].append({"operator": operator, "operands": operands})
+
+    return result_ls
     
   # @staticmethod
   # def url(params):
@@ -78,8 +84,7 @@ class Process:
 class Query:
   
   @staticmethod
-  def create(filters = [("or", [("eq", ["region", "us"])])],
-             top_operator = "and"):
+  def create(filters = ["eq", ["region", "us"]], top_operator = "and"):
     """
     Create a Structured Query for the Yahoo Finance API
     
@@ -117,11 +122,12 @@ class Query:
       
       query = Query.create(filters)
     """
-    
-    result = {
-      "operator": top_operator,
-      "operands": [Process.filter(filter) for filter in filters],
-    }
+
+    result_ls = Process.filters(filters)
+    result = {"operator": top_operator, "operands": []}
+
+    for key, operands in result_ls.items():
+        result["operands"].append({"operator": "or", "operands": operands})
 
     return result
 
@@ -171,7 +177,7 @@ class Payload:
     """
     
     result = {
-      "includeFields": None,  # unable to modify the result
+      "includeFields": None, # unable to modify the result
       "offset": offset,
       "query": query,
       "quoteType": quote_type,

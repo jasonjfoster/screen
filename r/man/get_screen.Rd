@@ -17,11 +17,7 @@ A data frame containing data from the Yahoo Finance API for the specified screen
 A function to send a payload to the Yahoo Finance API and get data for the screen.
 }
 \examples{
-filters <- list(
-  list("or", list(
-    list("eq", list("region", "us"))
-  ))
-)
+filters <- list("eq", list("region", "us"))
 
 query <- create_query(filters)
 
