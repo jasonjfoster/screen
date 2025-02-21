@@ -1,6 +1,36 @@
 import requests
 import pandas as pd
 
+# class Reference:
+#     
+#     data = pd.DataFrame([
+#         ["equity", "Market Data", "Region", "region", "character", "str"],
+#         ["equity", "Market Data", "Symbol", "ticker", "character", "str"],
+#         ["equity", "Market Data", "Price (Intraday)", "intradayprice", "numeric", "float"],
+#         ["equity", "Market Data", "Price (End of Day)", "eodprice", "numeric", "float"],
+#         ["equity", "Market Data", "Volume", "dayvolume", "numeric", "float"],
+#         ["equity", "Market Data", "Volume (End of Day)", "eodvolume", "numeric", "float"],
+#         ["equity", "Market Data", "Avg Vol (3 month)", "avgdailyvol3m", "numeric", "float"],
+#         ["equity", "Market Data", "Market Cap (Intraday)", "intradaymarketcap", "numeric", "float"]
+#     ], columns = ["quote_type", "type", "name", "field", "r", "python"])
+# 
+# class Check:
+#   
+#   @staticmethod
+#   def quote_type(quote_type):
+#     
+#     if quote_type not in Reference.data["quote_type"].unique():
+#       raise Exception("Invalid quote_type")
+#   
+#   @staticmethod
+#   def fields(fields):
+#     
+#     valid_fields = Reference.data.loc[Reference.data["quote_type"] == quote_type, "field"].tolist()
+#     invalid_fields = [field for field in fields if field not in valid_fields]
+#     
+#     if invalid_fields:
+#       raise Exception("Invalid field(s)")
+
 class Process:
   
   @staticmethod

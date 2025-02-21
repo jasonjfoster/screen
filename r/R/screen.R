@@ -1,3 +1,32 @@
+# reference_data <- data.frame(
+#   quote_type = c("equity", "equity", "equity", "equity", "equity", "equity", "equity", "equity"),
+#   type = rep("Market Data", 8),
+#   name = c("Region", "Symbol", "Price (Intraday)", "Price (End of Day)", "Volume", "Volume (End of Day)", "Avg Vol (3 month)", "Market Cap (Intraday)"),
+#   field = c("region", "ticker", "intradayprice", "eodprice", "dayvolume", "eodvolume", "avgdailyvol3m", "intradaymarketcap"),
+#   r = c("character", "character", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric"),
+#   python = c("str", "str", "float", "float", "float", "float", "float", "float"),
+#   stringsAsFactors = FALSE
+# )
+#
+# check_quote_type <- function(quote_type) {
+#
+#   if (!(quote_type %in% unique(reference_data[["quote_type"]]))) {
+#     stop("Invalid quote_type")
+#   }
+#
+# }
+#
+# check_fields <- function(fields) {
+#
+#   valid_fields <- reference_data[["field"]][Rreference_data[["quote_type"]] == quote_type]
+#   invalid_fields <- setdiff(fields, valid_fields)
+#
+#   if (length(invalid_fields) > 0) {
+#     stop("Invalid field(s)")
+#   }
+#
+# }
+
 process_filters <- function(filters) {
 
   if (!is.list(filters[[1]])) {
