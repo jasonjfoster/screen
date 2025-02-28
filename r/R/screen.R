@@ -1,3 +1,17 @@
+##' Filters Data for the Yahoo Finance API
+##'
+##' A data frame with the available filters for the Yahoo Finance API.
+##'
+##' @format A data frame.
+"data_filters"
+
+##' Regions Data for the Yahoo Finance API
+##'
+##' A data frame with the available regions for the Yahoo Finance API.
+##'
+##' @format A data frame.
+"data_region"
+
 # check_quote_type <- function(quote_type) {
 #
 #   if (!(quote_type %in% unique(reference_data[["quote_type"]]))) {

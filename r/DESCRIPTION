@@ -10,5 +10,6 @@ URL: https://github.com/jasonjfoster/screen/r
 BugReports: https://github.com/jasonjfoster/screen/r/issues
 Imports: curl, jsonlite
 Encoding: UTF-8
+LazyData: true
 Roxygen: list(old_usage = TRUE)
 RoxygenNote: 7.3.2
