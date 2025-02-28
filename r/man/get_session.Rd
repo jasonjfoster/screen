@@ -8,9 +8,9 @@ get_session()
 }
 \value{
 A list containing the following elements:
-\item{handle}{A curl handle object to be used for subsequent requests.}
+\item{handle}{A curl handle object for subsequent requests.}
 \item{crumb}{A string representing the crumb value for authentication.}
-\item{cookies}{A data frame of cookies retrieved during the request.}
+\item{cookies}{A data frame of cookies for the request.}
 }
 \description{
 A function to get the crumb, cookies, and handle required to authenticate and interact

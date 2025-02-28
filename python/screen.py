@@ -1,19 +1,6 @@
 import requests
 import pandas as pd
 
-# class Reference:
-#     
-#     data = pd.DataFrame([
-#         ["equity", "Market Data", "Region", "region", "character", "str"],
-#         ["equity", "Market Data", "Symbol", "ticker", "character", "str"],
-#         ["equity", "Market Data", "Price (Intraday)", "intradayprice", "numeric", "float"],
-#         ["equity", "Market Data", "Price (End of Day)", "eodprice", "numeric", "float"],
-#         ["equity", "Market Data", "Volume", "dayvolume", "numeric", "float"],
-#         ["equity", "Market Data", "Volume (End of Day)", "eodvolume", "numeric", "float"],
-#         ["equity", "Market Data", "Avg Vol (3 month)", "avgdailyvol3m", "numeric", "float"],
-#         ["equity", "Market Data", "Market Cap (Intraday)", "intradaymarketcap", "numeric", "float"]
-#     ], columns = ["quote_type", "type", "name", "field", "r", "python"])
-# 
 # class Check:
 #   
 #   @staticmethod
@@ -118,35 +105,27 @@ class Query:
     """
     Create a Structured Query for the Yahoo Finance API
     
-    A method to create a list defining a query for the Yahoo Finance API with
-    logical operations and nested conditions defined in a structured format.
+    A method to create a structured query with logical operations and nested conditions
+    formatted for the Yahoo Finance API.
     
     Parameters:
-      filters: each element is a tuple or list defining a filtering condition.
-        Each tuple or list must contain:
-          - "operator" (str): logical operation for the condition (i.e. "and", "or").
-          - "operands" (list): conditions or nested subconditions.
-            Each condition includes:
-              - "comparison" (str): comparison operator (i.e. "gt", "lt", "eq", "btwn").
-              - "field" (list): field name (e.g., "region") and its associated value(s).
+      filters: each element is a sublist that defines a filtering condition with
+        the following structure:
+          - "comparison" (str): comparison operator (i.e. "gt", "lt", "eq", "btwn").
+          - "field" (list): field name (e.g., "region") and its associated value(s).
       top_operator (str): top-level logical operator to combine all filters (i.e., "and", "or").
     
     Returns:
-      A nested dictionary representing the query with logical operations and
+      A nested dictionary representing the structured query with logical operations and
       nested conditions formatted for the Yahoo Finance API.
     
     Examples:
-      filters = (
-        ("or", [
-          ("eq", ("region", "us"))
-        ]),
-        ("or", [
-          ("btwn", ("intradaymarketcap", 2000000000, 10000000000)),
-          ("btwn", ("intradaymarketcap", 10000000000, 100000000000)),
-          ("gt", ("intradaymarketcap", 100000000000))
-        ]),
-        ("or", [
-          ("gt", ("dayvolume", 5000000))
+      filters = [
+        ["eq", ["region", "us"]],
+        ["btwn", ["intradaymarketcap", 2000000000, 10000000000]],
+        ["btwn", ["intradaymarketcap", 10000000000, 100000000000]],
+        ["gt", ["intradaymarketcap", 100000000000]],
+        ["gt", ["dayvolume", 5000000]]
         ])
       )
       
@@ -187,14 +166,10 @@ class Payload:
       
     Returns:
       A dictionary representing the payload to be sent to the Yahoo Finance API
-        with the specified parameters.
+      with the specified parameters.
         
     Examples:
-    filters = [
-      ("or", [
-        ("eq", ["region", "us"])
-      )]
-    ]
+    filters = ["eq", ["region", "us"]]
     
     query = Query.create(filters)
     
@@ -231,9 +206,9 @@ class Session:
     
     Returns:
       A dictionary containing the following elements:
-        - "handle": a session handle object to be used for subsequent requests.
-        - "crumb": a string representing the crumb value for authentication.
-        - "cookies": a data frame of cookies retrieved during the request.
+        - "handle" (requests.Session): a session handle object for subsequent requests.
+        - "crumb" (str): a string representing the crumb value for authentication.
+        - "cookies" (dict): a data frame of cookies for the request.
         
       Examples:
         session = Session.get()
@@ -270,21 +245,18 @@ class Screen:
     """
     Get Screen Data from the Yahoo Finance API
   
-    A method to send a payload to the Yahoo Finance API and get data for the screen.
+    A method to get data from the Yahoo Finance API using the specified payload.
   
     Parameters:
-      payload (dict): payload to send to the Yahoo Finance API created using
+      payload (dict): payload that contains search criteria using
         the `Query.create` and `Payload.create` methods.
   
     Returns:
-      A data frame containing data from the Yahoo Finance API for the specified screen.
+      A data frame that contains data from the Yahoo Finance API for the
+      specified search criteria.
   
     Examples:
-      filters = [
-        ("or", [
-          ("eq", ["region", "us"])
-        ])
-      ]
+      filters = ["eq", ["region", "us"]]
   
       query = Query.create(filters)
   

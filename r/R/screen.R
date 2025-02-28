@@ -1,13 +1,3 @@
-# reference_data <- data.frame(
-#   quote_type = c("equity", "equity", "equity", "equity", "equity", "equity", "equity", "equity"),
-#   type = rep("Market Data", 8),
-#   name = c("Region", "Symbol", "Price (Intraday)", "Price (End of Day)", "Volume", "Volume (End of Day)", "Avg Vol (3 month)", "Market Cap (Intraday)"),
-#   field = c("region", "ticker", "intradayprice", "eodprice", "dayvolume", "eodvolume", "avgdailyvol3m", "intradaymarketcap"),
-#   r = c("character", "character", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric"),
-#   python = c("str", "str", "float", "float", "float", "float", "float", "float"),
-#   stringsAsFactors = FALSE
-# )
-#
 # check_quote_type <- function(quote_type) {
 #
 #   if (!(quote_type %in% unique(reference_data[["quote_type"]]))) {
@@ -112,22 +102,17 @@ process_cols <- function(df) {
 
 ##' Create a Structured Query for the Yahoo Finance API
 ##'
-##' A function to create a list defining a query for the Yahoo Finance API with
-##' logical operations and nested conditions defined in a structured format.
+##' A function to create a structured query with logical operations and nested conditions
+##' formatted for the Yahoo Finance API.
 ##'
-##' @param filters list. Each element is a sublist defining a filtering condition.
-##' Each sublist must contain:
+##' @param filters list. Each element is a sublist that defines a filtering condition with
+##' the following structure:
 ##' \describe{
-##'   \item{\code{operator}}{string. Logical operation for the condition (i.e. "and", "or").}
-##'   \item{\code{operands}}{list. Conditions or nested subconditions.}
-##'    Each condition includes:
-##'   \describe{
-##'     \item{\code{comparison}}{string. Comparison operator (i.e., "gt", "lt", "eq", "btwn").}
-##'     \item{\code{field}}{list. Field name (e.g. "region") and its associated value(s).}
-##'   }
+##'   \item{\code{comparison}}{string. Comparison operator (i.e., "gt", "lt", "eq", "btwn").}
+##'   \item{\code{field}}{list. Field name (e.g. "region") and its associated value(s).}
 ##' }
 ##' @param top_operator string. Top-level logical operator to combine all filters (i.e., "and", "or").
-##' @return A nested list representing the query with logical operations and
+##' @return A nested list representing the structured query with logical operations and
 ##' nested conditions formatted for the Yahoo Finance API.
 ##' @examples
 ##' filters <- list(
@@ -208,9 +193,9 @@ create_payload <- function(quote_type = "equity", query = create_query(),
 ##' with the Yahoo Finance API.
 ##'
 ##' @return A list containing the following elements:
-##' \item{handle}{A curl handle object to be used for subsequent requests.}
+##' \item{handle}{A curl handle object for subsequent requests.}
 ##' \item{crumb}{A string representing the crumb value for authentication.}
-##' \item{cookies}{A data frame of cookies retrieved during the request.}
+##' \item{cookies}{A data frame of cookies for the request.}
 ##' @examples
 ##' session <- get_session()
 ##' @export
@@ -244,11 +229,12 @@ get_session <- function() {
 
 ##' Get Screen Data from the Yahoo Finance API
 ##'
-##' A function to send a payload to the Yahoo Finance API and get data for the screen.
+##' A function to get data from the Yahoo Finance API using the specified payload.
 ##'
-##' @param payload list. Payload to send to the Yahoo Finance API created using
+##' @param payload list. Payload that contains search criteria created using
 ##' the \code{\link{create_query}} and \code{\link{create_payload}} functions.
-##' @return A data frame containing data from the Yahoo Finance API for the specified screen.
+##' @return A data frame that contains data from the Yahoo Finance API for the
+##' specified search criteria.
 ##'
 ##' @examples
 ##' filters <- list("eq", list("region", "us"))

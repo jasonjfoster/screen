@@ -7,14 +7,15 @@
 get_screen(payload = create_payload())
 }
 \arguments{
-\item{payload}{list. Payload to send to the Yahoo Finance API created using
+\item{payload}{list. Payload that contains search criteria created using
 the \code{\link{create_query}} and \code{\link{create_payload}} functions.}
 }
 \value{
-A data frame containing data from the Yahoo Finance API for the specified screen.
+A data frame that contains data from the Yahoo Finance API for the
+specified search criteria.
 }
 \description{
-A function to send a payload to the Yahoo Finance API and get data for the screen.
+A function to get data from the Yahoo Finance API using the specified payload.
 }
 \examples{
 filters <- list("eq", list("region", "us"))

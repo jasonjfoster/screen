@@ -8,27 +8,22 @@ create_query(filters = list("eq", list("region", "us")),
   top_operator = "and")
 }
 \arguments{
-\item{filters}{list. Each element is a sublist defining a filtering condition.
-Each sublist must contain:
+\item{filters}{list. Each element is a sublist that defines a filtering condition with
+the following structure:
 \describe{
-  \item{\code{operator}}{string. Logical operation for the condition (i.e. "and", "or").}
-  \item{\code{operands}}{list. Conditions or nested subconditions.}
-   Each condition includes:
-  \describe{
-    \item{\code{comparison}}{string. Comparison operator (i.e., "gt", "lt", "eq", "btwn").}
-    \item{\code{field}}{list. Field name (e.g. "region") and its associated value(s).}
-  }
+  \item{\code{comparison}}{string. Comparison operator (i.e., "gt", "lt", "eq", "btwn").}
+  \item{\code{field}}{list. Field name (e.g. "region") and its associated value(s).}
 }}
 
 \item{top_operator}{string. Top-level logical operator to combine all filters (i.e., "and", "or").}
 }
 \value{
-A nested list representing the query with logical operations and
+A nested list representing the structured query with logical operations and
 nested conditions formatted for the Yahoo Finance API.
 }
 \description{
-A function to create a list defining a query for the Yahoo Finance API with
-logical operations and nested conditions defined in a structured format.
+A function to create a structured query with logical operations and nested conditions
+formatted for the Yahoo Finance API.
 }
 \examples{
 filters <- list(
