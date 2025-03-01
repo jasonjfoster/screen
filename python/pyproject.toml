@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "screen"
+version = "0.1.0"
+description = "Fast and efficient access to Yahoo Finance's screener functionality for querying and retrieval of financial data."
+authors = [{ name = "Jason Foster", email = "jason.j.foster@gmail.com" }]
+dependencies = [
+    "requests >= 2.2.0",
+    "pandas >= 1.0.0"
+]
+
+[tool.setuptools.package-data]
+"screen" = ["data/*.csv"] 

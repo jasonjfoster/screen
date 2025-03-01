@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+import importlib.resources as pkg_resources
 
 # class Check:
 #   
@@ -17,6 +18,27 @@ import pandas as pd
 #     
 #     if invalid_fields:
 #       raise Exception("Invalid field(s)")
+
+class ClassProperty:
+  
+  def __init__(self, getter):
+    self.getter = getter
+  
+  def __get__(self, instance, owner):
+    return self.getter(owner)
+
+class Data:
+  
+  _filters = None
+
+  @ClassProperty
+  def filters(cls):
+
+    if cls._filters is None:
+      data_path = pkg_resources.files("screen") / "data" / "filters.csv"
+      cls._filters = pd.read_csv(data_path)
+
+    return cls._filters
 
 class Process:
   

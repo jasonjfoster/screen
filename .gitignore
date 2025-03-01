@@ -2,3 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+
+python/*.egg-info/
+python/requirements.txt
+python/source.ipynb
