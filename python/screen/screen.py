@@ -28,11 +28,19 @@ class ClassProperty:
     return self.getter(owner)
 
 class Data:
-  
+
   _filters = None
 
   @ClassProperty
   def filters(cls):
+    """
+    Filters Data for the Yahoo Finance API
+    
+    A data frame with the available filters for the Yahoo Finance API.
+    
+    Returns:
+      A data frame.
+    """
 
     if cls._filters is None:
       data_path = pkg_resources.files("screen") / "data" / "filters.csv"

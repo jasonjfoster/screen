@@ -11,6 +11,6 @@ A data frame.
 data_filters
 }
 \description{
-A data frame with the available filters for the Yahoo Finance API.
+A data frame with the available filters data for the Yahoo Finance API.
 }
 \keyword{datasets}

@@ -1,9 +1,44 @@
 ##' Filters Data for the Yahoo Finance API
 ##'
-##' A data frame with the available filters for the Yahoo Finance API.
+##' A data frame with the available filters data for the Yahoo Finance API.
 ##'
 ##' @format A data frame.
 "data_filters"
+
+##' Category Name Data for the Yahoo Finance API
+##'
+##' A data frame with the available category name data for the Yahoo Finance API.
+##'
+##' @format A data frame.
+"data_categoryname"
+
+##' Exchange Data for the Yahoo Finance API
+##'
+##' A data frame with the available exchange data for the Yahoo Finance API.
+##'
+##' @format A data frame.
+"data_exchange"
+
+##' Fund Family Name Data for the Yahoo Finance API
+##'
+##' A data frame with the available fund family name data for the Yahoo Finance API.
+##'
+##' @format A data frame.
+"data_fundfamilyname"
+
+##' Industry Data for the Yahoo Finance API
+##'
+##' A data frame with the available industry name for the Yahoo Finance API.
+##'
+##' @format A data frame.
+"data_industry"
+
+##' Peer Group Data for the Yahoo Finance API
+##'
+##' A data frame with the available peer group data for the Yahoo Finance API.
+##'
+##' @format A data frame.
+"data_peer_group"
 
 ##' Regions Data for the Yahoo Finance API
 ##'
@@ -11,6 +46,13 @@
 ##'
 ##' @format A data frame.
 "data_region"
+
+##' Sector Data for the Yahoo Finance API
+##'
+##' A data frame with the available sector data for the Yahoo Finance API.
+##'
+##' @format A data frame.
+"data_sector"
 
 # check_quote_type <- function(quote_type) {
 #

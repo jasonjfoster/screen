@@ -1,0 +1,174 @@
+sector,value
+Basic Materials,Agricultural Inputs
+Basic Materials,Building Materials
+Basic Materials,Chemicals
+Basic Materials,Specialty Chemicals
+Basic Materials,Lumber & Wood Production
+Basic Materials,Paper & Paper Products
+Basic Materials,Aluminum
+Basic Materials,Copper
+Basic Materials,Other Industrial Metals & Mining
+Basic Materials,Gold
+Basic Materials,Silver
+Basic Materials,Other Precious Metals & Mining
+Basic Materials,Coking Coal
+Basic Materials,Steel
+Consumer Cyclical,Auto & Truck Dealerships
+Consumer Cyclical,Auto Manufacturers
+Consumer Cyclical,Auto Parts
+Consumer Cyclical,Recreational Vehicles
+Consumer Cyclical,"Furnishings, Fixtures & Appliances"
+Consumer Cyclical,Residential Construction
+Consumer Cyclical,Textile Manufacturing
+Consumer Cyclical,Apparel Manufacturing
+Consumer Cyclical,Footwear & Accessories
+Consumer Cyclical,Packaging & Containers
+Consumer Cyclical,Personal Services
+Consumer Cyclical,Restaurants
+Consumer Cyclical,Apparel Retail
+Consumer Cyclical,Department Stores
+Consumer Cyclical,Home Improvement Retail
+Consumer Cyclical,Luxury Goods
+Consumer Cyclical,Internet Retail
+Consumer Cyclical,Specialty Retail
+Consumer Cyclical,Gambling
+Consumer Cyclical,Leisure
+Consumer Cyclical,Lodging
+Consumer Cyclical,Resorts & Casinos
+Consumer Cyclical,Travel Services
+Financial Services,Asset Management
+Financial Services,Banks - Diversified
+Financial Services,Banks - Regional
+Financial Services,Mortgage Finance
+Financial Services,Capital Markets
+Financial Services,Financial Data & Stock Exchanges
+Financial Services,Insurance - Life
+Financial Services,Insurance - Property & Casualty
+Financial Services,Insurance - Reinsurance
+Financial Services,Insurance - Specialty
+Financial Services,Insurance Brokers
+Financial Services,Insurance - Diversified
+Financial Services,Shell Companies
+Financial Services,Financial Conglomerates
+Financial Services,Credit Services
+Real Estate,Real Estate - Development
+Real Estate,Real Estate Services
+Real Estate,Real Estate - Diversified
+Real Estate,REIT - Healthcare Facilities
+Real Estate,REIT - Hotel & Motel
+Real Estate,REIT - Industrial
+Real Estate,REIT - Office
+Real Estate,REIT - Residential
+Real Estate,REIT - Retail
+Real Estate,REIT - Mortgage
+Real Estate,REIT - Specialty
+Real Estate,REIT - Diversified
+Consumer Defensive,Agricultural Inputs
+Consumer Defensive,Building Materials
+Consumer Defensive,Chemicals
+Consumer Defensive,Specialty Chemicals
+Consumer Defensive,Lumber & Wood Production
+Consumer Defensive,Paper & Paper Products
+Consumer Defensive,Aluminum
+Consumer Defensive,Copper
+Consumer Defensive,Other Industrial Metals & Mining
+Consumer Defensive,Gold
+Consumer Defensive,Silver
+Consumer Defensive,Other Precious Metals & Mining
+Consumer Defensive,Coking Coal
+Consumer Defensive,Steel
+Consumer Defensive,Beverages - Brewers
+Consumer Defensive,Beverages - Wineries & Distilleries
+Consumer Defensive,Beverages - Non-Alcoholic
+Consumer Defensive,Confectioners
+Consumer Defensive,Farm Products
+Consumer Defensive,Household & Personal Products
+Consumer Defensive,Packaged Foods
+Consumer Defensive,Education & Training Services
+Consumer Defensive,Discount Stores
+Consumer Defensive,Food Distribution
+Consumer Defensive,Grocery Stores
+Consumer Defensive,Tobacco
+Healthcare,Biotechnology
+Healthcare,Drug Manufacturers - General
+Healthcare,Drug Manufacturers - Specialty & Generic
+Healthcare,Healthcare Plans
+Healthcare,Medical Care Facilities
+Healthcare,Pharmaceutical Retailers
+Healthcare,Health Information Services
+Healthcare,Medical Devices
+Healthcare,Medical Instruments & Supplies
+Healthcare,Diagnostics & Research
+Healthcare,Medical Distribution
+Utilities,Utilities - Independent Power Producers
+Utilities,Utilities - Renewable
+Utilities,Utilities - Regulated Water
+Utilities,Utilities - Regulated Electric
+Utilities,Utilities - Regulated Gas
+Utilities,Utilities - Diversified
+Communication Services,Telecom Services
+Communication Services,Advertising Agencies
+Communication Services,Publishing
+Communication Services,Broadcasting
+Communication Services,Entertainment
+Communication Services,Internet Content & Information
+Communication Services,Electronic Gaming & Multimedia
+Energy,Oil & Gas Drilling
+Energy,Oil & Gas E&P
+Energy,Oil & Gas Integrated
+Energy,Oil & Gas Midstream
+Energy,Oil & Gas Refining & Marketing
+Energy,Oil & Gas Equipment & Services
+Energy,Thermal Coal
+Energy,Uranium
+Industrials,Aerospace & Defense
+Industrials,Specialty Business Services
+Industrials,Consulting Services
+Industrials,Rental & Leasing Services
+Industrials,Security & Protection Services
+Industrials,Staffing & Employment Services
+Industrials,Conglomerates
+Industrials,Engineering & Construction
+Industrials,Infrastructure Operations
+Industrials,Building Products & Equipment
+Industrials,Farm & Heavy Construction Machinery
+Industrials,Industrial Distribution
+Industrials,Business Equipment & Supplies
+Industrials,Specialty Industrial Machinery
+Industrials,Metal Fabrication
+Industrials,Pollution & Treatment Controls
+Industrials,FILTERLABEL_TOOLS_ACCESSORIES
+Industrials,Electrical Equipment & Parts
+Industrials,Airports & Air Services
+Industrials,Airlines
+Industrials,Railroads
+Industrials,Marine Shipping
+Industrials,Trucking
+Industrials,Integrated Freight & Logistics
+Industrials,Waste Management
+Technology,Agricultural Inputs
+Technology,Building Materials
+Technology,Chemicals
+Technology,Specialty Chemicals
+Technology,Lumber & Wood Production
+Technology,Paper & Paper Products
+Technology,Aluminum
+Technology,Copper
+Technology,Other Industrial Metals & Mining
+Technology,Gold
+Technology,Silver
+Technology,Other Precious Metals & Mining
+Technology,Coking Coal
+Technology,Steel
+Technology,Information Technology Services
+Technology,Software - Application
+Technology,Software - Infrastructure
+Technology,Communication Equipment
+Technology,Computer Hardware
+Technology,Consumer Electronics
+Technology,Electronic Components
+Technology,Electronics & Computer Distribution
+Technology,Scientific & Technical Instruments
+Technology,Semiconductor Equipment & Materials
+Technology,Semiconductors
+Technology,Solar

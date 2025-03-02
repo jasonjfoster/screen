@@ -1,8 +1,8 @@
-.Rproj.user
-.Rhistory
-.RData
-.Ruserdata
-
+r/.Rproj.user
+r/.Rhistory
+r/.RData
+r/.Ruserdata
 python/*.egg-info/
 python/requirements.txt
 python/source.ipynb
+.Rproj.user
