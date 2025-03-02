@@ -30,13 +30,20 @@ class ClassProperty:
 class Data:
 
   _filters = None
-
+  _categoryname = None
+  _exchange = None
+  _fundfamilyname = None
+  _industry = None
+  _peer_group = None
+  _region = None
+  _sector = None
+  
   @ClassProperty
   def filters(cls):
     """
     Filters Data for the Yahoo Finance API
     
-    A data frame with the available filters for the Yahoo Finance API.
+    A data frame with the available filters data for the Yahoo Finance API.
     
     Returns:
       A data frame.
@@ -47,6 +54,125 @@ class Data:
       cls._filters = pd.read_csv(data_path)
 
     return cls._filters
+
+  @ClassProperty
+  def categoryname(cls):
+    """
+    Filters Data for the Yahoo Finance API
+    
+    A data frame with the available category name data for the Yahoo Finance API.
+    
+    Returns:
+      A data frame.
+    """
+
+    if cls._categoryname is None:
+      data_path = pkg_resources.files("screen") / "data" / "categoryname.csv"
+      cls._categoryname = pd.read_csv(data_path)
+
+    return cls._categoryname
+
+  @ClassProperty
+  def exchange(cls):
+    """
+    Exchange Data for the Yahoo Finance API
+    
+    A data frame with the available exchange data for the Yahoo Finance API.
+    
+    Returns:
+      A data frame.
+    """
+
+    if cls._exchange is None:
+      data_path = pkg_resources.files("screen") / "data" / "exchange.csv"
+      cls._exchange = pd.read_csv(data_path)
+
+    return cls._exchange
+  
+  @ClassProperty
+  def fundfamilyname(cls):
+    """
+    Fund Family Name Data for the Yahoo Finance API
+    
+    A data frame with the available fund family name data for the Yahoo Finance API.
+    
+    Returns:
+      A data frame.
+    """
+
+    if cls._fundfamilyname is None:
+      data_path = pkg_resources.files("screen") / "data" / "fundfamilyname.csv"
+      cls._fundfamilyname = pd.read_csv(data_path)
+
+    return cls._fundfamilyname
+  
+  @ClassProperty
+  def industry(cls):
+    """
+    Industry Data for the Yahoo Finance API
+    
+    A data frame with the available industry data for the Yahoo Finance API.
+    
+    Returns:
+      A data frame.
+    """
+
+    if cls._industry is None:
+      data_path = pkg_resources.files("screen") / "data" / "industry.csv"
+      cls._industry = pd.read_csv(data_path)
+
+    return cls._industry
+  
+  @ClassProperty
+  def peer_group(cls):
+    """
+    Peer Group Data for the Yahoo Finance API
+    
+    A data frame with the available peer group data for the Yahoo Finance API.
+    
+    Returns:
+      A data frame.
+    """
+
+    if cls._peer_group is None:
+      data_path = pkg_resources.files("screen") / "data" / "peer_group.csv"
+      cls._peer_group = pd.read_csv(data_path)
+
+    return cls._peer_group
+  
+  @ClassProperty
+  def region(cls):
+    """
+    Region Data for the Yahoo Finance API
+    
+    A data frame with the available region data for the Yahoo Finance API.
+    
+    Returns:
+      A data frame.
+    """
+
+    if cls._region is None:
+      data_path = pkg_resources.files("screen") / "data" / "region.csv"
+      cls._region = pd.read_csv(data_path)
+
+    return cls._region
+
+  @ClassProperty
+  def sector(cls):
+    """
+    Sector Data for the Yahoo Finance API
+    
+    A data frame with the available sector data for the Yahoo Finance API.
+    
+    Returns:
+      A data frame.
+    """
+
+    if cls._sector is None:
+      data_path = pkg_resources.files("screen") / "data" / "sector.csv"
+      cls._sector = pd.read_csv(data_path)
+
+    return cls._sector
 
 class Process:
   
