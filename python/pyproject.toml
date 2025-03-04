@@ -9,7 +9,8 @@ description = "Fast and efficient access to Yahoo Finance's screener functionali
 authors = [{ name = "Jason Foster", email = "jason.j.foster@gmail.com" }]
 dependencies = [
     "requests >= 2.2.0",
-    "pandas >= 1.0.0"
+    "pandas >= 1.0.0",
+    "importlib-resources; python_version < '3.9'"
 ]
 
 [tool.setuptools.package-data]

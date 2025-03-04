@@ -2,23 +2,6 @@ import requests
 import pandas as pd
 import importlib.resources as pkg_resources
 
-# class Check:
-#   
-#   @staticmethod
-#   def quote_type(quote_type):
-#     
-#     if quote_type not in Reference.data["quote_type"].unique():
-#       raise Exception("Invalid quote_type")
-#   
-#   @staticmethod
-#   def fields(fields):
-#     
-#     valid_fields = Reference.data.loc[Reference.data["quote_type"] == quote_type, "field"].tolist()
-#     invalid_fields = [field for field in fields if field not in valid_fields]
-#     
-#     if invalid_fields:
-#       raise Exception("Invalid field(s)")
-
 class ClassProperty:
   
   def __init__(self, getter):
@@ -173,6 +156,24 @@ class Data:
       cls._sector = pd.read_csv(data_path)
 
     return cls._sector
+
+class Check:
+
+  @staticmethod
+  def quote_type(quote_type):
+    
+    valid_quote_type = Data.filters["quote_type"].unique()
+
+    if quote_type not in valid_quote_type:
+      raise ValueError("invalid 'quote_type'")
+
+  @staticmethod
+  def sort_field(quote_type, sort_field):
+
+    valid_sort_field = Data.filters.loc[Data.filters["quote_type"] == quote_type, "field"]
+
+    if sort_field is not None and sort_field not in valid_sort_field.values:
+      raise ValueError("invalid 'quote_type' for 'sort_field'")
 
 class Process:
   

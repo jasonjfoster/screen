@@ -54,14 +54,6 @@
 ##' @format A data frame.
 "data_sector"
 
-# check_quote_type <- function(quote_type) {
-#
-#   if (!(quote_type %in% unique(reference_data[["quote_type"]]))) {
-#     stop("Invalid quote_type")
-#   }
-#
-# }
-#
 # check_fields <- function(fields) {
 #
 #   valid_fields <- reference_data[["field"]][Rreference_data[["quote_type"]] == quote_type]
@@ -72,6 +64,26 @@
 #   }
 #
 # }
+
+check_quote_type <- function(quote_type) {
+
+  valid_quote_type <- unique(data_filters[["quote_type"]])
+
+  if (!quote_type %in% valid_quote_type) {
+    stop("invalid 'quote_type'")
+  }
+
+}
+
+check_sort_field <- function(quote_type, sort_field) {
+
+  valid_sort_field <- data_filters[["field"]][data_filters[["quote_type"]] == quote_type]
+
+  if (!is.null(sort_field) && !(sort_field %in% valid_sort_field)) {
+    stop("invalid 'quote_type' for 'sort_field'")
+  }
+
+}
 
 process_filters <- function(filters) {
 
