@@ -21,3 +21,6 @@ save(data_region, file = "data/data_region.rda")
 
 data_sector <- read.csv("data-raw/sector.csv")
 save(data_sector, file = "data/data_sector.rda")
+
+data_errors <- read.csv("data-raw/errors.csv")
+save(data_errors, file = "data/data_errors.rda")

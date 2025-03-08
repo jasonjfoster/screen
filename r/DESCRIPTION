@@ -6,10 +6,11 @@ Author: Jason Foster
 Maintainer: Jason Foster <jason.j.foster@gmail.com>
 Description: Fast and efficient access to Yahoo Finance's screener functionality for querying and retrieval of financial data.
 License: GPL (>= 2)
+Encoding: UTF-8
 URL: https://github.com/jasonjfoster/screen/r
 BugReports: https://github.com/jasonjfoster/screen/r/issues
 Imports: curl, jsonlite
-Encoding: UTF-8
+Suggests: testthat
 LazyData: true
 Roxygen: list(old_usage = TRUE)
 RoxygenNote: 7.3.2

@@ -54,6 +54,13 @@
 ##' @format A data frame.
 "data_sector"
 
+##' Errors Data for the Yahoo Finance API
+##'
+##' A data frame with the available errors data for the Yahoo Finance API.
+##'
+##' @format A data frame.
+"data_errors"
+
 # check_fields <- function(fields) {
 #
 #   valid_fields <- reference_data[["field"]][Rreference_data[["quote_type"]] == quote_type]
@@ -366,7 +373,7 @@ get_screen <- function(payload = create_payload()) {
     result <- jsonlite::fromJSON(response)
     result_df <- result[["finance"]][["result"]][["quotes"]][[1]]
 
-    if (!is.null(result_df)) {
+    if (length(result_df) > 0) {
 
       result_df <- jsonlite::flatten(result_df)
       result_df <- process_cols(result_df)

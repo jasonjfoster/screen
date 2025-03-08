@@ -1,38 +1,88 @@
-test_that("valid 'quote_type' for 'sort_field'", {
+test_that("valid 'quote_type', 'field', and 'sort_field'", {
 
   # skip("long-running test")
 
-  error_df <- data.frame(
-    quote_type = c("equity", "equity",
-                   "mutualfund", "mutualfund", "mutualfund", "mutualfund",
-                   "etf", "etf", "etf", "etf",
-                   "index", "index",
+  errors_df <- data.frame(
+    quote_type = c("equity", "equity", "equity", "equity",
+                   "mutualfund", "mutualfund", "mutualfund", "mutualfund", "mutualfund",
+                   "etf", "etf", "etf", "etf", "etf",
+                   "index", "index", "index",
                    "future"),
-    field = c("exchange", "totalsharesoutstanding",
-              "categoryname", "fundfamilyname", "exchange", "sector",
-              "categoryname", "fundfamilyname", "exchange", "sector",
-              "eodvolume", "exchange",
-              "exchange")
+    field = c("price_signal_fifty_two_wk_high.datetime", "price_signal_fifty_two_wk_low.datetime", NA, NA,
+              "sector", NA, NA, NA, NA,
+              "sector", NA, NA, NA, NA,
+              "eodvolume", NA, NA, NA),
+    sort_field = c(NA, NA, "exchange", "totalsharesoutstanding",
+                   NA, "categoryname", "fundfamilyname", "exchange", "sector",
+                   NA, "categoryname", "fundfamilyname", "exchange", "sector",
+                   NA, "eodvolume", "exchange",
+                   "exchange")
   )
 
   quote_types <- unique(data_filters[["quote_type"]])
 
+  count <- 0
   result_ls <- list()
 
   for (quote_type in quote_types) {
 
-    check_fields <- data_filters[["field"]][data_filters[["quote_type"]] == quote_type]
+    if (quote_type == "equity") {
+      sort_field <- "intradaymarketcap"
+    } else if (quote_type == "mutualfund") {
+      sort_field <- "fundnetassets"
+    } else if (quote_type == "etf") {
+      sort_field <- "fundnetassets"
+    } else if (quote_type == "index") {
+      sort_field <- "percentchange"
+    } else if (quote_type == "future") {
+      sort_field <- "percentchange"
+    } else {
+      sort_field <- NULL
+    }
 
-    error_ls <- list()
+    fields <- data_filters[["field"]][data_filters[["quote_type"]] == quote_type]
+    sort_fields <- fields
 
-    for (field in check_fields) {
+    errors_ls <- list()
+
+    for (field in fields) {
+
+      type <- data_filters[["r"]][data_filters[["quote_type"]] == quote_type & data_filters[["field"]] == field]
+
+      if (type == "character") {
+        test_value <- "test"
+      } else if (type %in% c("integer", "numeric")) {
+        test_value <- 1
+      } else if (type == "now-1w/d") {
+        test_value <- "now-1w/d"
+      } else {
+        test_value <- NA
+      }
+
+      filters <- list("eq", list(field, test_value))
+
+      query <- create_query(filters)
+
+      count <- count + 1
+
+      if (count %% 5 == 0) {
+
+        message("pause one second after five requests")
+        Sys.sleep(1)
+
+      }
 
       response <- tryCatch({
 
-        payload <- create_payload(quote_type = quote_type, size = 1, sort_field = field)
+        payload <- create_payload(quote_type = quote_type, query = query,
+                                  size = 1, sort_field = sort_field)
         response <- suppressWarnings(get_screen(payload = payload))
 
-        response
+        if (is.null(response)) {
+          response <- "success"
+        } else {
+          response
+        }
 
       }, error = function(e) {
         NULL
@@ -42,22 +92,69 @@ test_that("valid 'quote_type' for 'sort_field'", {
 
         error <- data.frame(
           quote_type = quote_type,
-          field = field
+          field = field,
+          sort_field = NA
         )
 
-        error_ls <- append(error_ls, list(error))
+        errors_ls <- append(errors_ls, list(error))
 
       }
 
     }
 
-    result <- do.call(rbind, error_ls)
-    result_ls <- append(result_ls, list(result))
+    for (sort_field in sort_fields) {
+
+      count <- count + 1
+
+      if (count %% 5 == 0) {
+
+        message("pause one second after five requests")
+        Sys.sleep(1)
+
+      }
+
+      response <- tryCatch({
+
+        payload <- create_payload(quote_type = quote_type, size = 1,
+                                  sort_field = sort_field)
+        response <- suppressWarnings(get_screen(payload = payload))
+
+        if (is.null(response)) {
+          response <- "success"
+        } else {
+          response
+        }
+
+      }, error = function(e) {
+        NULL
+      })
+
+      if (is.null(response)) {
+
+        error <- data.frame(
+          quote_type = quote_type,
+          field = NA,
+          sort_field = sort_field
+        )
+
+        errors_ls <- append(errors_ls, list(error))
+
+      }
+
+    }
+
+    if (length(errors_ls) > 0) {
+
+      result <- do.call(rbind, errors_ls)
+      result_ls <- append(result_ls, list(result))
+
+    }
+
 
   }
 
   result_df <- do.call(rbind, result_ls)
 
-  expect_equal(result_df, error_df)
+  expect_equal(result_df, errors_df)
 
 })
