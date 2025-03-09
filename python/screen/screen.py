@@ -20,6 +20,7 @@ class Data:
   _peer_group = None
   _region = None
   _sector = None
+  _errors = None
   
   @ClassProperty
   def filters(cls):
@@ -156,6 +157,24 @@ class Data:
       cls._sector = pd.read_csv(data_path)
 
     return cls._sector
+
+  @ClassProperty
+  def errors(cls):
+    """
+    Errors Data for the Yahoo Finance API
+    
+    A data frame with the available errors data for the Yahoo Finance API.
+    
+    Returns:
+      A data frame.
+    """
+
+    if cls._errors is None:
+      data_path = pkg_resources.files("screen") / "data" / "errors.csv"
+      cls._errors = pd.read_csv(data_path)
+      cls._errors = cls._errors.where(pd.notna(cls._errors), None)
+
+    return cls._errors
 
 class Check:
 
@@ -468,7 +487,7 @@ class Screen:
       result = response.json()
       result_df = result["finance"]["result"][0]["quotes"]
   
-      if (result_df is not None):
+      if (len(result_df) > 0):
         
         result_df = pd.json_normalize(result_df)
         result_df = Process.cols(result_df)
@@ -481,7 +500,11 @@ class Screen:
   
       else:
         size = 0
-        
+    
+    # REVIEW
+    if not result_ls:
+      return pd.DataFrame()
+  
     result_cols = list(result_cols)
     
     for i in range(len(result_ls)):

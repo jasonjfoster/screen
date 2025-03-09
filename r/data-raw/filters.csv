@@ -42,8 +42,8 @@ equity,Performance,52 Week Price High (Last Close),lastclose52weekhigh.lasttwelv
 equity,Performance,52 Week Price Low (Last Close),lastclose52weeklow.lasttwelvemonths,The lowest closing price of the stock in the last 52 weeks.,numeric,float,
 equity,Performance,% Change in Price (Intraday),percentchange,% amount change in price from the previous close to the current price.,numeric,float,%
 equity,Performance,Consecutive Years of Dividend Growth Count,consecutive_years_of_dividend_growth_count,Number of years a company has increased its dividends.,numeric,float,
-equity,Performance,Recent High Timeframe,price_signal_fifty_two_wk_high.datetime,Stocks that set new highs within the selected timeframe.,character,str,now-1w/d
-equity,Performance,Recent Low Timeframe,price_signal_fifty_two_wk_low.datetime,Stocks that set new lows within the selected timeframe.,character,str,now-1w/d
+equity,Performance,Recent High Timeframe,price_signal_fifty_two_wk_high.datetime,Stocks that set new highs within the selected timeframe.,now-1w/d,now-1w/d,
+equity,Performance,Recent Low Timeframe,price_signal_fifty_two_wk_low.datetime,Stocks that set new lows within the selected timeframe.,now-1w/d,now-1w/d,
 equity,Financials - Income Statement,1 Yr. % Change in Total Revenue,totalrevenues1yrgrowth.lasttwelvemonths,The percent change in revenue over the last year.,numeric,float,%
 equity,Financials - Income Statement,1 Yr. % Change in Net Income,netincome1yrgrowth.lasttwelvemonths,This ratio shows the simple growth in Net Income over one year. The formula is (net_income(t) / net_income(t-1) - 1) * 100,numeric,float,%
 equity,Financials - Income Statement,"EPS (Basic, Continuing Operations)",basicepscontinuingoperations.lasttwelvemonths,This number is the company's earnings per share from the day-to-day operations of its business during the most recent complete fiscal year. It does not include discontinued operations extraordinary items and accounting changes. Better indicated company performance when you removed the discontinued operations.,numeric,float,

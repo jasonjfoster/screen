@@ -2,23 +2,6 @@ test_that("valid 'quote_type', 'field', and 'sort_field'", {
 
   # skip("long-running test")
 
-  errors_df <- data.frame(
-    quote_type = c("equity", "equity", "equity", "equity",
-                   "mutualfund", "mutualfund", "mutualfund", "mutualfund", "mutualfund",
-                   "etf", "etf", "etf", "etf", "etf",
-                   "index", "index", "index",
-                   "future"),
-    field = c("price_signal_fifty_two_wk_high.datetime", "price_signal_fifty_two_wk_low.datetime", NA, NA,
-              "sector", NA, NA, NA, NA,
-              "sector", NA, NA, NA, NA,
-              "eodvolume", NA, NA, NA),
-    sort_field = c(NA, NA, "exchange", "totalsharesoutstanding",
-                   NA, "categoryname", "fundfamilyname", "exchange", "sector",
-                   NA, "categoryname", "fundfamilyname", "exchange", "sector",
-                   NA, "eodvolume", "exchange",
-                   "exchange")
-  )
-
   quote_types <- unique(data_filters[["quote_type"]])
 
   count <- 0
@@ -47,7 +30,7 @@ test_that("valid 'quote_type', 'field', and 'sort_field'", {
 
     for (field in fields) {
 
-      type <- data_filters[["r"]][data_filters[["quote_type"]] == quote_type & data_filters[["field"]] == field]
+      type <- data_filters[["r"]][(data_filters[["quote_type"]] == quote_type) & (data_filters[["field"]] == field)]
 
       if (type == "character") {
         test_value <- "test"
@@ -62,15 +45,6 @@ test_that("valid 'quote_type', 'field', and 'sort_field'", {
       filters <- list("eq", list(field, test_value))
 
       query <- create_query(filters)
-
-      count <- count + 1
-
-      if (count %% 5 == 0) {
-
-        message("pause one second after five requests")
-        Sys.sleep(1)
-
-      }
 
       response <- tryCatch({
 
@@ -100,10 +74,6 @@ test_that("valid 'quote_type', 'field', and 'sort_field'", {
 
       }
 
-    }
-
-    for (sort_field in sort_fields) {
-
       count <- count + 1
 
       if (count %% 5 == 0) {
@@ -112,6 +82,10 @@ test_that("valid 'quote_type', 'field', and 'sort_field'", {
         Sys.sleep(1)
 
       }
+
+    }
+
+    for (sort_field in sort_fields) {
 
       response <- tryCatch({
 
@@ -141,6 +115,15 @@ test_that("valid 'quote_type', 'field', and 'sort_field'", {
 
       }
 
+      count <- count + 1
+
+      if (count %% 5 == 0) {
+
+        message("pause one second after five requests")
+        Sys.sleep(1)
+
+      }
+
     }
 
     if (length(errors_ls) > 0) {
@@ -150,11 +133,10 @@ test_that("valid 'quote_type', 'field', and 'sort_field'", {
 
     }
 
-
   }
 
   result_df <- do.call(rbind, result_ls)
 
-  expect_equal(result_df, errors_df)
+  expect_equal(result_df, data_errors)
 
 })
