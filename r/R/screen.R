@@ -71,18 +71,27 @@ check_quote_type <- function(quote_type) {
 
 }
 
-# check_fields <- function(fields) {
-#
-#   # check_quote_type(quote_type)
-#
-#   valid_fields <- reference_data[["field"]][Rreference_data[["quote_type"]] == quote_type]
-#   invalid_fields <- setdiff(fields, valid_fields)
-#
-#   if (length(invalid_fields) > 0) {
-#     stop("Invalid field(s)")
-#   }
-#
-# }
+check_fields <- function(quote_type, query) {
+
+  # check_quote_type(quote_type)
+
+  valid_fields <- data_filters[["field"]][data_filters[["quote_type"]] == quote_type]
+
+  fields <- c()
+
+  for (operand in query[["operands"]]) {
+    if (is.list(operand[["operands"]]) && length(operand[["operands"]]) > 0) {
+      fields <- c(fields, operand[["operands"]][[1]][["operands"]][[1]])
+    }
+  }
+
+  invalid_fields <- setdiff(fields, valid_fields)
+
+  if (length(invalid_fields) > 0) {
+    stop("invalid field(s)")
+  }
+
+}
 
 check_sort_field <- function(quote_type, sort_field) {
 
@@ -91,7 +100,7 @@ check_sort_field <- function(quote_type, sort_field) {
   valid_sort_field <- data_filters[["field"]][data_filters[["quote_type"]] == quote_type]
 
   if (!is.null(sort_field) && !(sort_field %in% valid_sort_field)) {
-    stop("invalid 'quote_type' for 'sort_field'")
+    stop("invalid 'sort_field' for 'quote_type'")
   }
 
 }
@@ -250,6 +259,10 @@ create_payload <- function(quote_type = "equity", query = create_query(),
                            size = 25, offset = 0,
                            sort_field = NULL, sort_type = NULL,
                            top_operator = "and") {
+
+  check_quote_type(quote_type)
+  check_fields(quote_type, query)
+  check_sort_field(quote_type, sort_field)
 
   result <- list(
     includeFields = NULL, # unable to modify the result
