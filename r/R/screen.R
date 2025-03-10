@@ -61,17 +61,6 @@
 ##' @format A data frame.
 "data_errors"
 
-# check_fields <- function(fields) {
-#
-#   valid_fields <- reference_data[["field"]][Rreference_data[["quote_type"]] == quote_type]
-#   invalid_fields <- setdiff(fields, valid_fields)
-#
-#   if (length(invalid_fields) > 0) {
-#     stop("Invalid field(s)")
-#   }
-#
-# }
-
 check_quote_type <- function(quote_type) {
 
   valid_quote_type <- unique(data_filters[["quote_type"]])
@@ -82,7 +71,22 @@ check_quote_type <- function(quote_type) {
 
 }
 
+# check_fields <- function(fields) {
+#
+#   # check_quote_type(quote_type)
+#
+#   valid_fields <- reference_data[["field"]][Rreference_data[["quote_type"]] == quote_type]
+#   invalid_fields <- setdiff(fields, valid_fields)
+#
+#   if (length(invalid_fields) > 0) {
+#     stop("Invalid field(s)")
+#   }
+#
+# }
+
 check_sort_field <- function(quote_type, sort_field) {
+
+  # check_quote_type(quote_type)
 
   valid_sort_field <- data_filters[["field"]][data_filters[["quote_type"]] == quote_type]
 
@@ -204,7 +208,7 @@ create_query <- function(filters = list("eq", list("region", "us")),
                          top_operator = "and") {
 
   result_ls <- process_filters(filters)
-  result <- list(operator = "and", operands = list())
+  result <- list(operator = top_operator, operands = list())
 
   for (key in names(result_ls)) {
     result[["operands"]] <- append(result[["operands"]], list(list(operator = "or", operands = result_ls[[key]])))
@@ -388,6 +392,10 @@ get_screen <- function(payload = create_payload()) {
       size <- 0
     }
 
+  }
+
+  if (length(result_ls) == 0) {
+    return(data.frame())
   }
 
   result_ls <- lapply(result_ls, function(x) {

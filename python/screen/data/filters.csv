@@ -105,7 +105,7 @@ mutualfund,Market Data,Percent Change,percentchange,% Amount change in price fro
 mutualfund,Market Data,Region,region,Where this company is based.,character,str,
 mutualfund,Market Data,Symbol,ticker,"A unique series of letters assigned to a security or financial instrument for trading purposes, like 'AAPL' for Apple Inc.",character,str,
 mutualfund,Market Data,Exchange,exchange,"A marketplace where securities, commodities, derivatives, and other financial instruments are traded, such as the New York Stock Exchange (NYSE) or NASDAQ.",character,str,
-mutualfund,Market Data,Sector,sector,General economic sectors or divisions of economy.,character,str,
+mutualfund,Market Data,Sector,primary_sector,General economic sectors or divisions of economy.,character,str,
 mutualfund,Market Data,Initial Investment,initialinvestment,In case the mutual funds has a minimum for an initial investment.,numeric,float,
 mutualfund,Market Data,Market Capital Value - Long,marketcapitalvaluelong,Morningstar defines the overall 'size' of a stock fund's portfolio as the geometric mean of the market capitalization for all of the stocks it owns. It's calculated by raising the market capitalization of each stock to a power equal to that stock's stake in the portfolio. The resulting numbers are multiplied together to produce the geometric mean of the market caps of the stocks in the portfolio which is reported as average market capitalization.,numeric,float,
 mutualfund,Performance,52 Week Price % Change,fiftytwowkpercentchange,The percent change in price over the last 52 weeks.,numeric,float,%
@@ -133,7 +133,7 @@ etf,Market Data,Percent Change,percentchange,% Amount change in price from the p
 etf,Market Data,Region,region,Where this company is based.,character,str,
 etf,Market Data,Symbol,ticker,"A unique series of letters assigned to a security or financial instrument for trading purposes, like 'AAPL' for Apple Inc.",character,str,
 etf,Market Data,Exchange,exchange,"A marketplace where securities, commodities, derivatives, and other financial instruments are traded, such as the New York Stock Exchange (NYSE) or NASDAQ.",character,str,
-etf,Market Data,Sector,sector,General economic sectors or divisions of economy.,character,str,
+etf,Market Data,Sector,primary_sector,General economic sectors or divisions of economy.,character,str,
 etf,Market Data,Initial Investment,initialinvestment,In case the mutual funds has a minimum for an initial investment.,numeric,float,
 etf,Market Data,Market Capital Value - Long,marketcapitalvaluelong,Morningstar defines the overall 'size' of a stock fund's portfolio as the geometric mean of the market capitalization for all of the stocks it owns. It's calculated by raising the market capitalization of each stock to a power equal to that stock's stake in the portfolio. The resulting numbers are multiplied together to produce the geometric mean of the market caps of the stocks in the portfolio which is reported as average market capitalization.,numeric,float,
 etf,Market Data,Volume,dayvolume,Today's traded volume.,numeric,float,

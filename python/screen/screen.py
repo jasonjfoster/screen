@@ -501,7 +501,6 @@ class Screen:
       else:
         size = 0
     
-    # REVIEW
     if not result_ls:
       return pd.DataFrame()
   
