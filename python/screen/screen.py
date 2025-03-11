@@ -345,15 +345,22 @@ class Payload:
       with the specified parameters.
         
     Examples:
-    filters = ["eq", ["region", "us"]]
+      filters = [
+        ["eq", ["region", "us"]],
+        ["btwn", ["intradaymarketcap", 2000000000, 10000000000]],
+        ["btwn", ["intradaymarketcap", 10000000000, 100000000000]],
+        ["gt", ["intradaymarketcap", 100000000000]],
+        ["gt", ["dayvolume", 5000000]]
+        ])
+      )
     
-    query = Query.create(filters)
-    
-    payload = Payload.create(
-      quote_type = "equity", query = query,
-      size = 25, offset = 0,
-      sort_field = "intradaymarketcap", sort_type = "desc",
-      top_operator = "and"
+      query = Query.create(filters)
+      
+      payload = Payload.create(
+        quote_type = "equity", query = query,
+        size = 25, offset = 0,
+        sort_field = "intradaymarketcap", sort_type = "desc",
+        top_operator = "and"
     )
     """
     
@@ -432,7 +439,14 @@ class Screen:
       specified search criteria.
   
     Examples:
-      filters = ["eq", ["region", "us"]]
+      filters = [
+        ["eq", ["region", "us"]],
+        ["btwn", ["intradaymarketcap", 2000000000, 10000000000]],
+        ["btwn", ["intradaymarketcap", 10000000000, 100000000000]],
+        ["gt", ["intradaymarketcap", 100000000000]],
+        ["gt", ["dayvolume", 5000000]]
+        ])
+      )
   
       query = Query.create(filters)
   

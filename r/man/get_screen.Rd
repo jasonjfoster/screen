@@ -18,7 +18,13 @@ specified search criteria.
 A function to get data from the Yahoo Finance API using the specified payload.
 }
 \examples{
-filters <- list("eq", list("region", "us"))
+filters <- list(
+  list("eq", list("region", "us")),
+  list("btwn", list("intradaymarketcap", 2000000000, 10000000000)),
+  list("btwn", list("intradaymarketcap", 10000000000, 100000000000)),
+  list("gt", list("intradaymarketcap", 100000000000)),
+  list("gt", list("dayvolume", 5000000))
+)
 
 query <- create_query(filters)
 

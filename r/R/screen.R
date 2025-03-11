@@ -63,7 +63,7 @@
 
 check_quote_type <- function(quote_type) {
 
-  valid_quote_type <- unique(data_filters[["quote_type"]])
+  valid_quote_type <- unique(screen::data_filters[["quote_type"]])
 
   if (!quote_type %in% valid_quote_type) {
     stop("invalid 'quote_type'")
@@ -75,7 +75,7 @@ check_fields <- function(quote_type, query) {
 
   # check_quote_type(quote_type)
 
-  valid_fields <- data_filters[["field"]][data_filters[["quote_type"]] == quote_type]
+  valid_fields <- screen::data_filters[["field"]][screen::data_filters[["quote_type"]] == quote_type]
 
   fields <- c()
 
@@ -97,7 +97,7 @@ check_sort_field <- function(quote_type, sort_field) {
 
   # check_quote_type(quote_type)
 
-  valid_sort_field <- data_filters[["field"]][data_filters[["quote_type"]] == quote_type]
+  valid_sort_field <- screen::data_filters[["field"]][screen::data_filters[["quote_type"]] == quote_type]
 
   if (!is.null(sort_field) && !(sort_field %in% valid_sort_field)) {
     stop("invalid 'sort_field' for 'quote_type'")
@@ -244,7 +244,13 @@ create_query <- function(filters = list("eq", list("region", "us")),
 ##' @return A list representing the payload to be sent to the Yahoo Finance API
 ##' with the specified parameters.
 ##' @examples
-##' filters <- list("eq", list("region", "us"))
+##' filters <- list(
+##'   list("eq", list("region", "us")),
+##'   list("btwn", list("intradaymarketcap", 2000000000, 10000000000)),
+##'   list("btwn", list("intradaymarketcap", 10000000000, 100000000000)),
+##'   list("gt", list("intradaymarketcap", 100000000000)),
+##'   list("gt", list("dayvolume", 5000000))
+##' )
 ##'
 ##' query <- create_query(filters)
 ##'
@@ -329,7 +335,13 @@ get_session <- function() {
 ##' specified search criteria.
 ##'
 ##' @examples
-##' filters <- list("eq", list("region", "us"))
+##' filters <- list(
+##'   list("eq", list("region", "us")),
+##'   list("btwn", list("intradaymarketcap", 2000000000, 10000000000)),
+##'   list("btwn", list("intradaymarketcap", 10000000000, 100000000000)),
+##'   list("gt", list("intradaymarketcap", 100000000000)),
+##'   list("gt", list("dayvolume", 5000000))
+##' )
 ##'
 ##' query <- create_query(filters)
 ##'
