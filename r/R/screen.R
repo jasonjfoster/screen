@@ -76,6 +76,8 @@ check_fields <- function(quote_type, query) {
   # check_quote_type(quote_type)
 
   valid_fields <- screen::data_filters[["field"]][screen::data_filters[["quote_type"]] == quote_type]
+  error_fields <- screen::data_errors[["field"]][screen::data_errors[["quote_type"]] == quote_type]
+  valid_fields <- setdiff(valid_fields, error_fields)
 
   fields <- c()
 
@@ -97,9 +99,11 @@ check_sort_field <- function(quote_type, sort_field) {
 
   # check_quote_type(quote_type)
 
-  valid_sort_field <- screen::data_filters[["field"]][screen::data_filters[["quote_type"]] == quote_type]
+  valid_sort_fields <- screen::data_filters[["field"]][screen::data_filters[["quote_type"]] == quote_type]
+  error_sort_fields <- screen::data_errors[["sort_field"]][screen::data_errors[["quote_type"]] == quote_type]
+  valid_sort_fields <- setdiff(valid_sort_fields, error_sort_fields)
 
-  if (!is.null(sort_field) && !(sort_field %in% valid_sort_field)) {
+  if (!sort_field %in% valid_sort_fields) {
     stop("invalid 'sort_field' for 'quote_type'")
   }
 
@@ -267,7 +271,27 @@ create_payload <- function(quote_type = "equity", query = create_query(),
                            top_operator = "and") {
 
   check_quote_type(quote_type)
+
+  if (is.null(query)) {
+    query <- create_query()
+  }
+
   check_fields(quote_type, query)
+
+  if (is.null(sort_field)) {
+    if (quote_type == "equity") {
+      sort_field <- "intradaymarketcap"
+    } else if (quote_type == "mutualfund") {
+      sort_field <- "fundnetassets"
+    } else if (quote_type == "etf") {
+      sort_field <- "fundnetassets"
+    } else if (quote_type == "index") {
+      sort_field <- "percentchange"
+    } else if (quote_type == "future") {
+      sort_field <- "percentchange"
+    }
+  }
+
   check_sort_field(quote_type, sort_field)
 
   result <- list(

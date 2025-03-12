@@ -187,11 +187,31 @@ class Check:
       raise ValueError("invalid 'quote_type'")
 
   @staticmethod
+  def fields(quote_type, query):
+
+    valid_fields = set(Data.filters.loc[Data.filters["quote_type"] == quote_type, "field"])
+    error_fields = set(Data.errors.loc[Data.errors["quote_type"] == quote_type, "field"])    
+    valid_fields = valid_fields.difference(error_fields)
+    
+    fields = []
+    
+    for operand in query["operands"]:
+      if isinstance(operand["operands"], list) and len(operand["operands"]) > 0:
+        fields.append(operand["operands"][0]["operands"][0])
+    
+    invalid_fields = set(fields).difference(valid_fields)
+    
+    if len(invalid_fields) > 0:
+      raise ValueError("invalid field(s)")
+    
+  @staticmethod
   def sort_field(quote_type, sort_field):
+    
+    valid_sort_fields = set(Data.filters.loc[Data.filters["quote_type"] == quote_type, "field"])
+    error_sort_fields = set(Data.errors.loc[Data.errors["quote_type"] == quote_type, "sort_field"])    
+    valid_sort_fields = valid_sort_fields.difference(error_sort_fields)
 
-    valid_sort_field = Data.filters.loc[Data.filters["quote_type"] == quote_type, "field"]
-
-    if sort_field is not None and sort_field not in valid_sort_field.values:
+    if sort_field not in valid_sort_fields:
       raise ValueError("invalid 'quote_type' for 'sort_field'")
 
 class Process:
@@ -302,8 +322,7 @@ class Query:
         ["btwn", ["intradaymarketcap", 10000000000, 100000000000]],
         ["gt", ["intradaymarketcap", 100000000000]],
         ["gt", ["dayvolume", 5000000]]
-        ])
-      )
+      ]
       
       query = Query.create(filters)
     """
@@ -351,8 +370,7 @@ class Payload:
         ["btwn", ["intradaymarketcap", 10000000000, 100000000000]],
         ["gt", ["intradaymarketcap", 100000000000]],
         ["gt", ["dayvolume", 5000000]]
-        ])
-      )
+      ]
     
       query = Query.create(filters)
       
@@ -361,8 +379,29 @@ class Payload:
         size = 25, offset = 0,
         sort_field = "intradaymarketcap", sort_type = "desc",
         top_operator = "and"
-    )
+      )
     """
+    
+    Check.quote_type(quote_type)
+    
+    if query is None:
+      query = Query.create()
+    
+    Check.fields(quote_type, query)
+    
+    if sort_field is None:
+      if quote_type == "equity":
+        sort_field = "intradaymarketcap"
+      elif quote_type == "mutualfund":
+        sort_field = "fundnetassets"
+      elif quote_type == "etf":
+        sort_field = "fundnetassets"
+      elif quote_type == "index":
+        sort_field = "percentchange"
+      elif quote_type == "future":
+        sort_field = "percentchange"
+    
+    Check.sort_field(quote_type, sort_field)
     
     result = {
       "includeFields": None, # unable to modify the result
@@ -445,8 +484,7 @@ class Screen:
         ["btwn", ["intradaymarketcap", 10000000000, 100000000000]],
         ["gt", ["intradaymarketcap", 100000000000]],
         ["gt", ["dayvolume", 5000000]]
-        ])
-      )
+      ]
   
       query = Query.create(filters)
   
