@@ -1,3 +1,4 @@
+import time
 import requests
 import pandas as pd
 import importlib.resources as pkg_resources
@@ -324,7 +325,7 @@ class Query:
         ["gt", ["dayvolume", 5000000]]
       ]
       
-      query = Query.create(filters)
+      query = screen.create_query(filters)
     """
 
     result_ls = Process.filters(filters)
@@ -338,7 +339,7 @@ class Query:
 class Payload:
   
   @staticmethod
-  def create(quote_type = "equity", query = Query.create(),
+  def create(quote_type = "equity", query = screen.create_query(),
              size = 25, offset = 0,
              sort_field = None, sort_type = None,
              top_operator = "and"):
@@ -372,14 +373,9 @@ class Payload:
         ["gt", ["dayvolume", 5000000]]
       ]
     
-      query = Query.create(filters)
+      query = screen.create_query(filters)
       
-      payload = Payload.create(
-        quote_type = "equity", query = query,
-        size = 25, offset = 0,
-        sort_field = "intradaymarketcap", sort_type = "desc",
-        top_operator = "and"
-      )
+      payload = screen.create_payload("equity", query)
     """
     
     Check.quote_type(quote_type)
@@ -433,7 +429,7 @@ class Session:
         - "cookies" (dict): a data frame of cookies for the request.
         
       Examples:
-        session = Session.get()
+        session = screen.get_session()
     """
     
     session = requests.Session()
@@ -463,7 +459,7 @@ class Session:
 class Screen:
   
   @staticmethod
-  def get(payload = Payload.create()):
+  def get(payload = screen.create_payload()):
     """
     Get Screen Data from the Yahoo Finance API
   
@@ -486,16 +482,11 @@ class Screen:
         ["gt", ["dayvolume", 5000000]]
       ]
   
-      query = Query.create(filters)
+      query = screen.create_query(filters)
   
-      payload = Payload.create(
-        quote_type = "equity", query = query,
-        size = 25, offset = 0,
-        sort_field = "intradaymarketcap", sort_type = "desc",
-        top_operator = "and"
-      )
+      payload = screen.create_payload("equity", query)
   
-      screen = Screen.get(payload)
+      screen = screen.get_screen(payload)
     """
   
     session = Session.get()
@@ -517,7 +508,8 @@ class Screen:
       # "Content-Type": "application/json",
       "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
     }
-  
+    
+    count = 0
     max_size = 250
     size = payload["size"]
     offset = payload["offset"]
@@ -552,6 +544,13 @@ class Screen:
   
       else:
         size = 0
+        
+      count += 1
+      
+      if count % 5 == 0:
+      
+        print("pause one second after five requests")
+        time.sleep(1)
     
     if not result_ls:
       return pd.DataFrame()

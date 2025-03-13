@@ -258,12 +258,7 @@ create_query <- function(filters = list("eq", list("region", "us")),
 ##'
 ##' query <- create_query(filters)
 ##'
-##' payload <- create_payload(
-##'   quote_type = "equity", query = query,
-##'   size = 25, offset = 0,
-##'   sort_field = "intradaymarketcap", sort_type = "desc",
-##'   top_operator = "and"
-##' )
+##' payload <- create_payload("equity", query)
 ##' @export
 create_payload <- function(quote_type = "equity", query = create_query(),
                            size = 25, offset = 0,
@@ -369,12 +364,7 @@ get_session <- function() {
 ##'
 ##' query <- create_query(filters)
 ##'
-##' payload <- create_payload(
-##'   quote_type = "equity", query = query,
-##'   size = 25, offset = 0,
-##'   sort_field = "intradaymarketcap", sort_type = "desc",
-##'   top_operator = "and"
-##' )
+##' payload <- create_payload("equity", query)
 ##'
 ##' screen <- get_screen(payload)
 ##' @export
@@ -403,6 +393,7 @@ get_screen <- function(payload = create_payload()) {
     `Cookie` = paste0(cookies[["name"]], "=", cookies[["value"]], collapse = "; ")
   )
 
+  count <- 0
   max_size <- 250
   size <- payload[["size"]]
   offset <- payload[["offset"]]
@@ -439,6 +430,15 @@ get_screen <- function(payload = create_payload()) {
 
     } else {
       size <- 0
+    }
+
+    count <- count + 1
+
+    if (count %% 5 == 0) {
+
+      message("pause one second after five requests")
+      Sys.sleep(1)
+
     }
 
   }

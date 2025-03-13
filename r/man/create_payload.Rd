@@ -44,10 +44,5 @@ filters <- list(
 
 query <- create_query(filters)
 
-payload <- create_payload(
-  quote_type = "equity", query = query,
-  size = 25, offset = 0,
-  sort_field = "intradaymarketcap", sort_type = "desc",
-  top_operator = "and"
-)
+payload <- create_payload("equity", query)
 }
