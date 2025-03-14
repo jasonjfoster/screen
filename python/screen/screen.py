@@ -227,7 +227,8 @@ class Process:
 
     for filter in filters:
       
-      operator, operands = filter[0], tuple(filter[1])
+      operator = filter[0]
+      operands = tuple(filter[1])
       key = operands[0]
       
       if key not in result_ls:
@@ -246,8 +247,6 @@ class Process:
   
   @staticmethod
   def cols(df):
-    
-    df = df.copy()
 
     for col in df.columns:
   	  
@@ -288,7 +287,7 @@ class Process:
           result_df = pd.DataFrame(result_ls)
           df = pd.concat([df.reset_index(drop = True), result_df], axis = 1)
   				
-          df.drop(columns = [col], inplace=True)
+          df.drop(columns = [col], inplace = True)
   			
         else:
           df[col] = None
