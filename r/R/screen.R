@@ -366,9 +366,9 @@ get_session <- function() {
 ##'
 ##' payload <- create_payload("equity", query)
 ##'
-##' screen <- get_screen(payload)
+##' data <- get_data(payload)
 ##' @export
-get_screen <- function(payload = create_payload()) {
+get_data <- function(payload = create_payload()) {
 
   session <- get_session()
 

@@ -50,7 +50,7 @@ test_that("valid 'quote_type', 'field', and 'sort_field'", {
 
         payload <- create_payload(quote_type = quote_type, query = query,
                                   size = 1, sort_field = sort_field)
-        response <- suppressWarnings(get_screen(payload = payload))
+        response <- suppressWarnings(get_data(payload = payload))
 
         if (is.null(response)) {
           response <- "success"
@@ -91,7 +91,7 @@ test_that("valid 'quote_type', 'field', and 'sort_field'", {
 
         payload <- create_payload(quote_type = quote_type, size = 1,
                                   sort_field = sort_field)
-        response <- suppressWarnings(get_screen(payload = payload))
+        response <- suppressWarnings(get_data(payload = payload))
 
         if (is.null(response)) {
           response <- "success"

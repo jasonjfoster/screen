@@ -1,7 +1,5 @@
 # screen
 
-[![](https://github.com/jasonjfoster/screen/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/jasonjfoster/screen/actions/workflows/check-standard.yaml)
-
 ## Overview
 
 `screen` is a package that provides fast and efficient access to Yahoo Finance's screener functionality for querying and retrieval of financial data.
