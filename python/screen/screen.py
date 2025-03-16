@@ -338,7 +338,7 @@ class Query:
 class Payload:
   
   @staticmethod
-  def create(quote_type = "equity", query = screen.create_query(),
+  def create(quote_type = "equity", query = None,
              size = 25, offset = 0,
              sort_field = None, sort_type = None,
              top_operator = "and"):
@@ -458,7 +458,7 @@ class Session:
 class Screen:
   
   @staticmethod
-  def get(payload = screen.create_payload()):
+  def get(payload = None):
     """
     Get Screen Data from the Yahoo Finance API
   
@@ -487,7 +487,10 @@ class Screen:
   
       screen = screen.get_screen(payload)
     """
-  
+    
+    if payload is None:
+      payload = Payload.create()
+      
     session = Session.get()
     crumb = session["crumb"]
     cookies = session["cookies"]

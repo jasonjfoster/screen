@@ -18,4 +18,44 @@ The package supports advanced query capabilities, including logical operators, n
 
 ## Installation
 
+Install the development version from GitHub:
+
+```python
+pip install git+https://github.com/jasonjfoster/python/screen.git
+```
+
 ## Usage
+
+First, load the package and inspect the available filter options:
+
+```python
+import screen
+
+print(screen.data_filters)
+```
+
+To create a query, define filters and use the `create_query` method:
+
+```python
+filters = [
+  ["eq", ["region", "us"]],
+  ["btwn", ["intradaymarketcap", 2000000000, 10000000000]],
+  ["btwn", ["intradaymarketcap", 10000000000, 100000000000]],
+  ["gt", ["intradaymarketcap", 100000000000]],
+  ["gt", ["dayvolume", 5000000]]
+]
+
+query = screen.create_query(filters)
+```
+
+Next, specify the security type and create the payload with the `create_payload` method:
+
+```python
+payload = screen.create_payload("equity", query)
+```
+
+Finally, retrieve the data using the `get_data` method:
+
+```python
+data = screen.get_data(payload)
+```

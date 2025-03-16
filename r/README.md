@@ -18,4 +18,45 @@ The package supports advanced query capabilities, including logical operators, n
 
 ## Installation
 
+Install the development version from GitHub:
+
+```r
+# install.packages("devtools")
+devtools::install_github("jasonjfoster/r/screen")
+```
+
 ## Usage
+
+First, load the package and inspect the available filter options:
+
+```r
+library(screen)
+
+print(data_filters)
+```
+
+To create a query, define filters and use the `create_query` function:
+
+```r
+filters <- list(
+  list("eq", list("region", "us")),
+  list("btwn", list("intradaymarketcap", 2000000000, 10000000000)),
+  list("btwn", list("intradaymarketcap", 10000000000, 100000000000)),
+  list("gt", list("intradaymarketcap", 100000000000)),
+  list("gt", list("dayvolume", 5000000))
+)
+
+query <- create_query(filters)
+```
+
+Next, specify the security type and create the payload with the `create_payload` function:
+
+```r
+payload <- create_payload("equity", query)
+```
+
+Finally, retrieve the data using the `get_data` function:
+
+```r
+data <- get_data(payload)
+```
