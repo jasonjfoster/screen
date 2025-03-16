@@ -53,7 +53,7 @@ def test_that(): # valid 'quote_type', 'field', and 'sort_field'
           
         payload = screen.create_payload(quote_type = quote_type, query = query,
                                         size = 1, sort_field = sort_field)
-        response = screen.get_screen(payload = payload)
+        response = screen.get_data(payload = payload)
         
         if (response is None):
           response = "success"
@@ -82,7 +82,7 @@ def test_that(): # valid 'quote_type', 'field', and 'sort_field'
           
         payload = screen.create_payload(quote_type = quote_type, size = 1,
                                           sort_field = sort_field)
-        response = screen.get_screen(payload = payload)
+        response = screen.get_data(payload = payload)
           
         if (response is None):
           response = "success"

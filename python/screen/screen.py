@@ -455,120 +455,119 @@ class Session:
     
     return result
 
-class Screen:
-  
-  @staticmethod
-  def get(payload = None):
-    """
-    Get Screen Data from the Yahoo Finance API
-  
-    A method to get data from the Yahoo Finance API using the specified payload.
-  
-    Parameters:
-      payload (dict): payload that contains search criteria using
-        the `Query.create` and `Payload.create` methods.
-  
-    Returns:
-      A data frame that contains data from the Yahoo Finance API for the
-      specified search criteria.
-  
-    Examples:
-      filters = [
-        ["eq", ["region", "us"]],
-        ["btwn", ["intradaymarketcap", 2000000000, 10000000000]],
-        ["btwn", ["intradaymarketcap", 10000000000, 100000000000]],
-        ["gt", ["intradaymarketcap", 100000000000]],
-        ["gt", ["dayvolume", 5000000]]
-      ]
-  
-      query = screen.create_query(filters)
-  
-      payload = screen.create_payload("equity", query)
-  
-      screen = screen.get_screen(payload)
-    """
-    
-    if payload is None:
-      payload = Payload.create()
-      
-    session = Session.get()
-    crumb = session["crumb"]
-    cookies = session["cookies"]
-    handle = session["handle"]
-  
-    params = {
-      "crumb": crumb,
-      "lang": "en-US",
-      "region": "US",
-      "formatted": "true",
-      "corsDomain": "finance.yahoo.com",
-    }
-  
-    api_url = "https://query1.finance.yahoo.com/v1/finance/screener" # + Process.url(params)
-  
-    headers = {
-      # "Content-Type": "application/json",
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
-    }
-    
-    count = 0
-    max_size = 250
-    size = payload["size"]
-    offset = payload["offset"]
-    
-    result_cols = set()
-    result_ls = []
+def get(payload = None):
+  """
+  Get Data from the Yahoo Finance API
 
-    while size > 0:
+  A method to get data from the Yahoo Finance API using the specified payload.
+
+  Parameters:
+    payload (dict): payload that contains search criteria using
+      the `Query.create` and `Payload.create` methods.
+
+  Returns:
+    A data frame that contains data from the Yahoo Finance API for the
+    specified search criteria.
+
+  Examples:
+    filters = [
+      ["eq", ["region", "us"]],
+      ["btwn", ["intradaymarketcap", 2000000000, 10000000000]],
+      ["btwn", ["intradaymarketcap", 10000000000, 100000000000]],
+      ["gt", ["intradaymarketcap", 100000000000]],
+      ["gt", ["dayvolume", 5000000]]
+    ]
+
+    query = screen.create_query(filters)
+
+    payload = screen.create_payload("equity", query)
+
+    data = screen.get_data(payload)
+  """
   
-      chunk_size = min(size, max_size)
-      payload["size"] = chunk_size
-      payload["offst"] = offset
-  
-      for key, value in cookies.items():
-        handle.cookies.set(key, value)
-  
-      response = handle.post(api_url, params = params, json = payload, headers = headers)
-  
-      result = response.json()
-      result_df = result["finance"]["result"][0]["quotes"]
-  
-      if (len(result_df) > 0):
-        
-        result_df = pd.json_normalize(result_df)
-        result_df = Process.cols(result_df)
-        
-        result_ls.append(result_df)
-        result_cols.update(result_df.columns)
-  
-        size -= chunk_size
-        offset += chunk_size
-  
-      else:
-        size = 0
-        
-      count += 1
-      
-      if count % 5 == 0:
-      
-        print("pause one second after five requests")
-        time.sleep(1)
+  if payload is None:
+    payload = Payload.create()
     
-    if not result_ls:
-      return pd.DataFrame()
+  session = Session.get()
+  crumb = session["crumb"]
+  cookies = session["cookies"]
+  handle = session["handle"]
+
+  params = {
+    "crumb": crumb,
+    "lang": "en-US",
+    "region": "US",
+    "formatted": "true",
+    "corsDomain": "finance.yahoo.com",
+  }
+
+  api_url = "https://query1.finance.yahoo.com/v1/finance/screener" # + Process.url(params)
+
+  headers = {
+    # "Content-Type": "application/json",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+  }
   
-    result_cols = list(result_cols)
-    
-    for i in range(len(result_ls)):
+  count = 0
+  max_size = 250
+  size = payload["size"]
+  offset = payload["offset"]
+  
+  result_cols = set()
+  result_ls = []
+
+  while size > 0:
+
+    chunk_size = min(size, max_size)
+    payload["size"] = chunk_size
+    payload["offst"] = offset
+
+    for key, value in cookies.items():
+      handle.cookies.set(key, value)
+
+    response = handle.post(api_url, params = params, json = payload, headers = headers)
+
+    result = response.json()
+    result_df = result["finance"]["result"][0]["quotes"]
+
+    if (len(result_df) > 0):
       
-      x = result_ls[i]
-      cols_na = set(result_cols) - set(x.columns)
+      result_df = pd.json_normalize(result_df)
+      result_df = Process.cols(result_df)
       
-      for j in cols_na:
-        x[j] = None
-        
-      result_ls[i] = x[result_cols]
+      result_ls.append(result_df)
+      result_cols.update(result_df.columns)
+
+      size -= chunk_size
+      offset += chunk_size
+
+    else:
+      size = 0
+      
+    count += 1
     
-    result = pd.concat(result_ls, ignore_index = True)
+    if count % 5 == 0:
     
-    return result
+      print("pause one second after five requests")
+      time.sleep(1)
+  
+  if not result_ls:
+    return pd.DataFrame()
+
+  result_cols = list(result_cols)
+  
+  for i in range(len(result_ls)):
+    
+    x = result_ls[i]
+    cols_na = set(result_cols) - set(x.columns)
+    
+    for j in cols_na:
+      x[j] = None
+      
+    result_ls[i] = x[result_cols]
+  
+  result = pd.concat(result_ls, ignore_index = True)
+  
+  return result
+
+Data.get = get

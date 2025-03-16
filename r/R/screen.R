@@ -344,7 +344,7 @@ get_session <- function() {
 
 }
 
-##' Get Screen Data from the Yahoo Finance API
+##' Get Data from the Yahoo Finance API
 ##'
 ##' A function to get data from the Yahoo Finance API using the specified payload.
 ##'

@@ -1,4 +1,4 @@
-from .screen import Data, Check, Process, Query, Payload, Session, Screen
+from .screen import Data, Check, Process, Query, Payload, Session
 
 data_filters = Data.filters
 data_categoryname = Data.categoryname
@@ -17,7 +17,7 @@ process_cols = Process.cols
 create_query = Query.create
 create_payload = Payload.create
 get_session = Session.get
-get_screen = Screen.get
+get_data = Data.get
 
 __all__ = [
     "Data", "data_filters", "data_categoryname", "data_exchange", "data_fundfamilyname",
@@ -27,5 +27,5 @@ __all__ = [
     "Query", "create_query",
     "Payload", "create_payload",
     "Session", "get_session",
-    "Screen", "get_screen"
+    "get_data"
 ]

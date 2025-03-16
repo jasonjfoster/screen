@@ -2,7 +2,7 @@
 % Please edit documentation in R/screen.R
 \name{get_data}
 \alias{get_data}
-\title{Get Screen Data from the Yahoo Finance API}
+\title{Get Data from the Yahoo Finance API}
 \usage{
 get_data(payload = create_payload())
 }
