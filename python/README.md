@@ -21,7 +21,7 @@ The implementation leverages standard HTTP libraries to handle API interactions 
 Install the development version from GitHub:
 
 ```python
-pip install git+https://github.com/jasonjfoster/python/screen.git
+pip install git+https://github.com/jasonjfoster/screen.git@main#subdirectory=python
 ```
 
 ## Usage

@@ -1,6 +1,7 @@
 # screen
 
 [![](https://github.com/jasonjfoster/screen/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/jasonjfoster/screen/actions/workflows/check-standard.yaml)
+[![](https://codecov.io/gh/jasonjfoster/screen/graph/badge.svg)](https://app.codecov.io/github/jasonjfoster/screen)
 
 ## Overview
 
@@ -24,7 +25,7 @@ Install the development version from GitHub:
 
 ```r
 # install.packages("devtools")
-devtools::install_github("jasonjfoster/r/screen")
+devtools::install_github("jasonjfoster/screen/r")
 ```
 
 ## Usage
