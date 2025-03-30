@@ -2,7 +2,7 @@
 
 ## Overview
 
-`screen` is a package that provides fast and efficient access to Yahoo Finance's screener functionality for querying and retrieval of financial data.
+`screen` is a package that provides simple and efficient access to Yahoo Finance's screener functionality for querying and retrieval of financial data.
 
 The core functionality of the screen package abstracts the complexities of interacting with Yahoo Finance APIs, such as session management, crumb and cookie handling, query construction, and JSON payload generation. This abstraction allows users to focus on filtering and retrieving data rather than managing API details. Use cases include screening across a range of asset classes:
 
@@ -26,7 +26,7 @@ pip install git+https://github.com/jasonjfoster/screen.git@main#subdirectory=pyt
 
 ## Usage
 
-First, load the package and inspect the available filter options:
+First, load the package and explore the available filter options:
 
 ```python
 import screen

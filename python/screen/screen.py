@@ -180,18 +180,18 @@ class Data:
 class Check:
 
   @staticmethod
-  def quote_type(quote_type):
+  def sec_type(sec_type):
     
-    valid_quote_type = Data.filters["quote_type"].unique()
+    valid_sec_type = Data.filters["sec_type"].unique()
 
-    if quote_type not in valid_quote_type:
-      raise ValueError("invalid 'quote_type'")
+    if sec_type not in valid_sec_type:
+      raise ValueError("invalid 'sec_type'")
 
   @staticmethod
-  def fields(quote_type, query):
+  def fields(sec_type, query):
 
-    valid_fields = set(Data.filters.loc[Data.filters["quote_type"] == quote_type, "field"])
-    error_fields = set(Data.errors.loc[Data.errors["quote_type"] == quote_type, "field"])    
+    valid_fields = set(Data.filters.loc[Data.filters["sec_type"] == sec_type, "field"])
+    error_fields = set(Data.errors.loc[Data.errors["sec_type"] == sec_type, "field"])    
     valid_fields = valid_fields.difference(error_fields)
     
     fields = []
@@ -206,14 +206,14 @@ class Check:
       raise ValueError("invalid field(s)")
     
   @staticmethod
-  def sort_field(quote_type, sort_field):
+  def sort_field(sec_type, sort_field):
     
-    valid_sort_fields = set(Data.filters.loc[Data.filters["quote_type"] == quote_type, "field"])
-    error_sort_fields = set(Data.errors.loc[Data.errors["quote_type"] == quote_type, "sort_field"])    
+    valid_sort_fields = set(Data.filters.loc[Data.filters["sec_type"] == sec_type, "field"])
+    error_sort_fields = set(Data.errors.loc[Data.errors["sec_type"] == sec_type, "sort_field"])    
     valid_sort_fields = valid_sort_fields.difference(error_sort_fields)
 
     if sort_field not in valid_sort_fields:
-      raise ValueError("invalid 'quote_type' for 'sort_field'")
+      raise ValueError("invalid 'sec_type' for 'sort_field'")
 
 class Process:
   
@@ -338,7 +338,7 @@ class Query:
 class Payload:
   
   @staticmethod
-  def create(quote_type = "equity", query = None,
+  def create(sec_type = "equity", query = None,
              size = 25, offset = 0,
              sort_field = None, sort_type = None,
              top_operator = "and"):
@@ -348,7 +348,7 @@ class Payload:
     A method to create a payload to query the Yahoo Finance API with customizable parameters.
     
     Parameters:
-      quote_type (str): type of quote to search
+      sec_type (str): type of security to search
         (i.e., "equity", "mutualfund", "etf", "index", "future").
       query (list or tuple): structured query to filter results created by
         the `Query.create` method.
@@ -377,32 +377,32 @@ class Payload:
       payload = screen.create_payload("equity", query)
     """
     
-    Check.quote_type(quote_type)
+    Check.sec_type(sec_type)
     
     if query is None:
       query = Query.create()
     
-    Check.fields(quote_type, query)
+    Check.fields(sec_type, query)
     
     if sort_field is None:
-      if quote_type == "equity":
+      if sec_type == "equity":
         sort_field = "intradaymarketcap"
-      elif quote_type == "mutualfund":
+      elif sec_type == "mutualfund":
         sort_field = "fundnetassets"
-      elif quote_type == "etf":
+      elif sec_type == "etf":
         sort_field = "fundnetassets"
-      elif quote_type == "index":
+      elif sec_type == "index":
         sort_field = "percentchange"
-      elif quote_type == "future":
+      elif sec_type == "future":
         sort_field = "percentchange"
     
-    Check.sort_field(quote_type, sort_field)
+    Check.sort_field(sec_type, sort_field)
     
     result = {
       "includeFields": None, # unable to modify the result
       "offset": offset,
       "query": query,
-      "quoteType": quote_type,
+      "quoteType": sec_type,
       "size": size,
       "sortField": sort_field,
       "sortType": sort_type,

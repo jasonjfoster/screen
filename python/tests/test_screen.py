@@ -5,36 +5,36 @@ import screen
 
 # @pytest.mark.skip(reason = "long-running test")
 
-def test_that(): # valid 'quote_type', 'field', and 'sort_field'
+def test_that(): # valid 'sec_type', 'field', and 'sort_field'
 
-  quote_types = screen.data_filters["quote_type"].unique()
+  sec_types = screen.data_filters["sec_type"].unique()
 
   count = 0
   result_ls = []
 
-  for quote_type in quote_types:
+  for sec_type in sec_types:
 
-    if quote_type == "equity":
+    if sec_type == "equity":
       sort_field = "intradaymarketcap"
-    elif quote_type == "mutualfund":
+    elif sec_type == "mutualfund":
       sort_field = "fundnetassets"
-    elif quote_type == "etf":
+    elif sec_type == "etf":
       sort_field = "fundnetassets"
-    elif quote_type == "index":
+    elif sec_type == "index":
       sort_field = "percentchange"
-    elif quote_type == "future":
+    elif sec_type == "future":
       sort_field = "percentchange"
     else:
       sort_field = None
 
-    fields = screen.data_filters.loc[screen.data_filters["quote_type"] == quote_type, "field"]
+    fields = screen.data_filters.loc[screen.data_filters["sec_type"] == sec_type, "field"]
     sort_fields = fields
 
     errors_ls = []
 
     for field in fields:
         
-      type_value = screen.data_filters.loc[(screen.data_filters["quote_type"] == quote_type) & (screen.data_filters["field"] == field), "python"].values[0] 
+      type_value = screen.data_filters.loc[(screen.data_filters["sec_type"] == sec_type) & (screen.data_filters["field"] == field), "python"].values[0] 
       
       if type_value == "str":
         test_value = "test"
@@ -51,7 +51,7 @@ def test_that(): # valid 'quote_type', 'field', and 'sort_field'
       
       try:
           
-        payload = screen.create_payload(quote_type = quote_type, query = query,
+        payload = screen.create_payload(sec_type = sec_type, query = query,
                                         size = 1, sort_field = sort_field)
         response = screen.get_data(payload = payload)
         
@@ -64,7 +64,7 @@ def test_that(): # valid 'quote_type', 'field', and 'sort_field'
       if response is None:
           
         errors_ls.append({
-          "quote_type": quote_type,
+          "sec_type": sec_type,
           "field": field,
           "sort_field": None
         })
@@ -80,7 +80,7 @@ def test_that(): # valid 'quote_type', 'field', and 'sort_field'
           
       try:
           
-        payload = screen.create_payload(quote_type = quote_type, size = 1,
+        payload = screen.create_payload(sec_type = sec_type, size = 1,
                                           sort_field = sort_field)
         response = screen.get_data(payload = payload)
           
@@ -93,7 +93,7 @@ def test_that(): # valid 'quote_type', 'field', and 'sort_field'
       if response is None:
           
         errors_ls.append({
-          "quote_type": quote_type,
+          "sec_type": sec_type,
           "field": None,
           "sort_field": sort_field
         })

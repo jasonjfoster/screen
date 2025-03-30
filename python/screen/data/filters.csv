@@ -1,4 +1,4 @@
-quote_type,type,name,field,description,r,python,unit
+sec_type,type,name,field,description,r,python,unit
 equity,Market Data,Region,region,Where this company is based.,character,str,
 equity,Market Data,Symbol,ticker,"A unique series of letters assigned to a security or financial instrument for trading purposes, like 'AAPL' for Apple Inc.",character,str,
 equity,Market Data,Price (Intraday),intradayprice,The current price during the trading day.,numeric,float,

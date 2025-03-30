@@ -1,4 +1,4 @@
-quote_type,field,sort_field
+sec_type,field,sort_field
 equity,NA,exchange
 equity,NA,totalsharesoutstanding
 mutualfund,NA,categoryname

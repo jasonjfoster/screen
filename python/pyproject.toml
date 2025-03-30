@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "yscreen"
 version = "0.1.0"
-description = "Fast and efficient access to Yahoo Finance's screener functionality for querying and retrieval of financial data."
+description = "Simple and efficient access to Yahoo Finance's screener functionality for querying and retrieval of financial data."
 authors = [{ name = "Jason Foster", email = "jason.j.foster@gmail.com" }]
 dependencies = [
     "requests >= 2.2.0",
