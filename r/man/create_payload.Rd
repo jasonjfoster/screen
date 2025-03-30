@@ -4,12 +4,12 @@
 \alias{create_payload}
 \title{Create a Payload for the Yahoo Finance API}
 \usage{
-create_payload(quote_type = "equity", query = create_query(), size = 25,
+create_payload(sec_type = "equity", query = create_query(), size = 25,
   offset = 0, sort_field = NULL, sort_type = NULL,
   top_operator = "and")
 }
 \arguments{
-\item{quote_type}{string. Type of quote to search
+\item{sec_type}{string. Type of security to search
 (i.e., "equity", "mutualfund", "etf", "index", "future").}
 
 \item{query}{list. Structured query to filter results created by

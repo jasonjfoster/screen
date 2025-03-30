@@ -1,36 +1,36 @@
-test_that("valid 'quote_type', 'field', and 'sort_field'", {
+test_that("valid 'sec_type', 'field', and 'sort_field'", {
 
   # skip("long-running test")
 
-  quote_types <- unique(data_filters[["quote_type"]])
+  sec_types <- unique(data_filters[["sec_type"]])
 
   count <- 0
   result_ls <- list()
 
-  for (quote_type in quote_types) {
+  for (sec_type in sec_types) {
 
-    if (quote_type == "equity") {
+    if (sec_type == "equity") {
       sort_field <- "intradaymarketcap"
-    } else if (quote_type == "mutualfund") {
+    } else if (sec_type == "mutualfund") {
       sort_field <- "fundnetassets"
-    } else if (quote_type == "etf") {
+    } else if (sec_type == "etf") {
       sort_field <- "fundnetassets"
-    } else if (quote_type == "index") {
+    } else if (sec_type == "index") {
       sort_field <- "percentchange"
-    } else if (quote_type == "future") {
+    } else if (sec_type == "future") {
       sort_field <- "percentchange"
     } else {
       sort_field <- NULL
     }
 
-    fields <- data_filters[["field"]][data_filters[["quote_type"]] == quote_type]
+    fields <- data_filters[["field"]][data_filters[["sec_type"]] == sec_type]
     sort_fields <- fields
 
     errors_ls <- list()
 
     for (field in fields) {
 
-      type <- data_filters[["r"]][(data_filters[["quote_type"]] == quote_type) & (data_filters[["field"]] == field)]
+      type <- data_filters[["r"]][(data_filters[["sec_type"]] == sec_type) & (data_filters[["field"]] == field)]
 
       if (type == "character") {
         test_value <- "test"
@@ -48,7 +48,7 @@ test_that("valid 'quote_type', 'field', and 'sort_field'", {
 
       response <- tryCatch({
 
-        payload <- create_payload(quote_type = quote_type, query = query,
+        payload <- create_payload(sec_type = sec_type, query = query,
                                   size = 1, sort_field = sort_field)
         response <- suppressWarnings(get_data(payload = payload))
 
@@ -65,7 +65,7 @@ test_that("valid 'quote_type', 'field', and 'sort_field'", {
       if (is.null(response)) {
 
         error <- data.frame(
-          quote_type = quote_type,
+          sec_type = sec_type,
           field = field,
           sort_field = NA
         )
@@ -89,7 +89,7 @@ test_that("valid 'quote_type', 'field', and 'sort_field'", {
 
       response <- tryCatch({
 
-        payload <- create_payload(quote_type = quote_type, size = 1,
+        payload <- create_payload(sec_type = sec_type, size = 1,
                                   sort_field = sort_field)
         response <- suppressWarnings(get_data(payload = payload))
 
@@ -106,7 +106,7 @@ test_that("valid 'quote_type', 'field', and 'sort_field'", {
       if (is.null(response)) {
 
         error <- data.frame(
-          quote_type = quote_type,
+          sec_type = sec_type,
           field = NA,
           sort_field = sort_field
         )

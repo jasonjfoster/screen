@@ -7,7 +7,7 @@
 The core functionality of the screen package abstracts the complexities of interacting with Yahoo Finance APIs, such as session management, crumb and cookie handling, query construction, pagination, and JSON payload generation. This abstraction allows users to focus on filtering and retrieving data rather than managing API details. Use cases include screening across a range of asset classes:
 
 * **Equities**: coverage spans 50 regions to enable the identification of top-performing stocks based on specified criteria
-* **Mutual funds*s*: funds can be screened using metrics such as historical performance, performance ratings, and other factors
+* **Mutual funds**: funds can be screened using metrics such as historical performance, performance ratings, and other factors
 * **ETFs**: a wide range of ETFs can be filtered by criteria including expense ratio, historical performance, and additional attributes
 * **Indices**: stock market indices are available and often categorized by sector, industry, or the overall market
 * **Futures**: futures contracts can be screened by exchange, price percent changes, and regional specifications
