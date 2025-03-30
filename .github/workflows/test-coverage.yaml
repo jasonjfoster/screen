@@ -30,7 +30,7 @@ jobs:
       - name: Install dependencies
         working-directory: './r'
         run: |
-          install.packages(c("remotes", covr", "xml2"))
+          install.packages(c("remotes", "covr", "xml2"))
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
 
