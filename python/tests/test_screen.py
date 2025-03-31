@@ -7,8 +7,9 @@ import screen
 
 def test_that(): # valid 'sec_type', 'field', and 'sort_field'
 
-  sec_types = screen.data_filters["sec_type"].unique()
-
+  sec_types = list(screen.data_filters["sec_type"].unique())
+  sec_types.append("test")
+  
   count = 0
   result_ls = []
 
@@ -28,7 +29,8 @@ def test_that(): # valid 'sec_type', 'field', and 'sort_field'
       sort_field = None
 
     fields = screen.data_filters.loc[screen.data_filters["sec_type"] == sec_type, "field"]
-    sort_fields = fields
+    sort_fields = list(fields)
+    sort_fields.append(None)
 
     errors_ls = []
 
@@ -52,7 +54,7 @@ def test_that(): # valid 'sec_type', 'field', and 'sort_field'
       try:
           
         payload = screen.create_payload(sec_type = sec_type, query = query,
-                                        size = 1, sort_field = sort_field)
+                                        size = 30, sort_field = sort_field)
         response = screen.get_data(payload = payload)
         
         if (response is None):
@@ -80,7 +82,7 @@ def test_that(): # valid 'sec_type', 'field', and 'sort_field'
           
       try:
           
-        payload = screen.create_payload(sec_type = sec_type, size = 1,
+        payload = screen.create_payload(sec_type = sec_type, size = 30,
                                           sort_field = sort_field)
         response = screen.get_data(payload = payload)
           
