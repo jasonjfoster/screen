@@ -4,7 +4,7 @@
 \alias{get_data}
 \title{Get Data from the Yahoo Finance API}
 \usage{
-get_data(payload = create_payload())
+get_data(payload = NULL)
 }
 \arguments{
 \item{payload}{list. Payload that contains search criteria created using
