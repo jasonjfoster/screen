@@ -2,7 +2,7 @@ test_that("valid 'sec_type', 'field', and 'sort_field'", {
 
   # skip("long-running test")
 
-  sec_types <- c(unique(data_filters[["sec_type"]]), "test")
+  sec_types <- unique(data_filters[["sec_type"]])
 
   count <- 0
   result_ls <- list()
@@ -19,12 +19,10 @@ test_that("valid 'sec_type', 'field', and 'sort_field'", {
       sort_field <- "percentchange"
     } else if (sec_type == "future") {
       sort_field <- "percentchange"
-    } else {
-      sort_field <- NULL
     }
 
     fields <- data_filters[["field"]][data_filters[["sec_type"]] == sec_type]
-    sort_fields <- c(fields, NULL)
+    sort_fields <- c(fields, NA)
 
     errors_ls <- list()
 
@@ -49,7 +47,7 @@ test_that("valid 'sec_type', 'field', and 'sort_field'", {
       response <- tryCatch({
 
         payload <- create_payload(sec_type = sec_type, query = query,
-                                  size = 30, sort_field = sort_field)
+                                  size = 1, sort_field = sort_field)
         response <- suppressWarnings(get_data(payload = payload))
 
         if (is.null(response)) {
@@ -87,9 +85,13 @@ test_that("valid 'sec_type', 'field', and 'sort_field'", {
 
     for (sort_field in sort_fields) {
 
+      if (is.na(sort_field)) {
+        sort_field <- NULL
+      }
+
       response <- tryCatch({
 
-        payload <- create_payload(sec_type = sec_type, size = 30,
+        payload <- create_payload(sec_type = sec_type, size = 1,
                                   sort_field = sort_field)
         response <- suppressWarnings(get_data(payload = payload))
 

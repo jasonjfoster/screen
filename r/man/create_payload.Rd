@@ -4,7 +4,7 @@
 \alias{create_payload}
 \title{Create a Payload for the Yahoo Finance API}
 \usage{
-create_payload(sec_type = "equity", query = create_query(), size = 25,
+create_payload(sec_type = "equity", query = NULL, size = 25,
   offset = 0, sort_field = NULL, sort_type = NULL,
   top_operator = "and")
 }

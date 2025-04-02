@@ -260,7 +260,7 @@ create_query <- function(filters = list("eq", list("region", "us")),
 ##'
 ##' payload <- create_payload("equity", query)
 ##' @export
-create_payload <- function(sec_type = "equity", query = create_query(),
+create_payload <- function(sec_type = "equity", query = NULL,
                            size = 25, offset = 0,
                            sort_field = NULL, sort_type = NULL,
                            top_operator = "and") {
@@ -368,7 +368,11 @@ get_session <- function() {
 ##'
 ##' data <- get_data(payload)
 ##' @export
-get_data <- function(payload = create_payload()) {
+get_data <- function(payload = NULL) {
+
+  if (is.null(payload)) {
+    payload <- create_payload()
+  }
 
   session <- get_session()
 
