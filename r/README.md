@@ -33,7 +33,7 @@ devtools::install_github("jasonjfoster/screen/r")
 First, load the package and explore the available filter options:
 
 ```r
-library(screen)
+library(screenr)
 
 print(data_filters)
 ```
