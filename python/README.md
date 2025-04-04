@@ -29,9 +29,9 @@ pip install git+https://github.com/jasonjfoster/screen.git@main#subdirectory=pyt
 First, load the package and explore the available filter options:
 
 ```python
-import screen
+import yscreen as ys
 
-print(screen.data_filters)
+print(ys.data_filters)
 ```
 
 To create a query, define filters and use the `create_query` method:
@@ -45,17 +45,17 @@ filters = [
   ["gt", ["dayvolume", 5000000]]
 ]
 
-query = screen.create_query(filters)
+query = ys.create_query(filters)
 ```
 
 Next, specify the security type and create the payload with the `create_payload` method:
 
 ```python
-payload = screen.create_payload("equity", query)
+payload = ys.create_payload("equity", query)
 ```
 
 Finally, retrieve the data using the `get_data` method:
 
 ```python
-data = screen.get_data(payload)
+data = ys.get_data(payload)
 ```
