@@ -4,9 +4,25 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "yscreen"
-version = "0.1.0"
+version = "0.1.0rc1"
 description = "Simple and efficient access to Yahoo Finance's screener functionality for querying and retrieval of financial data."
-authors = [{ name = "Jason Foster", email = "jason.j.foster@gmail.com" }]
+readme = "README.md"
+authors = [{ name = "Jason Foster", email = "jason.j.foster@gmail.com"}]
+license = { text = "MIT" }
+keywords = ["finance", "yahoo", "screener", "data", "equity", "mutual fund", "etf", "index", "future"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Topic :: Office/Business :: Financial",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Operating System :: OS Independent"
+]
 dependencies = [
     "requests >= 2.2.0",
     "pandas >= 1.0.0",
@@ -15,3 +31,9 @@ dependencies = [
 
 [tool.setuptools.package-data]
 "yscreen" = ["data/*.csv"]
+
+[project.urls]
+Homepage = "https://github.com/jasonjfoster/screen"
+Documentation = "https://github.com/jasonjfoster/screen/tree/main/python#readme"
+Source = "https://github.com/jasonjfoster/screen/tree/main/python"
+Issues = "https://github.com/jasonjfoster/screen/issues"

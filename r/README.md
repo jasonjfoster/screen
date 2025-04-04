@@ -21,11 +21,24 @@ The implementation leverages standard HTTP libraries to handle API interactions 
 
 ## Installation
 
-Install the development version from GitHub:
+* Install the released version from CRAN:
+
+```r
+install.packages("screenr")
+```
+
+* Or the development version from GitHub:
 
 ```r
 # install.packages("devtools")
 devtools::install_github("jasonjfoster/screen/r")
+```
+
+* Or the latest version from r-universe:
+
+```r
+r_universe <- "https://jasonjfoster.r-universe.dev"
+install.packages("screenr", repos = r_universe)
 ```
 
 ## Usage

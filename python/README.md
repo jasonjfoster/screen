@@ -18,7 +18,13 @@ The implementation leverages standard HTTP libraries to handle API interactions 
 
 ## Installation
 
-Install the development version from GitHub:
+* Install the released version from PyPI:
+
+```python
+pip install yscreen
+```
+
+* Or the development version from GitHub:
 
 ```python
 pip install git+https://github.com/jasonjfoster/screen.git@main#subdirectory=python
@@ -26,7 +32,7 @@ pip install git+https://github.com/jasonjfoster/screen.git@main#subdirectory=pyt
 
 ## Usage
 
-First, load the package and explore the available filter options:
+First, import the package and explore the available filter options:
 
 ```python
 import yscreen as ys
