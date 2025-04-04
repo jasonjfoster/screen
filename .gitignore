@@ -2,6 +2,7 @@
 r/.Rhistory
 r/.RData
 r/.Ruserdata
+python/dist/
 python/*.egg-info/
 python/requirements.txt
 python/source.ipynb
