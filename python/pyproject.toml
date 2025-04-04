@@ -14,4 +14,4 @@ dependencies = [
 ]
 
 [tool.setuptools.package-data]
-"screen" = ["data/*.csv"]
+"yscreen" = ["data/*.csv"]
