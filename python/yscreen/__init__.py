@@ -1,5 +1,7 @@
 from .screen import Data, Check, Process, Query, Payload, Session
 
+__version__ = "0.1"
+
 data_filters = Data.filters
 data_categoryname = Data.categoryname
 data_exchange = Data.exchange

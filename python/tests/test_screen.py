@@ -1,13 +1,13 @@
 # import pytest
 import time
 import pandas as pd
-import screen
+import yscreen as ys
 
 # @pytest.mark.skip(reason = "long-running test")
 
 def test_that(): # valid 'sec_type', 'field', and 'sort_field'
 
-  sec_types = screen.data_filters["sec_type"].unique()
+  sec_types = ys.data_filters["sec_type"].unique()
   
   count = 0
   result_ls = []
@@ -25,7 +25,7 @@ def test_that(): # valid 'sec_type', 'field', and 'sort_field'
     elif sec_type == "future":
       sort_field = "percentchange"
 
-    fields = screen.data_filters.loc[screen.data_filters["sec_type"] == sec_type, "field"]
+    fields = ys.data_filters.loc[ys.data_filters["sec_type"] == sec_type, "field"]
     sort_fields = list(fields)
     sort_fields.append(None)
 
@@ -33,7 +33,7 @@ def test_that(): # valid 'sec_type', 'field', and 'sort_field'
 
     for field in fields:
         
-      type_value = screen.data_filters.loc[(screen.data_filters["sec_type"] == sec_type) & (screen.data_filters["field"] == field), "python"].values[0] 
+      type_value = ys.data_filters.loc[(ys.data_filters["sec_type"] == sec_type) & (ys.data_filters["field"] == field), "python"].values[0] 
       
       if type_value == "str":
         test_value = "test"
@@ -46,13 +46,13 @@ def test_that(): # valid 'sec_type', 'field', and 'sort_field'
 
       filters = ["eq", [field, test_value]]
       
-      query = screen.create_query(filters)
+      query = ys.create_query(filters)
       
       try:
           
-        payload = screen.create_payload(sec_type = sec_type, query = query,
-                                        size = 1, sort_field = sort_field)
-        response = screen.get_data(payload = payload)
+        payload = ys.create_payload(sec_type = sec_type, query = query,
+                                    size = 1, sort_field = sort_field)
+        response = ys.get_data(payload = payload)
         
         if (response is None):
           response = "success"
@@ -79,9 +79,9 @@ def test_that(): # valid 'sec_type', 'field', and 'sort_field'
           
       try:
           
-        payload = screen.create_payload(sec_type = sec_type, size = 1,
-                                          sort_field = sort_field)
-        response = screen.get_data(payload = payload)
+        payload = ys.create_payload(sec_type = sec_type, size = 1,
+                                    sort_field = sort_field)
+        response = ys.get_data(payload = payload)
           
         if (response is None):
           response = "success"
@@ -109,4 +109,4 @@ def test_that(): # valid 'sec_type', 'field', and 'sort_field'
 
   result_df = pd.DataFrame(result_ls)
 
-  pd.testing.assert_frame_equal(result_df, screen.data_errors)
+  pd.testing.assert_frame_equal(result_df, ys.data_errors)

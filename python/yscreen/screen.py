@@ -35,7 +35,7 @@ class Data:
     """
 
     if cls._filters is None:
-      data_path = pkg_resources.files("screen") / "data" / "filters.csv"
+      data_path = pkg_resources.files("yscreen") / "data" / "filters.csv"
       cls._filters = pd.read_csv(data_path)
 
     return cls._filters
@@ -52,7 +52,7 @@ class Data:
     """
 
     if cls._categoryname is None:
-      data_path = pkg_resources.files("screen") / "data" / "categoryname.csv"
+      data_path = pkg_resources.files("yscreen") / "data" / "categoryname.csv"
       cls._categoryname = pd.read_csv(data_path)
 
     return cls._categoryname
@@ -69,7 +69,7 @@ class Data:
     """
 
     if cls._exchange is None:
-      data_path = pkg_resources.files("screen") / "data" / "exchange.csv"
+      data_path = pkg_resources.files("yscreen") / "data" / "exchange.csv"
       cls._exchange = pd.read_csv(data_path)
 
     return cls._exchange
@@ -86,7 +86,7 @@ class Data:
     """
 
     if cls._fundfamilyname is None:
-      data_path = pkg_resources.files("screen") / "data" / "fundfamilyname.csv"
+      data_path = pkg_resources.files("yscreen") / "data" / "fundfamilyname.csv"
       cls._fundfamilyname = pd.read_csv(data_path)
 
     return cls._fundfamilyname
@@ -103,7 +103,7 @@ class Data:
     """
 
     if cls._industry is None:
-      data_path = pkg_resources.files("screen") / "data" / "industry.csv"
+      data_path = pkg_resources.files("yscreen") / "data" / "industry.csv"
       cls._industry = pd.read_csv(data_path)
 
     return cls._industry
@@ -120,7 +120,7 @@ class Data:
     """
 
     if cls._peer_group is None:
-      data_path = pkg_resources.files("screen") / "data" / "peer_group.csv"
+      data_path = pkg_resources.files("yscreen") / "data" / "peer_group.csv"
       cls._peer_group = pd.read_csv(data_path)
 
     return cls._peer_group
@@ -137,7 +137,7 @@ class Data:
     """
 
     if cls._region is None:
-      data_path = pkg_resources.files("screen") / "data" / "region.csv"
+      data_path = pkg_resources.files("yscreen") / "data" / "region.csv"
       cls._region = pd.read_csv(data_path)
 
     return cls._region
@@ -154,7 +154,7 @@ class Data:
     """
 
     if cls._sector is None:
-      data_path = pkg_resources.files("screen") / "data" / "sector.csv"
+      data_path = pkg_resources.files("yscreen") / "data" / "sector.csv"
       cls._sector = pd.read_csv(data_path)
 
     return cls._sector
@@ -171,7 +171,7 @@ class Data:
     """
 
     if cls._errors is None:
-      data_path = pkg_resources.files("screen") / "data" / "errors.csv"
+      data_path = pkg_resources.files("yscreen") / "data" / "errors.csv"
       cls._errors = pd.read_csv(data_path)
       cls._errors = cls._errors.where(pd.notna(cls._errors), None)
 
@@ -324,7 +324,7 @@ class Query:
         ["gt", ["dayvolume", 5000000]]
       ]
       
-      query = screen.create_query(filters)
+      query = ys.create_query(filters)
     """
 
     result_ls = Process.filters(filters)
@@ -351,7 +351,7 @@ class Payload:
       sec_type (str): type of security to search
         (i.e., "equity", "mutualfund", "etf", "index", "future").
       query (list or tuple): structured query to filter results created by
-        the `Query.create` method.
+        the `create_query` method.
       size (int): number of results to return.
       offset (int): starting position of the results.
       sort_field (str): field to sort the results.
@@ -372,9 +372,9 @@ class Payload:
         ["gt", ["dayvolume", 5000000]]
       ]
     
-      query = screen.create_query(filters)
+      query = ys.create_query(filters)
       
-      payload = screen.create_payload("equity", query)
+      payload = ys.create_payload("equity", query)
     """
     
     Check.sec_type(sec_type)
@@ -463,7 +463,7 @@ def get(payload = None):
 
   Parameters:
     payload (dict): payload that contains search criteria using
-      the `Query.create` and `Payload.create` methods.
+      the `create_query` and `create_payload` methods.
 
   Returns:
     A data frame that contains data from the Yahoo Finance API for the
@@ -478,11 +478,11 @@ def get(payload = None):
       ["gt", ["dayvolume", 5000000]]
     ]
 
-    query = screen.create_query(filters)
+    query = ys.create_query(filters)
 
-    payload = screen.create_payload("equity", query)
+    payload = ys.create_payload("equity", query)
 
-    data = screen.get_data(payload)
+    data = ys.get_data(payload)
   """
   
   if payload is None:
