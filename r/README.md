@@ -1,13 +1,13 @@
 # screen
 
 [![](https://github.com/jasonjfoster/screen/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/jasonjfoster/screen/actions/workflows/check-standard.yaml)
-[![](https://www.r-pkg.org/badges/version/screenr)](https://cran.r-project.org/package=screenr)
+# [![](https://www.r-pkg.org/badges/version/screenr)](https://cran.r-project.org/package=screenr)
 [![](https://codecov.io/gh/jasonjfoster/screen/graph/badge.svg)](https://app.codecov.io/github/jasonjfoster/screen)
-[![](https://cranlogs.r-pkg.org/badges/screenr?color=brightgreen)](https://www.r-pkg.org/pkg/screenr)
+# [![](https://cranlogs.r-pkg.org/badges/screenr?color=brightgreen)](https://www.r-pkg.org/pkg/screenr)
 
 ## Overview
 
-`screenr` is a package that provides simple and efficient access to Yahoo Finance's screener functionality for querying and retrieval of financial data.
+`yscreen` is a package that provides simple and efficient access to Yahoo Finance's screener functionality for querying and retrieval of financial data.
 
 The core functionality of the screen package abstracts the complexities of interacting with Yahoo Finance APIs, such as session management, crumb and cookie handling, query construction, pagination, and JSON payload generation. This abstraction allows users to focus on filtering and retrieving data rather than managing API details. Use cases include screening across a range of asset classes:
 

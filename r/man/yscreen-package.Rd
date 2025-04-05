@@ -1,16 +1,16 @@
-\name{screenr-package}
-\alias{screenr-package}
-\alias{screenr}
+\name{yscreen-package}
+\alias{yscreen-package}
+\alias{yscreen}
 \docType{package}
 \title{
-  \packageTitle{screenr}
+  \packageTitle{yscreen}
 }
 \description{
-  \packageDescription{screenr}
+  \packageDescription{yscreen}
 }
 \details{
 
-  \code{screenr} is a package that provides simple and efficient access to Yahoo Finance's screener functionality for querying and retrieval of financial data.
+  \code{yscreen} is a package that provides simple and efficient access to Yahoo Finance's screener functionality for querying and retrieval of financial data.
 
   The core functionality of the screen package abstracts the complexities of interacting with Yahoo Finance APIs, such as session management, crumb and cookie handling, query construction, pagination, and JSON payload generation. This abstraction allows users to focus on filtering and retrieving data rather than managing API details. Use cases include screening across a range of asset classes:
 
@@ -25,5 +25,5 @@
   The implementation leverages standard HTTP libraries to handle API interactions efficiently and provides support for both R and Python to ensure accessibility for a broad audience.
 }
 \author{
-  \packageAuthor{screenr}
+  \packageAuthor{yscreen}
 }

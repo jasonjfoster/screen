@@ -1,4 +1,4 @@
 library(testthat)
-library(screenr)
+library(yscreen)
 
-test_check("screenr")
+test_check("yscreen")
