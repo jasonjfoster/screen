@@ -5,9 +5,9 @@
 
 ## Overview
 
-`yscreen` is a package that provides simple and efficient access to Yahoo Finance's screener functionality for querying and retrieval of financial data.
+`yfscreen` is a package that provides simple and efficient access to Yahoo Finance's screener functionality for querying and retrieval of financial data.
 
-The core functionality of the screen package abstracts the complexities of interacting with Yahoo Finance APIs, such as session management, crumb and cookie handling, query construction, pagination, and JSON payload generation. This abstraction allows users to focus on filtering and retrieving data rather than managing API details. Use cases include screening across a range of asset classes:
+The core functionality of the `yfscreen` package abstracts the complexities of interacting with Yahoo Finance APIs, such as session management, crumb and cookie handling, query construction, pagination, and JSON payload generation. This abstraction allows users to focus on filtering and retrieving data rather than managing API details. Use cases include screening across a range of asset classes:
 
 * **Equities**: coverage spans 50 regions to enable the identification of top-performing stocks based on specified criteria
 * **Mutual funds**: funds can be screened using metrics such as historical performance, performance ratings, and other factors
@@ -24,7 +24,7 @@ The implementation leverages standard HTTP libraries to handle API interactions 
 * Install the released version from CRAN:
 
 ```r
-install.packages("screenr")
+install.packages("yfscreen")
 ```
 
 * Or the development version from GitHub:
@@ -38,7 +38,7 @@ devtools::install_github("jasonjfoster/screen/r")
 
 ```r
 r_universe <- "https://jasonjfoster.r-universe.dev"
-install.packages("screenr", repos = r_universe)
+install.packages("screen", repos = r_universe)
 ```
 
 ## Usage
@@ -46,7 +46,7 @@ install.packages("screenr", repos = r_universe)
 First, load the package and explore the available filter options:
 
 ```r
-library(screenr)
+library(yfscreen)
 
 print(data_filters)
 ```

@@ -63,7 +63,7 @@
 
 check_sec_type <- function(sec_type) {
 
-  valid_sec_type <- unique(yscreen::data_filters[["sec_type"]])
+  valid_sec_type <- unique(yfscreen::data_filters[["sec_type"]])
 
   if (!sec_type %in% valid_sec_type) {
     stop("invalid 'sec_type'")
@@ -75,8 +75,8 @@ check_fields <- function(sec_type, query) {
 
   # check_sec_type(sec_type)
 
-  valid_fields <- yscreen::data_filters[["field"]][yscreen::data_filters[["sec_type"]] == sec_type]
-  error_fields <- yscreen::data_errors[["field"]][yscreen::data_errors[["sec_type"]] == sec_type]
+  valid_fields <- yfscreen::data_filters[["field"]][yfscreen::data_filters[["sec_type"]] == sec_type]
+  error_fields <- yfscreen::data_errors[["field"]][yfscreen::data_errors[["sec_type"]] == sec_type]
   valid_fields <- setdiff(valid_fields, error_fields)
 
   fields <- c()
@@ -99,8 +99,8 @@ check_sort_field <- function(sec_type, sort_field) {
 
   # check_sec_type(sec_type)
 
-  valid_sort_fields <- yscreen::data_filters[["field"]][yscreen::data_filters[["sec_type"]] == sec_type]
-  error_sort_fields <- yscreen::data_errors[["sort_field"]][yscreen::data_errors[["sec_type"]] == sec_type]
+  valid_sort_fields <- yfscreen::data_filters[["field"]][yfscreen::data_filters[["sec_type"]] == sec_type]
+  error_sort_fields <- yfscreen::data_errors[["sort_field"]][yfscreen::data_errors[["sec_type"]] == sec_type]
   valid_sort_fields <- setdiff(valid_sort_fields, error_sort_fields)
 
   if (!sort_field %in% valid_sort_fields) {

@@ -1,12 +1,12 @@
-\name{yscreen-package}
-\alias{yscreen-package}
-\alias{yscreen}
+\name{yfscreen-package}
+\alias{yfscreen-package}
+\alias{yfscreen}
 \docType{package}
 \title{
-  \packageTitle{yscreen}
+  \packageTitle{yfscreen}
 }
 \description{
-  \packageDescription{yscreen}
+  \packageDescription{yfscreen}
 }
 \details{
 
@@ -25,5 +25,5 @@
   The implementation leverages standard HTTP libraries to handle API interactions efficiently and provides support for both R and Python to ensure accessibility for a broad audience.
 }
 \author{
-  \packageAuthor{yscreen}
+  \packageAuthor{yfscreen}
 }
