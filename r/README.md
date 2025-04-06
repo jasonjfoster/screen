@@ -34,13 +34,6 @@ install.packages("yfscreen")
 devtools::install_github("jasonjfoster/screen/r")
 ```
 
-* Or the latest version from r-universe:
-
-```r
-r_universe <- "https://jasonjfoster.r-universe.dev"
-install.packages("screen", repos = r_universe)
-```
-
 ## Usage
 
 First, load the package and explore the available filter options:
