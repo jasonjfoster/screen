@@ -2,9 +2,9 @@
 
 ## Overview
 
-`yscreen` is a package that provides simple and efficient access to Yahoo Finance's screener functionality for querying and retrieval of financial data.
+`yfscreen` is a package that provides simple and efficient access to Yahoo Finance's screener functionality for querying and retrieval of financial data.
 
-The core functionality of the `yscreen` package abstracts the complexities of interacting with Yahoo Finance APIs, such as session management, crumb and cookie handling, query construction, and JSON payload generation. This abstraction allows users to focus on filtering and retrieving data rather than managing API details. Use cases include screening across a range of asset classes:
+The core functionality of the `yfscreen` package abstracts the complexities of interacting with Yahoo Finance APIs, such as session management, crumb and cookie handling, query construction, and JSON payload generation. This abstraction allows users to focus on filtering and retrieving data rather than managing API details. Use cases include screening across a range of asset classes:
 
 * **Equities**: coverage spans 50 regions to enable the identification of top-performing stocks based on specified criteria
 * **Mutual funds**: funds can be screened using metrics such as historical performance, performance ratings, and other factors
@@ -21,7 +21,7 @@ The implementation leverages standard HTTP libraries to handle API interactions 
 * Install the released version from PyPI:
 
 ```python
-pip install yscreen
+pip install yfscreen
 ```
 
 * Or the development version from GitHub:
@@ -35,9 +35,9 @@ pip install git+https://github.com/jasonjfoster/screen.git@main#subdirectory=pyt
 First, import the package and explore the available filter options:
 
 ```python
-import yscreen as ys
+import yfscreen as yfs
 
-print(ys.data_filters)
+print(yfs.data_filters)
 ```
 
 To create a query, define filters and use the `create_query` method:
@@ -51,17 +51,17 @@ filters = [
   ["gt", ["dayvolume", 5000000]]
 ]
 
-query = ys.create_query(filters)
+query = yfs.create_query(filters)
 ```
 
 Next, specify the security type and create the payload with the `create_payload` method:
 
 ```python
-payload = ys.create_payload("equity", query)
+payload = yfs.create_payload("equity", query)
 ```
 
 Finally, retrieve the data using the `get_data` method:
 
 ```python
-data = ys.get_data(payload)
+data = yfs.get_data(payload)
 ```

@@ -3,7 +3,7 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "yscreen"
+name = "yfscreen"
 version = "0.1.0rc1"
 description = "Simple and efficient access to Yahoo Finance's screener functionality for querying and retrieval of financial data."
 readme = "README.md"
@@ -30,7 +30,7 @@ dependencies = [
 ]
 
 [tool.setuptools.package-data]
-"yscreen" = ["data/*.csv"]
+"yfscreen" = ["data/*.csv"]
 
 [project.urls]
 Homepage = "https://github.com/jasonjfoster/screen"

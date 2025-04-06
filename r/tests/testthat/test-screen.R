@@ -1,6 +1,6 @@
 test_that("valid 'sec_type', 'field', and 'sort_field'", {
 
-  skip("long-running test")
+  # skip("long-running test")
 
   sec_types <- unique(data_filters[["sec_type"]])
 

@@ -35,7 +35,7 @@ class Data:
     """
 
     if cls._filters is None:
-      data_path = pkg_resources.files("yscreen") / "data" / "filters.csv"
+      data_path = pkg_resources.files("yfscreen") / "data" / "filters.csv"
       cls._filters = pd.read_csv(data_path)
 
     return cls._filters
@@ -52,7 +52,7 @@ class Data:
     """
 
     if cls._categoryname is None:
-      data_path = pkg_resources.files("yscreen") / "data" / "categoryname.csv"
+      data_path = pkg_resources.files("yfscreen") / "data" / "categoryname.csv"
       cls._categoryname = pd.read_csv(data_path)
 
     return cls._categoryname
@@ -69,7 +69,7 @@ class Data:
     """
 
     if cls._exchange is None:
-      data_path = pkg_resources.files("yscreen") / "data" / "exchange.csv"
+      data_path = pkg_resources.files("yfscreen") / "data" / "exchange.csv"
       cls._exchange = pd.read_csv(data_path)
 
     return cls._exchange
@@ -86,7 +86,7 @@ class Data:
     """
 
     if cls._fundfamilyname is None:
-      data_path = pkg_resources.files("yscreen") / "data" / "fundfamilyname.csv"
+      data_path = pkg_resources.files("yfscreen") / "data" / "fundfamilyname.csv"
       cls._fundfamilyname = pd.read_csv(data_path)
 
     return cls._fundfamilyname
@@ -103,7 +103,7 @@ class Data:
     """
 
     if cls._industry is None:
-      data_path = pkg_resources.files("yscreen") / "data" / "industry.csv"
+      data_path = pkg_resources.files("yfscreen") / "data" / "industry.csv"
       cls._industry = pd.read_csv(data_path)
 
     return cls._industry
@@ -120,7 +120,7 @@ class Data:
     """
 
     if cls._peer_group is None:
-      data_path = pkg_resources.files("yscreen") / "data" / "peer_group.csv"
+      data_path = pkg_resources.files("yfscreen") / "data" / "peer_group.csv"
       cls._peer_group = pd.read_csv(data_path)
 
     return cls._peer_group
@@ -137,7 +137,7 @@ class Data:
     """
 
     if cls._region is None:
-      data_path = pkg_resources.files("yscreen") / "data" / "region.csv"
+      data_path = pkg_resources.files("yfscreen") / "data" / "region.csv"
       cls._region = pd.read_csv(data_path)
 
     return cls._region
@@ -154,7 +154,7 @@ class Data:
     """
 
     if cls._sector is None:
-      data_path = pkg_resources.files("yscreen") / "data" / "sector.csv"
+      data_path = pkg_resources.files("yfscreen") / "data" / "sector.csv"
       cls._sector = pd.read_csv(data_path)
 
     return cls._sector
@@ -171,7 +171,7 @@ class Data:
     """
 
     if cls._errors is None:
-      data_path = pkg_resources.files("yscreen") / "data" / "errors.csv"
+      data_path = pkg_resources.files("yfscreen") / "data" / "errors.csv"
       cls._errors = pd.read_csv(data_path)
       cls._errors = cls._errors.where(pd.notna(cls._errors), None)
 
