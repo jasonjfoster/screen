@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "yfscreen"
-version = "0.1.0rc1"
+version = "0.1.0a1"
 description = "Simple and efficient access to Yahoo Finance's screener functionality for querying and retrieval of financial data."
 readme = "README.md"
 authors = [{ name = "Jason Foster", email = "jason.j.foster@gmail.com"}]

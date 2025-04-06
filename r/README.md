@@ -1,7 +1,9 @@
 # screen
 
 [![](https://github.com/jasonjfoster/screen/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/jasonjfoster/screen/actions/workflows/check-standard.yaml)
+[![](https://www.r-pkg.org/badges/version/yfscreen)](https://cran.r-project.org/package=yfscreen)
 [![](https://codecov.io/gh/jasonjfoster/screen/graph/badge.svg)](https://app.codecov.io/github/jasonjfoster/screen)
+[![](https://cranlogs.r-pkg.org/badges/yfscreen?color=brightgreen)](https://www.r-pkg.org/pkg/yfscreen)
 
 ## Overview
 
