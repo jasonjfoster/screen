@@ -4,12 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "yfscreen"
-version = "0.1.0a1"
-description = "Simple and efficient access to Yahoo Finance's screener functionality for querying and retrieval of financial data."
+version = "0.1.1"
+description = "Simple and efficient access to Yahoo Finance's 'screener' API for querying and retrieval of financial data."
 readme = "README.md"
 authors = [{ name = "Jason Foster", email = "jason.j.foster@gmail.com"}]
 license = { text = "MIT" }
-keywords = ["finance", "yahoo", "screener", "data", "equity", "mutual fund", "etf", "index", "future"]
+keywords = ["finance", "yahoo", "screener", "data", "equities", "mutual funds", "etfs", "indices", "futures"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",

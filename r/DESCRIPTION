@@ -2,6 +2,7 @@ Package: yfscreen
 Type: Package
 Title: Yahoo Finance 'screener' API
 Version: 0.1.1
+Date: YYYY-MM-DD
 Authors@R: person(given = "Jason",
                   family = "Foster",
                   role = c("aut", "cre"),
