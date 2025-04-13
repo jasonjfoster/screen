@@ -2,7 +2,7 @@
 
 ## Overview
 
-`yfscreen` is a package that provides simple and efficient access to Yahoo Finance's `screener` API ([\underline{https://finance.yahoo.com/research-hub/screener/}](https://finance.yahoo.com/research-hub/screener/)) for querying and retrieval of financial data.
+`yfscreen` is a package that provides simple and efficient access to Yahoo Finance's `screener` API ([https://finance.yahoo.com/research-hub/screener/](https://finance.yahoo.com/research-hub/screener/)) for querying and retrieval of financial data.
 
 The core functionality of the `yfscreen` package abstracts the complexities of interacting with Yahoo Finance APIs, such as session management, crumb and cookie handling, query construction, and JSON payload generation. This abstraction allows users to focus on filtering and retrieving data rather than managing API details. Use cases include screening across a range of security types:
 
