@@ -1,0 +1,1 @@
+-e .  # install package in editable mode
