@@ -1,5 +1,8 @@
 # screen
 
+[![PyPI version](https://badge.fury.io/py/yfscreen.svg)](https://pypi.org/project/yfscreen/)
+[![Downloads](https://static.pepy.tech/personalized-badge/yfscreen?period=month&left_color=gray&right_color=brightgreen&left_text=downloads)](https://pepy.tech/project/yfscreen)
+
 ## Overview
 
 `yfscreen` is a package that provides simple and efficient access to Yahoo Finance's `screener` API ([https://finance.yahoo.com/research-hub/screener/](https://finance.yahoo.com/research-hub/screener/)) for querying and retrieval of financial data.
