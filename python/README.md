@@ -1,8 +1,8 @@
 # screen
 
-[![PyPI version](https://badge.fury.io/py/yfscreen.svg)](https://pypi.org/project/yfscreen/)
+[![PyPI version](https://img.shields.io/pypi/v/yfscreen?label=PyPI&color=brightgreen)](https://pypi.org/project/yfscreen/)
 [![codecov](https://codecov.io/gh/jasonjfoster/screen/branch/main/graph/badge.svg)](https://app.codecov.io/gh/jasonjfoster/screen)
-[![Downloads](https://static.pepy.tech/personalized-badge/yfscreen?period=month&left_color=gray&right_color=brightgreen)](https://pepy.tech/project/yfscreen)
+[![Downloads](https://img.shields.io/pypi/dm/yfscreen?color=brightgreen)](https://pypistats.org/packages/yfscreen)
 
 ## Overview
 
