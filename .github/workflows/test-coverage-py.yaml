@@ -1,0 +1,58 @@
+# GitHub Actions workflow to run Python tests and upload coverage to Codecov
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+name: test-coverage-python
+
+permissions: read-all
+
+jobs:
+  test-coverage:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./python  # mirrors R's working-directory
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install coverage pytest codecov
+
+      - name: Run tests and collect coverage
+        run: |
+          coverage run -m pytest
+          coverage xml -o coverage.xml
+          coverage report
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          fail_ci_if_error: ${{ github.event_name != 'pull_request' || secrets.CODECOV_TOKEN }}
+          files: ./python/coverage.xml
+          flags: python
+          name: python-coverage
+          disable_search: true
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Show test output
+        if: always()
+        run: cat .pytest_cache/v/cache/lastfailed || true
+
+      - name: Upload test results (if failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-test-failures-python
+          path: ./python/.pytest_cache
