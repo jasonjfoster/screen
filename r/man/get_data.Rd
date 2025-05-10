@@ -30,5 +30,7 @@ query <- create_query(filters)
 
 payload <- create_payload("equity", query)
 
+\dontrun{
 data <- get_data(payload)
+}
 }

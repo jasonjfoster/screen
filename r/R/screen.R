@@ -366,7 +366,9 @@ get_session <- function() {
 ##'
 ##' payload <- create_payload("equity", query)
 ##'
+##' \dontrun{
 ##' data <- get_data(payload)
+##' }
 ##' @export
 get_data <- function(payload = NULL) {
 
