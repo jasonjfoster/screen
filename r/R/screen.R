@@ -418,10 +418,16 @@ get_data <- function(payload = NULL) {
     curl::handle_setopt(handle, postfields = json_payload)
     curl::handle_setheaders(handle, .list = headers)
 
-    response <- curl::curl(api_url, handle = handle)
+    result_df <- tryCatch({
 
-    result <- jsonlite::fromJSON(response)
-    result_df <- result[["finance"]][["result"]][["quotes"]][[1]]
+      response <- curl::curl(api_url, handle = handle)
+
+      result <- jsonlite::fromJSON(response)
+      result[["finance"]][["result"]][["quotes"]][[1]]
+
+    }, error = function(e) {
+      return(data.frame())
+    })
 
     if (length(result_df) > 0) {
 
