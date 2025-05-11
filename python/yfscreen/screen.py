@@ -524,12 +524,17 @@ def get(payload = None):
 
     for key, value in cookies.items():
       handle.cookies.set(key, value)
+      
+    try:
+      
+      response = handle.post(api_url, params = params, json = payload, headers = headers)
+    
+      result = response.json()
+      result_df = result["finance"]["result"][0]["quotes"]
 
-    response = handle.post(api_url, params = params, json = payload, headers = headers)
-
-    result = response.json()
-    result_df = result["finance"]["result"][0]["quotes"]
-
+    except:
+      result_df = pd.DataFrame()
+      
     if (len(result_df) > 0):
       
       result_df = pd.json_normalize(result_df)

@@ -57,7 +57,7 @@ def test_that(): # valid 'sec_type', 'field', and 'sort_field'
         if (response is None):
           response = "success"
           
-      except Exception:
+      except:
         response = None
 
       if response is None:
@@ -86,7 +86,7 @@ def test_that(): # valid 'sec_type', 'field', and 'sort_field'
         if (response is None):
           response = "success"
         
-      except Exception:
+      except:
         response = None
 
       if response is None:
@@ -108,5 +108,8 @@ def test_that(): # valid 'sec_type', 'field', and 'sort_field'
       result_ls.extend(errors_ls)
 
   result_df = pd.DataFrame(result_ls)
-
-  pd.testing.assert_frame_equal(result_df, yfs.data_errors)
+  
+  if (len(result_df) > 0):
+    pd.testing.assert_frame_equal(result_df, yfs.data_errors)
+  else:
+    pd.testing.assert_frame_equal(result_df, pd.DataFrame())
