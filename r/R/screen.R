@@ -192,6 +192,31 @@ process_cols <- function(df) {
 
 }
 
+with_envvar <- function(new_env, code) {
+  old_env <- list()
+  env_names <- names(new_env)
+
+  for (i in 1:length(env_names)) {
+    name <- env_names[i]
+    old_env[[name]] <- Sys.getenv(name, unset = NA)
+  }
+
+  on.exit({
+    for (i in 1:length(env_names)) {
+      name <- env_names[i]
+      val <- old_env[[name]]
+      if (is.na(val)) {
+        Sys.unsetenv(name)
+      } else {
+        Sys.setenv(name = val)
+      }
+    }
+  }, add = TRUE)
+
+  do.call(Sys.setenv, as.list(new_env))
+  force(code)
+}
+
 ##' Create a Structured Query for the Yahoo Finance API
 ##'
 ##' A function to create a structured query with logical operations and nested conditions
@@ -329,7 +354,10 @@ get_session <- function() {
 
   curl::handle_setheaders(handle, .list = headers)
 
-  response <- curl::curl_fetch_memory(api_url, handle = handle)
+  response <- with_envvar(c(CURL_SSL_BACKEND = "openssl"), {
+    curl::curl_fetch_memory(api_url, handle = handle)
+  })
+
   crumb <- rawToChar(response$content)
 
   cookies <- curl::handle_cookies(handle)
