@@ -139,10 +139,10 @@ test_that("valid 'sec_type', 'field', and 'sort_field'", {
 
   result_df <- do.call(rbind, result_ls)
 
-  if (length(result_df) > 0) {
+  # if (length(result_df) > 0) {
     expect_equal(result_df, data_errors)
-  } else {
-    expect_equal(result_df, data.frame())
-  }
+  # } else {
+  #   expect_equal(result_df, data.frame())
+  # }
 
 })
