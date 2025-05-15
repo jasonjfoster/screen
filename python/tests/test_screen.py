@@ -109,7 +109,7 @@ def test_that(): # valid 'sec_type', 'field', and 'sort_field'
 
   result_df = pd.DataFrame(result_ls)
   
-  if (len(result_df) > 0):
-    pd.testing.assert_frame_equal(result_df, yfs.data_errors)
-  else:
-    pd.testing.assert_frame_equal(result_df, pd.DataFrame())
+  # if (len(result_df) > 0):
+  pd.testing.assert_frame_equal(result_df, yfs.data_errors)
+  # else:
+  #   pd.testing.assert_frame_equal(result_df, pd.DataFrame())
