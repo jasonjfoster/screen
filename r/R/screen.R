@@ -361,9 +361,9 @@ get_session <- function() {
 
   curl::handle_setheaders(handle, .list = headers)
 
-  # response <- with_envvar(c(CURL_SSL_BACKEND = "openssl"), {
+  response <- with_envvar(c(CURL_SSL_BACKEND = "openssl"), {
     curl::curl_fetch_memory(api_url, handle = handle)
-  # })
+  })
 
   crumb <- rawToChar(response$content)
 
