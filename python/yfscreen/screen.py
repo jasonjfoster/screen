@@ -1,7 +1,9 @@
+import os
 import time
 import requests
 import pandas as pd
 import importlib.resources as pkg_resources
+import contextlib
 
 class ClassProperty:
   
