@@ -294,6 +294,36 @@ class Process:
   	
     return df
 
+class Env:
+  
+  @staticmethod
+  @contextlib.contextmanager
+  def with_(new_env):
+    
+    old_env = {}
+    
+    try:
+      
+      for name, value in new_env.items():
+        
+        old_env[name] = os.environ.get(name)
+        
+        if value is None:
+          os.environ.pop(name, None)
+        else:
+          os.environ[name] = value
+          
+      yield
+      
+    finally:
+      
+      for name, value in old_env.items():
+        
+        if value is None:
+          os.environ.pop(name, None)
+        else:
+          os.environ[name] = value
+
 class Query:
   
   @staticmethod
@@ -442,7 +472,8 @@ class Session:
     
     session.headers.update(headers)
   
-    response = session.get(api_url)
+    with Env.with_({"CURL_SSL_BACKEND": "openssl"}):
+      response = session.get(api_url)
     
     crumb = response.text.strip()
     cookies = session.cookies.get_dict()

@@ -1,4 +1,4 @@
-from .screen import Data, Check, Process, Query, Payload, Session
+from .screen import Data, Check, Process, Env, Query, Payload, Session
 
 __version__ = "0.1.1"
 
@@ -16,6 +16,7 @@ check_sort_field = Check.sort_field
 process_filters = Process.filters
 # process_url = Process.url
 process_cols = Process.cols
+with_env = Env.with_
 create_query = Query.create
 create_payload = Payload.create
 get_session = Session.get
@@ -26,6 +27,7 @@ __all__ = [
     "data_industry", "data_peer_group", "data_region", "data_sector", "data_errors",
     "Check", "check_sec_type", "check_sort_field",
     "Process", "process_filters", "process_cols", # "process_url"
+    "Env", "with_env",
     "Query", "create_query",
     "Payload", "create_payload",
     "Session", "get_session",

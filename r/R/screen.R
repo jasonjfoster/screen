@@ -192,7 +192,7 @@ process_cols <- function(df) {
 
 }
 
-with_envvar <- function(new_env, code) {
+with_env <- function(new_env, code) {
 
   old_env <- list()
   env_names <- names(new_env)
@@ -361,7 +361,7 @@ get_session <- function() {
 
   curl::handle_setheaders(handle, .list = headers)
 
-  response <- with_envvar(c(CURL_SSL_BACKEND = "openssl"), {
+  response <- with_env(c(CURL_SSL_BACKEND = "openssl"), {
     curl::curl_fetch_memory(api_url, handle = handle)
   })
 
