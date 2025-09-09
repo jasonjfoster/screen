@@ -356,7 +356,7 @@ class Query:
         ["gt", ["dayvolume", 5000000]]
       ]
       
-      query = ys.create_query(filters)
+      query = yfs.create_query(filters)
     """
 
     result_ls = Process.filters(filters)
@@ -404,9 +404,9 @@ class Payload:
         ["gt", ["dayvolume", 5000000]]
       ]
     
-      query = ys.create_query(filters)
+      query = yfs.create_query(filters)
       
-      payload = ys.create_payload("equity", query)
+      payload = yfs.create_payload("equity", query)
     """
     
     Check.sec_type(sec_type)
@@ -460,7 +460,7 @@ class Session:
         - "cookies" (dict): a data frame of cookies for the request.
         
       Examples:
-        session = screen.get_session()
+        session = yfs.get_session()
     """
     
     session = requests.Session()
@@ -511,11 +511,11 @@ def get(payload = None):
       ["gt", ["dayvolume", 5000000]]
     ]
 
-    query = ys.create_query(filters)
+    query = yfs.create_query(filters)
 
-    payload = ys.create_payload("equity", query)
+    payload = yfs.create_payload("equity", query)
 
-    data = ys.get_data(payload)
+    data = yfs.get_data(payload)
   """
   
   if payload is None:
@@ -538,9 +538,12 @@ def get(payload = None):
 
   headers = {
     # "Content-Type": "application/json",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
   }
   
+  for key, value in cookies.items():
+    handle.cookies.set(key, value)
+      
   count = 0
   max_size = 250
   size = payload["size"]
@@ -554,9 +557,6 @@ def get(payload = None):
     chunk_size = min(size, max_size)
     payload["size"] = chunk_size
     payload["offst"] = offset
-
-    for key, value in cookies.items():
-      handle.cookies.set(key, value)
       
     try:
       
