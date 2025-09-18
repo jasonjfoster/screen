@@ -556,7 +556,7 @@ def get(payload = None):
 
     chunk_size = min(size, max_size)
     payload["size"] = chunk_size
-    payload["offst"] = offset
+    payload["offset"] = offset
       
     try:
       
