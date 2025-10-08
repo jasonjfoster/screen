@@ -172,6 +172,7 @@ process_cols <- function(df) {
             }
 
             x[1, cols, drop = FALSE]
+
           }
 
         })
@@ -182,7 +183,7 @@ process_cols <- function(df) {
         df[[col]] <- NULL
 
       } else {
-        df[[col]] <- NA
+        df[[col]] <- NULL
       }
 
     }
