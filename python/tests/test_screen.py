@@ -83,8 +83,8 @@ def test_that(): # valid 'sec_type', 'field', and 'sort_field'
                                     sort_field = sort_field)
         response = yfs.get_data(payload = payload)
           
-        if (response is None):
-          response = "success"
+        # if (response is None):
+        #   response = "success"
         
       except:
         response = None

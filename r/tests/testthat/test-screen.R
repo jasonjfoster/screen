@@ -50,11 +50,11 @@ test_that("valid 'sec_type', 'field', and 'sort_field'", {
                                   size = 1, sort_field = sort_field)
         response <- suppressWarnings(get_data(payload = payload))
 
-        if (is.null(response)) {
-          response <- "success"
-        } else {
-          response
-        }
+        # if (is.null(response)) {
+        #   response <- "success"
+        # } else {
+        response
+        # }
 
       }, error = function(e) {
         NULL
