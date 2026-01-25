@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "yfscreen"
-version = "0.1.1"
-description = "Simple and efficient access to Yahoo Finance's 'screener' API for querying and retrieval of financial data."
+version = "0.1.2"
+description = "Simple and efficient access to Yahoo Finance's 'screener' API <https://finance.yahoo.com/research-hub/screener/> for querying and retrieval of financial data."
 readme = "README.md"
 authors = [{ name = "Jason Foster", email = "jason.j.foster@gmail.com"}]
 license = { text = "MIT" }
