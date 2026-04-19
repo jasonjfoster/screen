@@ -13,5 +13,5 @@ Depends: R (>= 3.5.0)
 Imports: curl, jsonlite
 Suggests: covr, testthat
 LazyData: true
-Roxygen: list(old_usage = TRUE)
-RoxygenNote: 7.3.2
+Config/roxygen2/old_usage: TRUE
+Config/roxygen2/version: 7.3.3.9000
