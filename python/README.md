@@ -1,7 +1,7 @@
 # screen
 
 [![PyPI version](https://img.shields.io/pypi/v/yfscreen?label=PyPI&color=brightgreen)](https://pypi.org/project/yfscreen/)
-[![codecov](https://codecov.io/gh/jasonjfoster/screen/branch/main/graph/badge.svg)](https://app.codecov.io/gh/jasonjfoster/screen)
+[![codecov](https://codecov.io/gh/jasonjfoster/screen/graph/badge.svg)](https://app.codecov.io/github/jasonjfoster/screen)
 [![Downloads](https://img.shields.io/pypi/dm/yfscreen?color=brightgreen)](https://pypistats.org/packages/yfscreen)
 
 ## Overview
