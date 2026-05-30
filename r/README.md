@@ -32,8 +32,8 @@ install.packages("yfscreen")
 * Or the development version from GitHub:
 
 ```r
-# install.packages("devtools")
-devtools::install_github("jasonjfoster/screen/r")
+# install.packages("pak")
+pak::pak("jasonjfoster/screen/r")
 ```
 
 ## Usage
