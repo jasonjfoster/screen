@@ -337,9 +337,9 @@ class Query:
     formatted for the Yahoo Finance API.
     
     Parameters:
-      filters: each element is a sublist that defines a filtering condition with
+      filters (list): each element is a sublist that defines a filtering condition with
         the following structure:
-          - "comparison" (str): comparison operator (i.e. "gt", "lt", "eq", "btwn").
+          - "comparison" (str): comparison operator (i.e., "gt", "lt", "eq", "btwn").
           - "field" (list): field name (e.g., "region") and its associated value(s).
       top_operator (str): top-level logical operator to combine all filters (i.e., "and", "or").
     
@@ -389,8 +389,8 @@ class Payload:
       sort_field (str): field to sort the results.
       sort_type (str): type of sort to apply (i.e., "asc", "desc").
       top_operator (str): logical operator for the top-level of the query
-        (i.e., "and", "or")
-      
+        (i.e., "and", "or").
+
     Returns:
       A dictionary representing the payload to be sent to the Yahoo Finance API
       with the specified parameters.
@@ -458,9 +458,9 @@ class Session:
         - "handle" (requests.Session): a session handle object for subsequent requests.
         - "crumb" (str): a string representing the crumb value for authentication.
         - "cookies" (dict): a data frame of cookies for the request.
-        
-      Examples:
-        session = yfs.get_session()
+
+    Examples:
+      session = yfs.get_session()
     """
     
     session = requests.Session()

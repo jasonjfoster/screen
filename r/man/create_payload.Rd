@@ -24,7 +24,7 @@ the \code{\link{create_query}} function.}
 \item{sort_type}{string. Type of sort to apply (i.e., "asc", "desc").}
 
 \item{top_operator}{string. Logical operator for the top-level of the query
-(i.e., "and", "or")}
+(i.e., "and", "or").}
 }
 \value{
 A list representing the payload to be sent to the Yahoo Finance API

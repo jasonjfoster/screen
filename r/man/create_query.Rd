@@ -12,7 +12,7 @@ create_query(filters = list("eq", list("region", "us")),
 the following structure:
 \describe{
   \item{\code{comparison}}{string. Comparison operator (i.e., "gt", "lt", "eq", "btwn").}
-  \item{\code{field}}{list. Field name (e.g. "region") and its associated value(s).}
+  \item{\code{field}}{list. Field name (e.g., "region") and its associated value(s).}
 }}
 
 \item{top_operator}{string. Top-level logical operator to combine all filters (i.e., "and", "or").}

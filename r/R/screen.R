@@ -234,7 +234,7 @@ with_env <- function(new_env, code) {
 ##' the following structure:
 ##' \describe{
 ##'   \item{\code{comparison}}{string. Comparison operator (i.e., "gt", "lt", "eq", "btwn").}
-##'   \item{\code{field}}{list. Field name (e.g. "region") and its associated value(s).}
+##'   \item{\code{field}}{list. Field name (e.g., "region") and its associated value(s).}
 ##' }
 ##' @param top_operator string. Top-level logical operator to combine all filters (i.e., "and", "or").
 ##' @return A nested list representing the structured query with logical operations and
@@ -277,7 +277,7 @@ create_query <- function(filters = list("eq", list("region", "us")),
 ##' @param sort_field string. Field to sort the results.
 ##' @param sort_type string. Type of sort to apply (i.e., "asc", "desc").
 ##' @param top_operator string. Logical operator for the top-level of the query
-##' (i.e., "and", "or")
+##' (i.e., "and", "or").
 ##' @return A list representing the payload to be sent to the Yahoo Finance API
 ##' with the specified parameters.
 ##' @examples
