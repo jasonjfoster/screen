@@ -3,7 +3,7 @@
 \docType{data}
 \name{data_region}
 \alias{data_region}
-\title{Regions Data for the Yahoo Finance API}
+\title{Region Data for the Yahoo Finance API}
 \format{
 A data frame.
 }
@@ -11,6 +11,6 @@ A data frame.
 data_region
 }
 \description{
-A data frame with the available regions for the Yahoo Finance API.
+A data frame with the available region data for the Yahoo Finance API.
 }
 \keyword{datasets}

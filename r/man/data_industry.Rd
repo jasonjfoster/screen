@@ -11,6 +11,6 @@ A data frame.
 data_industry
 }
 \description{
-A data frame with the available industry name for the Yahoo Finance API.
+A data frame with the available industry data for the Yahoo Finance API.
 }
 \keyword{datasets}

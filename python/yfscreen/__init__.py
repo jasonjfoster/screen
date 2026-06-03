@@ -1,6 +1,6 @@
 from .screen import Data, Check, Process, Env, Query, Payload, Session
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 
 data_filters = Data.filters
 data_categoryname = Data.categoryname

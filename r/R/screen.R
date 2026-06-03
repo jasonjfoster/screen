@@ -28,7 +28,7 @@
 
 ##' Industry Data for the Yahoo Finance API
 ##'
-##' A data frame with the available industry name for the Yahoo Finance API.
+##' A data frame with the available industry data for the Yahoo Finance API.
 ##'
 ##' @format A data frame.
 "data_industry"
@@ -40,9 +40,9 @@
 ##' @format A data frame.
 "data_peer_group"
 
-##' Regions Data for the Yahoo Finance API
+##' Region Data for the Yahoo Finance API
 ##'
-##' A data frame with the available regions for the Yahoo Finance API.
+##' A data frame with the available region data for the Yahoo Finance API.
 ##'
 ##' @format A data frame.
 "data_region"

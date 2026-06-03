@@ -45,8 +45,8 @@ class Data:
   @ClassProperty
   def categoryname(cls):
     """
-    Filters Data for the Yahoo Finance API
-    
+    Category Name Data for the Yahoo Finance API
+
     A data frame with the available category name data for the Yahoo Finance API.
     
     Returns:
@@ -215,7 +215,7 @@ class Check:
     valid_sort_fields = valid_sort_fields.difference(error_sort_fields)
 
     if sort_field not in valid_sort_fields:
-      raise ValueError("invalid 'sec_type' for 'sort_field'")
+      raise ValueError("invalid 'sort_field' for 'sec_type'")
 
 class Process:
   
@@ -457,7 +457,7 @@ class Session:
       A dictionary containing the following elements:
         - "handle" (requests.Session): a session handle object for subsequent requests.
         - "crumb" (str): a string representing the crumb value for authentication.
-        - "cookies" (dict): a data frame of cookies for the request.
+        - "cookies" (dict): a dictionary of cookies for the request.
 
     Examples:
       session = yfs.get_session()
