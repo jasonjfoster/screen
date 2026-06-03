@@ -12,7 +12,7 @@
 
   \code{yfscreen} is a package that provides simple and efficient access to Yahoo Finance's screener functionality for querying and retrieving financial data.
 
-  The core functionality of the yfscreen package abstracts the complexities of interacting with Yahoo Finance APIs, such as session management, crumb and cookie handling, query construction, pagination, and JSON payload generation. This abstraction allows users to focus on filtering and retrieving data rather than managing API details. Use cases include screening across a range of asset classes:
+  The core functionality of the \code{yfscreen} package abstracts the complexities of interacting with Yahoo Finance APIs, such as session management, crumb and cookie handling, query construction, pagination, and JSON payload generation. This abstraction allows users to focus on filtering and retrieving data rather than managing API details. Use cases include screening across a range of asset classes:
 
   \itemize{
     \item \strong{Equities}: coverage spans 50 regions to enable the identification of top-performing stocks based on specified criteria
