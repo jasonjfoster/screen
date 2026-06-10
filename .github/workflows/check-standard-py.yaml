@@ -1,4 +1,4 @@
-# Workflow derived from https://github.com/actions/starter-workflows/blob/main/ci/python-package.yml
+# Python version of the usethis-generated check-standard.yaml; derived from https://github.com/actions/starter-workflows/blob/main/ci/python-package.yml
 # Need help debugging build failures? Start at https://docs.github.com/en/actions
 on:
   push:
@@ -17,33 +17,47 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./python # mirrors R's working-directory
+        working-directory: ./python # mirrors R's working-directory: './r'
 
     strategy:
       fail-fast: false
       matrix:
         config:
-          - {os: macos-latest,   python-version: '3.12'}
-          - {os: windows-latest, python-version: '3.12'}
-          # - {os: ubuntu-latest,  python-version: '3.8'}
-          - {os: ubuntu-latest,  python-version: '3.10'}
-          - {os: ubuntu-latest,  python-version: '3.12'}
+          - {os: macos-latest,   python-version: '3.14'}                              # mirrors R 'release'
+          - {os: windows-latest, python-version: '3.14'}                              # mirrors R 'release'
+          - {os: ubuntu-latest,  python-version: '3.x', allow-prereleases: true}      # mirrors R 'devel'
+          - {os: ubuntu-latest,  python-version: '3.14'}                              # mirrors R 'release'
+          - {os: ubuntu-latest,  python-version: '3.13'}                              # mirrors R 'oldrel-1'
 
     env:
-      PIP_NO_INPUT: 1
+      PIP_NO_INPUT: 1 # non-interactive CI (cf. R env: GITHUB_PAT + R_KEEP_PKG_SOURCE)
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.config.python-version }}
+          allow-prereleases: ${{ matrix.config.allow-prereleases || false }}
 
+      # mirrors R's `setup-r-dependencies` (extra-packages: rcmdcheck, needs: check)
       - run: |
           python -m pip install --upgrade pip
           pip install build pytest
           pip install .
 
-      - run: pytest
+      # mirrors R's `check-r-package`: R CMD check
+      - run: pytest --junitxml=pytest-results.xml
 
+      # mirrors R's `check-r-package` upload-snapshots: true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pytest-results-$ {{ matrix.config.os }}-${{ matrix.config.python-version }}
+          path: |
+            **/pytest-results.xml
+            **/__snapshots__/
+          if-no-files-found: ignore
+
+      # mirrors R's `check-r-package` build_args: R CMD build
       - run: python -m build
