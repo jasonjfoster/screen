@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./python # mirrors R's working-directory: './r'
+        working-directory:  ./python # mirrors R's working-directory: './r'
 
     steps:
       - uses: actions/checkout@v4
@@ -29,7 +29,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install .
-          pip install coverage pytest # covr + xml2 equivalent (coverage produces Cobertura XML)
+          pip install coverage pytest  # covr + xml2 equivalent (coverage produces Cobertura XML)
 
       # mirrors R's `Test coverage`: package_coverage() -> print(cov) -> to_cobertura(cov)
       - name: Test coverage
