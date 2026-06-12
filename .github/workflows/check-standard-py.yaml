@@ -17,7 +17,7 @@ jobs:
 
     defaults:
       run:
-        working-directory:  ./python # mirrors R's working-directory: './r'
+        working-directory: ./python  # mirrors R's working-directory: './r'
 
     strategy:
       fail-fast: false

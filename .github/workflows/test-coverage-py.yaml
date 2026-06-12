@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory:  ./python # mirrors R's working-directory: './r'
+        working-directory: ./python  # mirrors R's working-directory: './r'
 
     steps:
       - uses: actions/checkout@v4
