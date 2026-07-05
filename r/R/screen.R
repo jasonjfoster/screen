@@ -1,64 +1,64 @@
-##' Filters Data for the Yahoo Finance API
-##'
-##' A data frame with the available filters data for the Yahoo Finance API.
-##'
-##' @format A data frame.
+#' Filters Data for the Yahoo Finance API
+#'
+#' A data frame with the available filters data for the Yahoo Finance API.
+#'
+#' @format A data frame.
 "data_filters"
 
-##' Category Name Data for the Yahoo Finance API
-##'
-##' A data frame with the available category name data for the Yahoo Finance API.
-##'
-##' @format A data frame.
+#' Category Name Data for the Yahoo Finance API
+#'
+#' A data frame with the available category name data for the Yahoo Finance API.
+#'
+#' @format A data frame.
 "data_categoryname"
 
-##' Exchange Data for the Yahoo Finance API
-##'
-##' A data frame with the available exchange data for the Yahoo Finance API.
-##'
-##' @format A data frame.
+#' Exchange Data for the Yahoo Finance API
+#'
+#' A data frame with the available exchange data for the Yahoo Finance API.
+#'
+#' @format A data frame.
 "data_exchange"
 
-##' Fund Family Name Data for the Yahoo Finance API
-##'
-##' A data frame with the available fund family name data for the Yahoo Finance API.
-##'
-##' @format A data frame.
+#' Fund Family Name Data for the Yahoo Finance API
+#'
+#' A data frame with the available fund family name data for the Yahoo Finance API.
+#'
+#' @format A data frame.
 "data_fundfamilyname"
 
-##' Industry Data for the Yahoo Finance API
-##'
-##' A data frame with the available industry data for the Yahoo Finance API.
-##'
-##' @format A data frame.
+#' Industry Data for the Yahoo Finance API
+#'
+#' A data frame with the available industry data for the Yahoo Finance API.
+#'
+#' @format A data frame.
 "data_industry"
 
-##' Peer Group Data for the Yahoo Finance API
-##'
-##' A data frame with the available peer group data for the Yahoo Finance API.
-##'
-##' @format A data frame.
+#' Peer Group Data for the Yahoo Finance API
+#'
+#' A data frame with the available peer group data for the Yahoo Finance API.
+#'
+#' @format A data frame.
 "data_peer_group"
 
-##' Region Data for the Yahoo Finance API
-##'
-##' A data frame with the available region data for the Yahoo Finance API.
-##'
-##' @format A data frame.
+#' Region Data for the Yahoo Finance API
+#'
+#' A data frame with the available region data for the Yahoo Finance API.
+#'
+#' @format A data frame.
 "data_region"
 
-##' Sector Data for the Yahoo Finance API
-##'
-##' A data frame with the available sector data for the Yahoo Finance API.
-##'
-##' @format A data frame.
+#' Sector Data for the Yahoo Finance API
+#'
+#' A data frame with the available sector data for the Yahoo Finance API.
+#'
+#' @format A data frame.
 "data_sector"
 
-##' Errors Data for the Yahoo Finance API
-##'
-##' A data frame with the available errors data for the Yahoo Finance API.
-##'
-##' @format A data frame.
+#' Errors Data for the Yahoo Finance API
+#'
+#' A data frame with the available errors data for the Yahoo Finance API.
+#'
+#' @format A data frame.
 "data_errors"
 
 check_sec_type <- function(sec_type) {
@@ -225,31 +225,31 @@ with_env <- function(new_env, code) {
 
 }
 
-##' Create a Structured Query for the Yahoo Finance API
-##'
-##' A function to create a structured query with logical operations and nested conditions
-##' formatted for the Yahoo Finance API.
-##'
-##' @param filters list. Each element is a sublist that defines a filtering condition with
-##' the following structure:
-##' \describe{
-##'   \item{\code{comparison}}{string. Comparison operator (i.e., "gt", "lt", "eq", "btwn").}
-##'   \item{\code{field}}{list. Field name (e.g., "region") and its associated value(s).}
-##' }
-##' @param top_operator string. Top-level logical operator to combine all filters (i.e., "and", "or").
-##' @return A nested list representing the structured query with logical operations and
-##' nested conditions formatted for the Yahoo Finance API.
-##' @examples
-##' filters <- list(
-##'   list("eq", list("region", "us")),
-##'   list("btwn", list("intradaymarketcap", 2000000000, 10000000000)),
-##'   list("btwn", list("intradaymarketcap", 10000000000, 100000000000)),
-##'   list("gt", list("intradaymarketcap", 100000000000)),
-##'   list("gt", list("dayvolume", 5000000))
-##' )
-##'
-##' query <- create_query(filters)
-##' @export
+#' Create a Structured Query for the Yahoo Finance API
+#'
+#' A function to create a structured query with logical operations and nested conditions
+#' formatted for the Yahoo Finance API.
+#'
+#' @param filters list. Each element is a sublist that defines a filtering condition with
+#' the following structure:
+#' \describe{
+#'   \item{\code{comparison}}{string. Comparison operator (i.e., "gt", "lt", "eq", "btwn").}
+#'   \item{\code{field}}{list. Field name (e.g., "region") and its associated value(s).}
+#' }
+#' @param top_operator string. Top-level logical operator to combine all filters (i.e., "and", "or").
+#' @return A nested list representing the structured query with logical operations and
+#' nested conditions formatted for the Yahoo Finance API.
+#' @examples
+#' filters <- list(
+#'   list("eq", list("region", "us")),
+#'   list("btwn", list("intradaymarketcap", 2000000000, 10000000000)),
+#'   list("btwn", list("intradaymarketcap", 10000000000, 100000000000)),
+#'   list("gt", list("intradaymarketcap", 100000000000)),
+#'   list("gt", list("dayvolume", 5000000))
+#' )
+#'
+#' query <- create_query(filters)
+#' @export
 create_query <- function(filters = list("eq", list("region", "us")),
                          top_operator = "and") {
 
@@ -264,35 +264,35 @@ create_query <- function(filters = list("eq", list("region", "us")),
 
 }
 
-##' Create a Payload for the Yahoo Finance API
-##'
-##' A function to create a payload to query the Yahoo Finance API with customizable parameters.
-##'
-##' @param sec_type string. Type of security to search
-##' (i.e., "equity", "mutualfund", "etf", "index", "future").
-##' @param query list. Structured query to filter results created by
-##' the \code{\link{create_query}} function.
-##' @param size integer. Number of results to return.
-##' @param offset integer. Starting position of the results.
-##' @param sort_field string. Field to sort the results.
-##' @param sort_type string. Type of sort to apply (i.e., "asc", "desc").
-##' @param top_operator string. Logical operator for the top-level of the query
-##' (i.e., "and", "or").
-##' @return A list representing the payload to be sent to the Yahoo Finance API
-##' with the specified parameters.
-##' @examples
-##' filters <- list(
-##'   list("eq", list("region", "us")),
-##'   list("btwn", list("intradaymarketcap", 2000000000, 10000000000)),
-##'   list("btwn", list("intradaymarketcap", 10000000000, 100000000000)),
-##'   list("gt", list("intradaymarketcap", 100000000000)),
-##'   list("gt", list("dayvolume", 5000000))
-##' )
-##'
-##' query <- create_query(filters)
-##'
-##' payload <- create_payload("equity", query)
-##' @export
+#' Create a Payload for the Yahoo Finance API
+#'
+#' A function to create a payload to query the Yahoo Finance API with customizable parameters.
+#'
+#' @param sec_type string. Type of security to search
+#' (i.e., "equity", "mutualfund", "etf", "index", "future").
+#' @param query list. Structured query to filter results created by
+#' the \code{\link{create_query}} function.
+#' @param size integer. Number of results to return.
+#' @param offset integer. Starting position of the results.
+#' @param sort_field string. Field to sort the results.
+#' @param sort_type string. Type of sort to apply (i.e., "asc", "desc").
+#' @param top_operator string. Logical operator for the top-level of the query
+#' (i.e., "and", "or").
+#' @return A list representing the payload to be sent to the Yahoo Finance API
+#' with the specified parameters.
+#' @examples
+#' filters <- list(
+#'   list("eq", list("region", "us")),
+#'   list("btwn", list("intradaymarketcap", 2000000000, 10000000000)),
+#'   list("btwn", list("intradaymarketcap", 10000000000, 100000000000)),
+#'   list("gt", list("intradaymarketcap", 100000000000)),
+#'   list("gt", list("dayvolume", 5000000))
+#' )
+#'
+#' query <- create_query(filters)
+#'
+#' payload <- create_payload("equity", query)
+#' @export
 create_payload <- function(sec_type = "equity", query = NULL,
                            size = 25, offset = 0,
                            sort_field = NULL, sort_type = NULL,
@@ -337,18 +337,18 @@ create_payload <- function(sec_type = "equity", query = NULL,
 
 }
 
-##' Get the Crumb, Cookies, and Handle for Yahoo Finance API
-##'
-##' A function to get the crumb, cookies, and handle required to authenticate and interact
-##' with the Yahoo Finance API.
-##'
-##' @return A list containing the following elements:
-##' \item{handle}{A curl handle object for subsequent requests.}
-##' \item{crumb}{A string representing the crumb value for authentication.}
-##' \item{cookies}{A data frame of cookies for the request.}
-##' @examples
-##' session <- get_session()
-##' @export
+#' Get the Crumb, Cookies, and Handle for Yahoo Finance API
+#'
+#' A function to get the crumb, cookies, and handle required to authenticate and interact
+#' with the Yahoo Finance API.
+#'
+#' @return A list containing the following elements:
+#' \item{handle}{A curl handle object for subsequent requests.}
+#' \item{crumb}{A string representing the crumb value for authentication.}
+#' \item{cookies}{A data frame of cookies for the request.}
+#' @examples
+#' session <- get_session()
+#' @export
 get_session <- function() {
 
   handle <- curl::new_handle()
@@ -380,32 +380,32 @@ get_session <- function() {
 
 }
 
-##' Get Data from the Yahoo Finance API
-##'
-##' A function to get data from the Yahoo Finance API using the specified payload.
-##'
-##' @param payload list. Payload that contains search criteria created using
-##' the \code{\link{create_query}} and \code{\link{create_payload}} functions.
-##' @return A data frame that contains data from the Yahoo Finance API for the
-##' specified search criteria.
-##'
-##' @examples
-##' filters <- list(
-##'   list("eq", list("region", "us")),
-##'   list("btwn", list("intradaymarketcap", 2000000000, 10000000000)),
-##'   list("btwn", list("intradaymarketcap", 10000000000, 100000000000)),
-##'   list("gt", list("intradaymarketcap", 100000000000)),
-##'   list("gt", list("dayvolume", 5000000))
-##' )
-##'
-##' query <- create_query(filters)
-##'
-##' payload <- create_payload("equity", query)
-##'
-##' \dontrun{
-##' data <- get_data(payload)
-##' }
-##' @export
+#' Get Data from the Yahoo Finance API
+#'
+#' A function to get data from the Yahoo Finance API using the specified payload.
+#'
+#' @param payload list. Payload that contains search criteria created using
+#' the \code{\link{create_query}} and \code{\link{create_payload}} functions.
+#' @return A data frame that contains data from the Yahoo Finance API for the
+#' specified search criteria.
+#'
+#' @examples
+#' filters <- list(
+#'   list("eq", list("region", "us")),
+#'   list("btwn", list("intradaymarketcap", 2000000000, 10000000000)),
+#'   list("btwn", list("intradaymarketcap", 10000000000, 100000000000)),
+#'   list("gt", list("intradaymarketcap", 100000000000)),
+#'   list("gt", list("dayvolume", 5000000))
+#' )
+#'
+#' query <- create_query(filters)
+#'
+#' payload <- create_payload("equity", query)
+#'
+#' \dontrun{
+#' data <- get_data(payload)
+#' }
+#' @export
 get_data <- function(payload = NULL) {
 
   if (is.null(payload)) {
