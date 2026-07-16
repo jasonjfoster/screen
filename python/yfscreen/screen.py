@@ -182,6 +182,60 @@ class Data:
 class Check:
 
   @staticmethod
+  def filters(filters):
+
+    if not isinstance(filters[0], (list, tuple)):
+      filters = [filters]
+
+    valid_filters = (isinstance(filters, (list, tuple)) and len(filters) > 0 and
+      all(isinstance(f, (list, tuple)) and len(f) == 2 and
+        isinstance(f[0], str) and f[0].strip() != "" and
+        isinstance(f[1], (list, tuple)) and len(f[1]) >= 2 and
+        isinstance(f[1][0], str) and f[1][0].strip() != ""
+        for f in filters))
+
+    if not valid_filters:
+      raise ValueError("invalid 'filters'")
+  
+  @staticmethod
+  def size(size):
+
+    valid_size = isinstance(size, int)
+
+    if not valid_size:
+      raise ValueError("invalid 'size'")
+
+    if size < 1:
+      raise ValueError("value of 'size' must be greater than or equal to one")
+
+  @staticmethod
+  def offset(offset):
+
+    valid_offset = isinstance(offset, int)
+
+    if not valid_offset:
+      raise ValueError("invalid 'offset'")
+
+    if offset < 0:
+      raise ValueError("value of 'offset' must be greater than or equal to zero")
+
+  @staticmethod
+  def sort_type(sort_type):
+
+    valid_sort_type = ["asc", "desc"]
+
+    if sort_type is not None and sort_type not in valid_sort_type:
+      raise ValueError("invalid 'sort_type'")
+
+  @staticmethod
+  def top_operator(top_operator):
+
+    valid_top_operator = ["and", "or"]
+
+    if top_operator not in valid_top_operator:
+      raise ValueError("invalid 'top_operator'")
+  
+  @staticmethod
   def sec_type(sec_type):
     
     valid_sec_type = Data.filters["sec_type"].unique()
@@ -222,7 +276,7 @@ class Process:
   @staticmethod
   def filters(filters):
     
-    if isinstance(filters[0], str):
+    if not isinstance(filters[0], (list, tuple)):
       filters = [filters]
     
     result_ls = {}
@@ -359,6 +413,9 @@ class Query:
       query = yfs.create_query(filters)
     """
 
+    Check.filters(filters)
+    Check.top_operator(top_operator)
+
     result_ls = Process.filters(filters)
     result = {"operator": top_operator, "operands": []}
 
@@ -410,7 +467,11 @@ class Payload:
     """
     
     Check.sec_type(sec_type)
-    
+    Check.size(size)
+    Check.offset(offset)
+    Check.sort_type(sort_type)
+    Check.top_operator(top_operator)
+
     if query is None:
       query = Query.create()
     

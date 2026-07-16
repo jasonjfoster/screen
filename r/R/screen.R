@@ -61,6 +61,74 @@
 #' @format A data frame.
 "data_errors"
 
+check_filters <- function(filters) {
+
+  if (!is.list(filters[[1]])) {
+    filters <- list(filters)
+  }
+
+  valid_filters <- is.list(filters) && (length(filters) > 0) &&
+    all(sapply(filters, function(f) {
+      is.list(f) && (length(f) == 2) &&
+        is.character(f[[1]]) && (trimws(f[[1]]) != "") &&
+        is.list(f[[2]]) && (length(f[[2]]) >= 2) &&
+        is.character(f[[2]][[1]]) && (trimws(f[[2]][[1]]) != "")
+    }))
+
+  if (!valid_filters) {
+    stop("invalid 'filters'")
+  }
+
+}
+
+check_size <- function(size) {
+
+  valid_size <- is.numeric(size) && (length(size) == 1) && (size == round(size))
+
+  if (!valid_size) {
+    stop("invalid 'size'")
+  }
+
+  if (size < 1) {
+    stop("value of 'size' must be greater than or equal to one")
+  }
+
+}
+
+check_offset <- function(offset) {
+
+  valid_offset <- is.numeric(offset) && (length(offset) == 1) && (offset == round(offset))
+
+  if (!valid_offset) {
+    stop("invalid 'offset'")
+  }
+
+  if (offset < 0) {
+    stop("value of 'offset' must be greater than or equal to zero")
+  }
+
+}
+
+check_sort_type <- function(sort_type) {
+
+  valid_sort_type <- c("asc", "desc")
+
+  if (!is.null(sort_type) && !sort_type %in% valid_sort_type) {
+    stop("invalid 'sort_type'")
+  }
+
+}
+
+check_top_operator <- function(top_operator) {
+
+  valid_top_operator <- c("and", "or")
+
+  if (!top_operator %in% valid_top_operator) {
+    stop("invalid 'top_operator'")
+  }
+
+}
+
 check_sec_type <- function(sec_type) {
 
   valid_sec_type <- unique(yfscreen::data_filters[["sec_type"]])
@@ -253,6 +321,9 @@ with_env <- function(new_env, code) {
 create_query <- function(filters = list("eq", list("region", "us")),
                          top_operator = "and") {
 
+  check_filters(filters)
+  check_top_operator(top_operator)
+
   result_ls <- process_filters(filters)
   result <- list(operator = top_operator, operands = list())
 
@@ -299,6 +370,10 @@ create_payload <- function(sec_type = "equity", query = NULL,
                            top_operator = "and") {
 
   check_sec_type(sec_type)
+  check_size(size)
+  check_offset(offset)
+  check_sort_type(sort_type)
+  check_top_operator(top_operator)
 
   if (is.null(query)) {
     query <- create_query()
