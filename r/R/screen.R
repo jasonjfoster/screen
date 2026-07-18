@@ -261,6 +261,26 @@ process_cols <- function(df) {
 
 }
 
+process_align <- function(dfs, cols) {
+
+  result_ls <- list()
+
+  for (df in dfs) {
+
+    cols_na <- setdiff(cols, colnames(df))
+
+    for (col_na in cols_na) {
+      df[[col_na]] <- NA
+    }
+
+    result_ls <- append(result_ls, list(df[ , cols]))
+
+  }
+
+  return(result_ls)
+
+}
+
 with_env <- function(new_env, code) {
 
   old_env <- list()
@@ -570,17 +590,7 @@ get_data <- function(payload = NULL) {
     return(data.frame())
   }
 
-  result_ls <- lapply(result_ls, function(x) {
-
-    cols_na <- setdiff(result_cols, colnames(x))
-
-    for (j in cols_na) {
-      x[[j]] <- NA
-    }
-
-    x <- x[ , result_cols]
-
-  })
+  result_ls <- process_align(result_ls, result_cols)
 
   result <- do.call(rbind, result_ls)
 
