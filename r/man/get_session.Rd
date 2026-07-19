@@ -2,7 +2,7 @@
 % Please edit documentation in R/screen.R
 \name{get_session}
 \alias{get_session}
-\title{Get the Crumb, Cookies, and Handle for Yahoo Finance API}
+\title{Get the Crumb, Cookies, and Handle for the Yahoo Finance API}
 \usage{
 get_session()
 }

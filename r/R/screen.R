@@ -432,7 +432,7 @@ create_payload <- function(sec_type = "equity", query = NULL,
 
 }
 
-#' Get the Crumb, Cookies, and Handle for Yahoo Finance API
+#' Get the Crumb, Cookies, and Handle for the Yahoo Finance API
 #'
 #' A function to get the crumb, cookies, and handle required to authenticate and interact
 #' with the Yahoo Finance API.

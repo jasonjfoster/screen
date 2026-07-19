@@ -520,7 +520,7 @@ class Session:
   @staticmethod
   def get():
     """
-    Get the Crumb, Cookies, and Handle for Yahoo Finance API
+    Get the Crumb, Cookies, and Handle for the Yahoo Finance API
 
     A method to get the crumb, cookies, and handle required to authenticate and interact
     with the Yahoo Finance API.
@@ -567,7 +567,7 @@ def get(payload = None):
   A method to get data from the Yahoo Finance API using the specified payload.
 
   Parameters:
-    payload (dict): payload that contains search criteria using
+    payload (dict): payload that contains search criteria created using
       the `create_query` and `create_payload` methods.
 
   Returns:
