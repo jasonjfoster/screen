@@ -431,7 +431,7 @@ class Query:
     result = {"operator": top_operator, "operands": []}
 
     for key, operands in result_ls.items():
-        result["operands"].append({"operator": "or", "operands": operands})
+      result["operands"].append({"operator": "or", "operands": operands})
 
     return result
 
@@ -560,7 +560,7 @@ class Session:
 
     return result
 
-def get(payload = None):
+def get(payload = None, session = None):
   """
   Get Data from the Yahoo Finance API
 
@@ -569,6 +569,8 @@ def get(payload = None):
   Parameters:
     payload (dict): payload that contains search criteria created using
       the `create_query` and `create_payload` methods.
+    session (dict): session created using the `get_session` method. When a
+      session is not provided, a session is created internally.
 
   Returns:
     A data frame that contains data from the Yahoo Finance API for the
@@ -593,7 +595,9 @@ def get(payload = None):
   if payload is None:
     payload = Payload.create()
 
-  session = Session.get()
+  if session is None:
+    session = Session.get()
+
   crumb = session["crumb"]
   cookies = session["cookies"]
   handle = session["handle"]
@@ -660,7 +664,7 @@ def get(payload = None):
       print("pause one second after five requests")
       time.sleep(1)
 
-  if not result_ls:
+  if (len(result_ls) == 0):
     return pd.DataFrame()
 
   result_ls = Process.align(result_ls, result_cols)

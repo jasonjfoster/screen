@@ -4,11 +4,14 @@
 \alias{get_data}
 \title{Get Data from the Yahoo Finance API}
 \usage{
-get_data(payload = NULL)
+get_data(payload = NULL, session = NULL)
 }
 \arguments{
 \item{payload}{list. Payload that contains search criteria created using
 the \code{\link{create_query}} and \code{\link{create_payload}} functions.}
+
+\item{session}{list. Session created using the \code{\link{get_session}}
+function. When a session is not provided, a session is created internally.}
 }
 \value{
 A data frame that contains data from the Yahoo Finance API for the

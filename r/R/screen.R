@@ -481,6 +481,8 @@ get_session <- function() {
 #'
 #' @param payload list. Payload that contains search criteria created using
 #' the \code{\link{create_query}} and \code{\link{create_payload}} functions.
+#' @param session list. Session created using the \code{\link{get_session}}
+#' function. When a session is not provided, a session is created internally.
 #' @return A data frame that contains data from the Yahoo Finance API for the
 #' specified search criteria.
 #'
@@ -501,13 +503,15 @@ get_session <- function() {
 #' data <- get_data(payload)
 #' }
 #' @export
-get_data <- function(payload = NULL) {
+get_data <- function(payload = NULL, session = NULL) {
 
   if (is.null(payload)) {
     payload <- create_payload()
   }
 
-  session <- get_session()
+  if (is.null(session)) {
+    session <- get_session()
+  }
 
   crumb <- session[["crumb"]]
   cookies <- session[["cookies"]]
