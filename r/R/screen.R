@@ -113,7 +113,7 @@ check_sort_type <- function(sort_type) {
 
   valid_sort_type <- c("asc", "desc")
 
-  if (!is.null(sort_type) && !sort_type %in% valid_sort_type) {
+  if (!is.null(sort_type) && (!sort_type %in% valid_sort_type)) {
     stop("invalid 'sort_type'")
   }
 
@@ -150,7 +150,7 @@ check_fields <- function(sec_type, query) {
   fields <- c()
 
   for (operand in query[["operands"]]) {
-    if (is.list(operand[["operands"]]) && length(operand[["operands"]]) > 0) {
+    if (is.list(operand[["operands"]]) && (length(operand[["operands"]]) > 0)) {
       fields <- c(fields, operand[["operands"]][[1]][["operands"]][[1]])
     }
   }

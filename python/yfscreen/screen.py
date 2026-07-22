@@ -187,11 +187,11 @@ class Check:
     if not isinstance(filters[0], (list, tuple)):
       filters = [filters]
 
-    valid_filters = (isinstance(filters, (list, tuple)) and len(filters) > 0 and
-      all(isinstance(f, (list, tuple)) and len(f) == 2 and
-        isinstance(f[0], str) and f[0].strip() != "" and
-        isinstance(f[1], (list, tuple)) and len(f[1]) >= 2 and
-        isinstance(f[1][0], str) and f[1][0].strip() != ""
+    valid_filters = (isinstance(filters, (list, tuple)) and (len(filters) > 0) and
+      all(isinstance(f, (list, tuple)) and (len(f) == 2) and
+        isinstance(f[0], str) and (f[0].strip() != "") and
+        isinstance(f[1], (list, tuple)) and (len(f[1]) >= 2) and
+        isinstance(f[1][0], str) and (f[1][0].strip() != "")
         for f in filters))
 
     if not valid_filters:
@@ -224,7 +224,7 @@ class Check:
 
     valid_sort_type = ["asc", "desc"]
 
-    if sort_type is not None and sort_type not in valid_sort_type:
+    if (sort_type is not None) and (sort_type not in valid_sort_type):
       raise ValueError("invalid 'sort_type'")
 
   @staticmethod
@@ -253,12 +253,12 @@ class Check:
     fields = []
 
     for operand in query["operands"]:
-      if isinstance(operand["operands"], list) and len(operand["operands"]) > 0:
+      if isinstance(operand["operands"], list) and (len(operand["operands"]) > 0):
         fields.append(operand["operands"][0]["operands"][0])
 
     invalid_fields = set(fields).difference(valid_fields)
 
-    if len(invalid_fields) > 0:
+    if (len(invalid_fields) > 0):
       raise ValueError("invalid field(s)")
 
   @staticmethod
@@ -319,7 +319,7 @@ class Process:
 
           for row in df[col]:
 
-            if not row:
+            if (len(row) == 0):
               result_ls.append(row_na)
             else:
 
