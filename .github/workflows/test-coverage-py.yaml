@@ -17,7 +17,7 @@ jobs:
         working-directory: ./python  # mirrors R's working-directory: './r'
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: actions/setup-python@v5
         with:
@@ -55,7 +55,7 @@ jobs:
       # mirrors R's `Upload test results` on failure
       - name: Upload test results
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-test-failures-python
           path: ./python/.pytest_cache

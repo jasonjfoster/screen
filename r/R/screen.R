@@ -141,8 +141,6 @@ check_sec_type <- function(sec_type) {
 
 check_fields <- function(sec_type, query) {
 
-  # check_sec_type(sec_type)
-
   valid_fields <- yfscreen::data_filters[["field"]][yfscreen::data_filters[["sec_type"]] == sec_type]
   error_fields <- yfscreen::data_errors[["field"]][yfscreen::data_errors[["sec_type"]] == sec_type]
   valid_fields <- setdiff(valid_fields, error_fields)
@@ -164,8 +162,6 @@ check_fields <- function(sec_type, query) {
 }
 
 check_sort_field <- function(sec_type, sort_field) {
-
-  # check_sec_type(sec_type)
 
   valid_sort_fields <- yfscreen::data_filters[["field"]][yfscreen::data_filters[["sec_type"]] == sec_type]
   error_sort_fields <- yfscreen::data_errors[["sort_field"]][yfscreen::data_errors[["sec_type"]] == sec_type]
@@ -302,7 +298,7 @@ with_env <- function(new_env, code) {
       if (is.na(val)) {
         Sys.unsetenv(name)
       } else {
-        Sys.setenv(name = val)
+        do.call(Sys.setenv, old_env[name])
       }
 
     }
@@ -526,8 +522,6 @@ get_data <- function(payload = NULL, session = NULL) {
   )
 
   api_url <- paste0("https://query1.finance.yahoo.com/v1/finance/screener", process_url(params))
-
-  json_payload <- jsonlite::toJSON(payload, auto_unbox = TRUE)
 
   headers <- c(
     `Content-Type` = "application/json",

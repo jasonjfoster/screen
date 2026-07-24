@@ -200,23 +200,23 @@ class Check:
   @staticmethod
   def size(size):
 
-    valid_size = isinstance(size, int)
+    valid_size = isinstance(size, int) and not isinstance(size, bool)
 
     if not valid_size:
       raise ValueError("invalid 'size'")
 
-    if size < 1:
+    if (size < 1):
       raise ValueError("value of 'size' must be greater than or equal to one")
 
   @staticmethod
   def offset(offset):
 
-    valid_offset = isinstance(offset, int)
+    valid_offset = isinstance(offset, int) and not isinstance(offset, bool)
 
     if not valid_offset:
       raise ValueError("invalid 'offset'")
 
-    if offset < 0:
+    if (offset < 0):
       raise ValueError("value of 'offset' must be greater than or equal to zero")
 
   @staticmethod
@@ -232,7 +232,7 @@ class Check:
 
     valid_top_operator = ["and", "or"]
 
-    if top_operator not in valid_top_operator:
+    if (top_operator not in valid_top_operator):
       raise ValueError("invalid 'top_operator'")
 
   @staticmethod
@@ -240,7 +240,7 @@ class Check:
 
     valid_sec_type = Data.filters["sec_type"].unique()
 
-    if sec_type not in valid_sec_type:
+    if (sec_type not in valid_sec_type):
       raise ValueError("invalid 'sec_type'")
 
   @staticmethod
@@ -268,7 +268,7 @@ class Check:
     error_sort_fields = set(Data.errors.loc[Data.errors["sec_type"] == sec_type, "sort_field"])
     valid_sort_fields = valid_sort_fields.difference(error_sort_fields)
 
-    if sort_field not in valid_sort_fields:
+    if (sort_field not in valid_sort_fields):
       raise ValueError("invalid 'sort_field' for 'sec_type'")
 
 class Process:
@@ -287,7 +287,7 @@ class Process:
       operands = tuple(filter[1])
       key = operands[0]
 
-      if key not in result_ls:
+      if (key not in result_ls):
         result_ls[key] = []
 
       result_ls[key].append({"operator": operator, "operands": operands})
@@ -489,15 +489,15 @@ class Payload:
     Check.fields(sec_type, query)
 
     if sort_field is None:
-      if sec_type == "equity":
+      if (sec_type == "equity"):
         sort_field = "intradaymarketcap"
-      elif sec_type == "mutualfund":
+      elif (sec_type == "mutualfund"):
         sort_field = "fundnetassets"
-      elif sec_type == "etf":
+      elif (sec_type == "etf"):
         sort_field = "fundnetassets"
-      elif sec_type == "index":
+      elif (sec_type == "index"):
         sort_field = "percentchange"
-      elif sec_type == "future":
+      elif (sec_type == "future"):
         sort_field = "percentchange"
 
     Check.sort_field(sec_type, sort_field)
@@ -627,7 +627,7 @@ def get(payload = None, session = None):
   result_cols = set()
   result_ls = []
 
-  while size > 0:
+  while (size > 0):
 
     chunk_size = min(size, max_size)
     payload["size"] = chunk_size
@@ -659,7 +659,7 @@ def get(payload = None, session = None):
 
     count += 1
 
-    if count % 5 == 0:
+    if (count % 5 == 0):
 
       print("pause one second after five requests")
       time.sleep(1)
