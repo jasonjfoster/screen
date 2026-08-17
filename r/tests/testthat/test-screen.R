@@ -146,3 +146,46 @@ test_that("valid 'sec_type', 'field', and 'sort_field'", {
   # }
 
 })
+
+test_that("valid 'dfs'", {
+
+  result_ls <- list()
+  errors_ls <- list()
+
+  for (align in test_aligns) {
+
+    response <- tryCatch({
+
+      result <- process_align(align[["dfs"]])
+
+      if (identical(result, align[["expected"]])) {
+        "success"
+      } else {
+        NULL
+      }
+
+    }, error = function(e) {
+      NULL
+    })
+
+    if (is.null(response)) {
+
+      errors_ls <- append(errors_ls, list(data.frame(
+        call = "process_align",
+        value = align[["value"]]
+      )))
+
+    }
+
+  }
+
+  if (length(errors_ls) > 0) {
+
+    result <- do.call(rbind, errors_ls)
+    result_ls <- append(result_ls, list(result))
+
+  }
+
+  expect_equal(result_ls, list())
+
+})

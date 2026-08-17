@@ -344,22 +344,12 @@ class Process:
     return df
 
   @staticmethod
-  def align(dfs, cols):
+  def align(dfs):
 
-    cols = list(cols)
+    # union of columns in order of appearance with missing values filled
+    result = pd.concat(dfs, ignore_index = True)
 
-    result_ls = []
-
-    for df in dfs:
-
-      cols_na = set(cols) - set(df.columns)
-
-      for col_na in cols_na:
-        df[col_na] = None
-
-      result_ls.append(df[cols])
-
-    return result_ls
+    return result
 
 class Env:
 
@@ -624,7 +614,6 @@ def get(payload = None, session = None):
   size = payload["size"]
   offset = payload["offset"]
 
-  result_cols = set()
   result_ls = []
 
   while (size > 0):
@@ -649,7 +638,6 @@ def get(payload = None, session = None):
       result_df = Process.cols(result_df)
 
       result_ls.append(result_df)
-      result_cols.update(result_df.columns)
 
       size -= chunk_size
       offset += chunk_size
@@ -667,9 +655,7 @@ def get(payload = None, session = None):
   if (len(result_ls) == 0):
     return pd.DataFrame()
 
-  result_ls = Process.align(result_ls, result_cols)
-
-  result = pd.concat(result_ls, ignore_index = True)
+  result = Process.align(result_ls)
 
   return result
 

@@ -257,23 +257,30 @@ process_cols <- function(df) {
 
 }
 
-process_align <- function(dfs, cols) {
+process_align <- function(dfs) {
 
-  result_ls <- list()
+  # union of columns in order of appearance with missing values filled
+  cols <- unique(unlist(lapply(dfs, colnames)))
+  names(cols) <- cols
 
-  for (df in dfs) {
+  result <- data.frame(
+    lapply(cols, function(col) {
+      do.call(c, lapply(dfs, function(df) {
 
-    cols_na <- setdiff(cols, colnames(df))
+        if (col %in% colnames(df)) {
+          df[[col]]
+        } else {
+          rep(NA, nrow(df))
+        }
 
-    for (col_na in cols_na) {
-      df[[col_na]] <- NA
-    }
+      }))
+    }),
+    check.names = FALSE, stringsAsFactors = FALSE
+  )
 
-    result_ls <- append(result_ls, list(df[ , cols]))
+  rownames(result) <- NULL
 
-  }
-
-  return(result_ls)
+  return(result)
 
 }
 
@@ -533,7 +540,6 @@ get_data <- function(payload = NULL, session = NULL) {
   size <- payload[["size"]]
   offset <- payload[["offset"]]
 
-  result_cols <- NULL
   result_ls <- list()
 
   while (size > 0) {
@@ -564,7 +570,6 @@ get_data <- function(payload = NULL, session = NULL) {
       result_df <- process_cols(result_df)
 
       result_ls <- append(result_ls, list(result_df))
-      result_cols <- union(result_cols, colnames(result_df))
 
       offset <- offset + chunk_size
       size <- size - chunk_size
@@ -588,9 +593,7 @@ get_data <- function(payload = NULL, session = NULL) {
     return(data.frame())
   }
 
-  result_ls <- process_align(result_ls, result_cols)
-
-  result <- do.call(rbind, result_ls)
+  result <- process_align(result_ls)
 
   return(result)
 

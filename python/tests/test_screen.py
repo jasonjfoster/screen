@@ -2,8 +2,53 @@
 import time
 import pandas as pd
 import yfscreen as yfs
+from yfscreen.screen import Process
 
 # @pytest.mark.skip(reason = "long-running test")
+
+# aligned (shared columns) and misaligned (missing columns, mixed
+# types, and zero rows) data frames
+test_aligns = [
+  {
+    "value": "columns",
+    "dfs": [
+      pd.DataFrame({
+        "symbol": ["AAPL"],
+        "price": [100.5]
+      }),
+      pd.DataFrame({
+        "symbol": ["MSFT"],
+        "price": [200.25]
+      })
+    ],
+    "expected": pd.DataFrame({
+      "symbol": ["AAPL", "MSFT"],
+      "price": [100.5, 200.25]
+    })
+  },
+  {
+    "value": "fill",
+    "dfs": [
+      pd.DataFrame({
+        "symbol": ["AAPL", "MSFT"],
+        "price": [100.5, 200.25]
+      }),
+      pd.DataFrame({
+        "symbol": ["AMZN"],
+        "price": [300.75],
+        "price.raw": ["100.5"]
+      }),
+      pd.DataFrame({
+        "symbol": pd.Series([], dtype = "str")
+      })
+    ],
+    "expected": pd.DataFrame({
+      "symbol": ["AAPL", "MSFT", "AMZN"],
+      "price": [100.5, 200.25, 300.75],
+      "price.raw": [None, None, "100.5"]
+    })
+  }
+]
 
 def test_that(): # valid 'sec_type', 'field', and 'sort_field'
 
@@ -113,3 +158,34 @@ def test_that(): # valid 'sec_type', 'field', and 'sort_field'
   pd.testing.assert_frame_equal(result_df, yfs.data_errors)
   # else:
   #   pd.testing.assert_frame_equal(result_df, pd.DataFrame())
+
+def test_align(): # valid 'dfs'
+
+  result_ls = []
+  errors_ls = []
+
+  for align in test_aligns:
+
+    try:
+
+      result = Process.align(align["dfs"])
+
+      pd.testing.assert_frame_equal(result, align["expected"])
+      response = "success"
+
+    except:
+      response = None
+
+    if response is None:
+
+      errors_ls.append({
+        "call": "Process.align",
+        "value": align["value"]
+      })
+
+  if (len(errors_ls) > 0):
+    result_ls.extend(errors_ls)
+
+  result_df = pd.DataFrame(result_ls)
+
+  pd.testing.assert_frame_equal(result_df, pd.DataFrame())
