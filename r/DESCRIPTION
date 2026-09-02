@@ -16,8 +16,8 @@ Description: Simple and efficient access to Yahoo Finance's 'screener' API
     supports advanced query capabilities, including logical operators,
     nested filters, and customizable payloads. It handles pagination
     automatically, fetching results in batches of up to 250 entries per
-    request for efficient retrieval of large datasets. Filters can be
-    defined dynamically to support a wide range of screening needs. The
+    request for efficient retrieval of large datasets. Filters are
+    defined as lists of conditions to support a wide range of screens. The
     implementation uses standard HTTP libraries to handle API interactions
     efficiently and is available in both R and 'Python' for accessibility
     to a broad audience.
