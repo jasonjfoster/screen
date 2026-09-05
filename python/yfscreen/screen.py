@@ -388,7 +388,7 @@ class Query:
     """
     Create a Structured Query for the Yahoo Finance API
 
-    A method to create a structured query with logical operations and nested conditions
+    A function to create a structured query with logical operations and nested conditions
     formatted for the Yahoo Finance API.
 
     Parameters:
@@ -435,13 +435,13 @@ class Payload:
     """
     Create a Payload for the Yahoo Finance API
 
-    A method to create a payload to query the Yahoo Finance API with customizable parameters.
+    A function to create a payload to query the Yahoo Finance API with customizable parameters.
 
     Parameters:
       sec_type (str): type of security to search
         (i.e., "equity", "mutualfund", "etf", "index", "future").
       query (list or tuple): structured query to filter results created by
-        the `create_query` method.
+        the `create_query` function.
       size (int): number of results to return.
       offset (int): starting position of the results.
       sort_field (str): field to sort the results.
@@ -512,7 +512,7 @@ class Session:
     """
     Get the Crumb, Cookies, and Handle for the Yahoo Finance API
 
-    A method to get the crumb, cookies, and handle required to authenticate and interact
+    A function to get the crumb, cookies, and handle required to authenticate and interact
     with the Yahoo Finance API.
 
     Returns:
@@ -554,12 +554,12 @@ def get(payload = None, session = None):
   """
   Get Data from the Yahoo Finance API
 
-  A method to get data from the Yahoo Finance API using the specified payload.
+  A function to get data from the Yahoo Finance API using the specified payload.
 
   Parameters:
     payload (dict): payload that contains search criteria created using
-      the `create_query` and `create_payload` methods.
-    session (dict): session created using the `get_session` method. When a
+      the `create_query` and `create_payload` functions.
+    session (dict): session created using the `get_session` function. When a
       session is not provided, a session is created internally.
 
   Returns:

@@ -14,13 +14,13 @@ Description: Simple and efficient access to Yahoo Finance's 'screener' API
     cases include screening across a range of security types such as
     equities, mutual funds, ETFs, indices, and futures. The package
     supports advanced query capabilities, including logical operators,
-    nested filters, and customizable payloads. It handles pagination
-    automatically, fetching results in batches of up to 250 entries per
-    request for efficient retrieval of large datasets. Filters are
-    defined as lists of conditions to support a wide range of screens. The
-    implementation uses standard HTTP libraries to handle API interactions
-    efficiently and is available in both R and 'Python' for accessibility
-    to a broad audience.
+    nested filters, and customizable payloads. It automatically handles
+    pagination for efficient retrieval of large datasets by fetching
+    results in batches of up to 250 entries per request. Filters are
+    defined as lists of conditions to accommodate a wide range of screens.
+    The implementation uses standard HTTP libraries to handle API
+    interactions efficiently and supports both R and 'Python' to make it
+    accessible for a broad audience.
 License: GPL (>= 2)
 URL: https://github.com/jasonjfoster/screen
 BugReports: https://github.com/jasonjfoster/screen/issues
