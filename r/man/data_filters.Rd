@@ -12,5 +12,8 @@ data_filters
 }
 \description{
 A data frame with the available filters data for the Yahoo Finance API.
+Each row is a field for a security type with its R and Python value types;
+the \code{\link{create_payload}} function validates the query fields and
+\code{sort_field} against it.
 }
 \keyword{datasets}

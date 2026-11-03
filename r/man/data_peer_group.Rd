@@ -12,5 +12,6 @@ data_peer_group
 }
 \description{
 A data frame with the available peer group data for the Yahoo Finance API.
+Each row is a valid value for the \code{peer_group} filter field.
 }
 \keyword{datasets}

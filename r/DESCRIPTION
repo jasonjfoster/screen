@@ -33,6 +33,6 @@ Suggests:
     covr,
     testthat
 Config/roxygen2/old_usage: TRUE
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.1
 Encoding: UTF-8
 LazyData: true

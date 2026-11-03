@@ -6,6 +6,16 @@ from yfscreen.screen import Process
 
 # @pytest.mark.skip(reason = "long-running test")
 
+# test arguments
+
+# batched requests (more than one request) with the rows aligned
+# into one data frame
+test_sizes = {
+  "batches": {"sec_type": "equity", "size": 251}
+}
+
+# test data
+
 # aligned (shared columns) and misaligned (missing columns, mixed
 # types, and zero rows) data frames
 test_aligns = [
@@ -158,6 +168,41 @@ def test_that(): # valid 'sec_type', 'field', and 'sort_field'
   pd.testing.assert_frame_equal(result_df, yfs.data_errors)
   # else:
   #   pd.testing.assert_frame_equal(result_df, pd.DataFrame())
+
+def test_size(): # valid 'size'
+
+  result_ls = []
+  errors_ls = []
+
+  for name, args in test_sizes.items():
+
+    sec_type = args["sec_type"]
+    size = args["size"]
+
+    try:
+
+      payload = yfs.create_payload(sec_type = sec_type, size = size)
+      result = yfs.get_data(payload = payload)
+
+      response = "success" if ((len(result) == size) and
+                               (result["symbol"].duplicated().sum() == 0)) else None
+
+    except:
+      response = None
+
+    if response is None:
+
+      errors_ls.append({
+        "call": "get_data",
+        "value": name
+      })
+
+  if (len(errors_ls) > 0):
+    result_ls.extend(errors_ls)
+
+  result_df = pd.DataFrame(result_ls)
+
+  pd.testing.assert_frame_equal(result_df, pd.DataFrame())
 
 def test_align(): # valid 'dfs'
 

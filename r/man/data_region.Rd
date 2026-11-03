@@ -12,5 +12,6 @@ data_region
 }
 \description{
 A data frame with the available region data for the Yahoo Finance API.
+Each row is a valid value for the \code{region} filter field.
 }
 \keyword{datasets}

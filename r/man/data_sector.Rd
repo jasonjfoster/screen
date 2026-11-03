@@ -12,5 +12,6 @@ data_sector
 }
 \description{
 A data frame with the available sector data for the Yahoo Finance API.
+Each row is a valid value for the \code{sector} filter field.
 }
 \keyword{datasets}

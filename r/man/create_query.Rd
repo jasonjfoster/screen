@@ -25,6 +25,13 @@ nested conditions formatted for the Yahoo Finance API.
 A function to create a structured query with logical operations and nested conditions
 formatted for the Yahoo Finance API.
 }
+\details{
+A single filter may be passed without the outer list, and "btwn" takes two values
+where the other comparison operators take one. Filters on the same field are grouped under
+an "or" operator and the groups are combined under \code{top_operator}, so repeating a field
+gives a union within that field and \code{top_operator} governs across fields (e.g., the
+three \code{intradaymarketcap} ranges in the example).
+}
 \examples{
 filters <- list(
   list("eq", list("region", "us")),

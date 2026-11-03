@@ -1,6 +1,9 @@
 #' Filters Data for the Yahoo Finance API
 #'
 #' A data frame with the available filters data for the Yahoo Finance API.
+#' Each row is a field for a security type with its R and Python value types;
+#' the \code{\link{create_payload}} function validates the query fields and
+#' \code{sort_field} against it.
 #'
 #' @format A data frame.
 "data_filters"
@@ -8,6 +11,7 @@
 #' Category Name Data for the Yahoo Finance API
 #'
 #' A data frame with the available category name data for the Yahoo Finance API.
+#' Each row is a valid value for the \code{categoryname} filter field.
 #'
 #' @format A data frame.
 "data_categoryname"
@@ -15,6 +19,7 @@
 #' Exchange Data for the Yahoo Finance API
 #'
 #' A data frame with the available exchange data for the Yahoo Finance API.
+#' Each row is a valid value for the \code{exchange} filter field.
 #'
 #' @format A data frame.
 "data_exchange"
@@ -22,6 +27,7 @@
 #' Fund Family Name Data for the Yahoo Finance API
 #'
 #' A data frame with the available fund family name data for the Yahoo Finance API.
+#' Each row is a valid value for the \code{fundfamilyname} filter field.
 #'
 #' @format A data frame.
 "data_fundfamilyname"
@@ -29,6 +35,7 @@
 #' Industry Data for the Yahoo Finance API
 #'
 #' A data frame with the available industry data for the Yahoo Finance API.
+#' Each row is a valid value for the \code{industry} filter field.
 #'
 #' @format A data frame.
 "data_industry"
@@ -36,6 +43,7 @@
 #' Peer Group Data for the Yahoo Finance API
 #'
 #' A data frame with the available peer group data for the Yahoo Finance API.
+#' Each row is a valid value for the \code{peer_group} filter field.
 #'
 #' @format A data frame.
 "data_peer_group"
@@ -43,6 +51,7 @@
 #' Region Data for the Yahoo Finance API
 #'
 #' A data frame with the available region data for the Yahoo Finance API.
+#' Each row is a valid value for the \code{region} filter field.
 #'
 #' @format A data frame.
 "data_region"
@@ -50,6 +59,7 @@
 #' Sector Data for the Yahoo Finance API
 #'
 #' A data frame with the available sector data for the Yahoo Finance API.
+#' Each row is a valid value for the \code{sector} filter field.
 #'
 #' @format A data frame.
 "data_sector"
@@ -57,6 +67,9 @@
 #' Errors Data for the Yahoo Finance API
 #'
 #' A data frame with the available errors data for the Yahoo Finance API.
+#' Each row is a field or sort field for a security type that the API rejects,
+#' which the \code{\link{create_payload}} function excludes from the valid
+#' fields and the tests assert against.
 #'
 #' @format A data frame.
 "data_errors"
@@ -328,6 +341,11 @@ with_env <- function(new_env, code) {
 #'   \item{\code{field}}{list. Field name (e.g., "region") and its associated value(s).}
 #' }
 #' @param top_operator string. Top-level logical operator to combine all filters (i.e., "and", "or").
+#' @details A single filter may be passed without the outer list, and "btwn" takes two values
+#' where the other comparison operators take one. Filters on the same field are grouped under
+#' an "or" operator and the groups are combined under \code{top_operator}, so repeating a field
+#' gives a union within that field and \code{top_operator} governs across fields (e.g., the
+#' three \code{intradaymarketcap} ranges in the example).
 #' @return A nested list representing the structured query with logical operations and
 #' nested conditions formatted for the Yahoo Finance API.
 #' @examples
@@ -372,6 +390,13 @@ create_query <- function(filters = list("eq", list("region", "us")),
 #' @param sort_type string. Type of sort to apply (i.e., "asc", "desc").
 #' @param top_operator string. Logical operator for the top-level of the query
 #' (i.e., "and", "or").
+#' @details Fields in \code{query} and \code{sort_field} are validated against \code{data_filters}
+#' for the \code{sec_type}, less the fields in \code{data_errors} that the API rejects. The default
+#' \code{sort_field} is "intradaymarketcap" for "equity", "fundnetassets" for "mutualfund" and
+#' "etf", and "percentchange" for "index" and "future".
+#'
+#' \code{size} counts rows across all the requests the \code{\link{get_data}} function
+#' makes from \code{offset}.
 #' @return A list representing the payload to be sent to the Yahoo Finance API
 #' with the specified parameters.
 #' @examples
@@ -486,6 +511,12 @@ get_session <- function() {
 #' the \code{\link{create_query}} and \code{\link{create_payload}} functions.
 #' @param session list. Session created using the \code{\link{get_session}}
 #' function. When a session is not provided, a session is created internally.
+#' @details Rows are requested in batches of at most 250 from \code{offset} until \code{size} rows
+#' are returned or a request returns nothing, then the batches are aligned into one data frame
+#' with missing columns filled, and an empty data frame is returned when nothing comes back.
+#'
+#' A session (crumb, cookies, and handle) can be reused across calls, and one second is
+#' paused after every five requests.
 #' @return A data frame that contains data from the Yahoo Finance API for the
 #' specified search criteria.
 #'

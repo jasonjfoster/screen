@@ -12,5 +12,6 @@ data_exchange
 }
 \description{
 A data frame with the available exchange data for the Yahoo Finance API.
+Each row is a valid value for the \code{exchange} filter field.
 }
 \keyword{datasets}

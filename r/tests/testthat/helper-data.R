@@ -1,3 +1,13 @@
+# test arguments
+
+# batched requests (more than one request) with the rows aligned
+# into one data frame
+test_sizes <- list(
+  "batches" = list(sec_type = "equity", size = 251)
+)
+
+# test data
+
 # aligned (shared columns) and misaligned (missing columns, mixed
 # types, and zero rows) data frames
 test_aligns <- list(

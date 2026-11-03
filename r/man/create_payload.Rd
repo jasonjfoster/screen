@@ -33,6 +33,15 @@ with the specified parameters.
 \description{
 A function to create a payload to query the Yahoo Finance API with customizable parameters.
 }
+\details{
+Fields in \code{query} and \code{sort_field} are validated against \code{data_filters}
+for the \code{sec_type}, less the fields in \code{data_errors} that the API rejects. The default
+\code{sort_field} is "intradaymarketcap" for "equity", "fundnetassets" for "mutualfund" and
+"etf", and "percentchange" for "index" and "future".
+
+\code{size} counts rows across all the requests the \code{\link{get_data}} function
+makes from \code{offset}.
+}
 \examples{
 filters <- list(
   list("eq", list("region", "us")),

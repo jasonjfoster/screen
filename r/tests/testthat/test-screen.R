@@ -1,6 +1,6 @@
 test_that("valid 'sec_type', 'field', and 'sort_field'", {
 
-  # skip("long-running test")
+  skip_on_cran()
 
   sec_types <- unique(data_filters[["sec_type"]])
 
@@ -144,6 +144,56 @@ test_that("valid 'sec_type', 'field', and 'sort_field'", {
   # } else {
   #   expect_equal(result_df, data.frame())
   # }
+
+})
+
+test_that("valid 'size'", {
+
+  skip_on_cran()
+
+  result_ls <- list()
+  errors_ls <- list()
+
+  for (name in names(test_sizes)) {
+
+    args <- test_sizes[[name]]
+    sec_type <- args[["sec_type"]]
+    size <- args[["size"]]
+
+    response <- tryCatch({
+
+      payload <- create_payload(sec_type = sec_type, size = size)
+      result <- suppressWarnings(get_data(payload = payload))
+
+      if ((nrow(result) == size) && (anyDuplicated(result[["symbol"]]) == 0)) {
+        "success"
+      } else {
+        NULL
+      }
+
+    }, error = function(e) {
+      NULL
+    })
+
+    if (is.null(response)) {
+
+      errors_ls <- append(errors_ls, list(data.frame(
+        call = "get_data",
+        value = name
+      )))
+
+    }
+
+  }
+
+  if (length(errors_ls) > 0) {
+
+    result <- do.call(rbind, errors_ls)
+    result_ls <- append(result_ls, list(result))
+
+  }
+
+  expect_equal(result_ls, list())
 
 })
 

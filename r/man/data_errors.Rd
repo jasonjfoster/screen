@@ -12,5 +12,8 @@ data_errors
 }
 \description{
 A data frame with the available errors data for the Yahoo Finance API.
+Each row is a field or sort field for a security type that the API rejects,
+which the \code{\link{create_payload}} function excludes from the valid
+fields and the tests assert against.
 }
 \keyword{datasets}

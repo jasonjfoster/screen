@@ -12,5 +12,6 @@ data_categoryname
 }
 \description{
 A data frame with the available category name data for the Yahoo Finance API.
+Each row is a valid value for the \code{categoryname} filter field.
 }
 \keyword{datasets}

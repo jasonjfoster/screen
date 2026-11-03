@@ -20,6 +20,14 @@ specified search criteria.
 \description{
 A function to get data from the Yahoo Finance API using the specified payload.
 }
+\details{
+Rows are requested in batches of at most 250 from \code{offset} until \code{size} rows
+are returned or a request returns nothing, then the batches are aligned into one data frame
+with missing columns filled, and an empty data frame is returned when nothing comes back.
+
+A session (crumb, cookies, and handle) can be reused across calls, and one second is
+paused after every five requests.
+}
 \examples{
 filters <- list(
   list("eq", list("region", "us")),

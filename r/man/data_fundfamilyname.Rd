@@ -12,5 +12,6 @@ data_fundfamilyname
 }
 \description{
 A data frame with the available fund family name data for the Yahoo Finance API.
+Each row is a valid value for the \code{fundfamilyname} filter field.
 }
 \keyword{datasets}

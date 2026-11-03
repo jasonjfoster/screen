@@ -31,6 +31,9 @@ class Data:
     Filters Data for the Yahoo Finance API
 
     A data frame with the available filters data for the Yahoo Finance API.
+    Each row is a field for a security type with its R and Python value types;
+    the `create_payload` function validates the query fields and
+    `sort_field` against it.
 
     Returns:
       A data frame.
@@ -48,6 +51,7 @@ class Data:
     Category Name Data for the Yahoo Finance API
 
     A data frame with the available category name data for the Yahoo Finance API.
+    Each row is a valid value for the `categoryname` filter field.
 
     Returns:
       A data frame.
@@ -65,6 +69,7 @@ class Data:
     Exchange Data for the Yahoo Finance API
 
     A data frame with the available exchange data for the Yahoo Finance API.
+    Each row is a valid value for the `exchange` filter field.
 
     Returns:
       A data frame.
@@ -82,6 +87,7 @@ class Data:
     Fund Family Name Data for the Yahoo Finance API
 
     A data frame with the available fund family name data for the Yahoo Finance API.
+    Each row is a valid value for the `fundfamilyname` filter field.
 
     Returns:
       A data frame.
@@ -99,6 +105,7 @@ class Data:
     Industry Data for the Yahoo Finance API
 
     A data frame with the available industry data for the Yahoo Finance API.
+    Each row is a valid value for the `industry` filter field.
 
     Returns:
       A data frame.
@@ -116,6 +123,7 @@ class Data:
     Peer Group Data for the Yahoo Finance API
 
     A data frame with the available peer group data for the Yahoo Finance API.
+    Each row is a valid value for the `peer_group` filter field.
 
     Returns:
       A data frame.
@@ -133,6 +141,7 @@ class Data:
     Region Data for the Yahoo Finance API
 
     A data frame with the available region data for the Yahoo Finance API.
+    Each row is a valid value for the `region` filter field.
 
     Returns:
       A data frame.
@@ -150,6 +159,7 @@ class Data:
     Sector Data for the Yahoo Finance API
 
     A data frame with the available sector data for the Yahoo Finance API.
+    Each row is a valid value for the `sector` filter field.
 
     Returns:
       A data frame.
@@ -167,6 +177,9 @@ class Data:
     Errors Data for the Yahoo Finance API
 
     A data frame with the available errors data for the Yahoo Finance API.
+    Each row is a field or sort field for a security type that the API rejects,
+    which the `create_payload` function excludes from the valid
+    fields and the tests assert against.
 
     Returns:
       A data frame.
@@ -336,10 +349,10 @@ class Process:
           result_df = pd.DataFrame(result_ls)
           df = pd.concat([df.reset_index(drop = True), result_df], axis = 1)
 
-          df.drop(columns = [col], inplace = True)
+          df = df.drop(columns = [col])
 
         else:
-          df[col] = None
+          df = df.drop(columns = [col])
 
     return df
 
@@ -391,6 +404,12 @@ class Query:
     A function to create a structured query with logical operations and nested conditions
     formatted for the Yahoo Finance API.
 
+    A single filter may be passed without the outer list, and "btwn" takes two values
+    where the other comparison operators take one. Filters on the same field are grouped under
+    an "or" operator and the groups are combined under `top_operator`, so repeating a field
+    gives a union within that field and `top_operator` governs across fields (e.g., the
+    three `intradaymarketcap` ranges in the example).
+
     Parameters:
       filters (list): each element is a sublist that defines a filtering condition with
         the following structure:
@@ -436,6 +455,14 @@ class Payload:
     Create a Payload for the Yahoo Finance API
 
     A function to create a payload to query the Yahoo Finance API with customizable parameters.
+
+    Fields in `query` and `sort_field` are validated against `data_filters`
+    for the `sec_type`, less the fields in `data_errors` that the API rejects. The default
+    `sort_field` is "intradaymarketcap" for "equity", "fundnetassets" for "mutualfund" and
+    "etf", and "percentchange" for "index" and "future".
+
+    `size` counts rows across all the requests the `get_data` function
+    makes from `offset`.
 
     Parameters:
       sec_type (str): type of security to search
@@ -555,6 +582,13 @@ def get(payload = None, session = None):
   Get Data from the Yahoo Finance API
 
   A function to get data from the Yahoo Finance API using the specified payload.
+
+  Rows are requested in batches of at most 250 from `offset` until `size` rows
+  are returned or a request returns nothing, then the batches are aligned into one data frame
+  with missing columns filled, and an empty data frame is returned when nothing comes back.
+
+  A session (crumb, cookies, and handle) can be reused across calls, and one second is
+  paused after every five requests.
 
   Parameters:
     payload (dict): payload that contains search criteria created using
