@@ -2,3 +2,5 @@ python/dist/
 python/*.egg-info/
 python/source.ipynb
 __pycache__/
+python/.coverage
+python/.pytest_cache/

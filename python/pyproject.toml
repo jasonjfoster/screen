@@ -1,6 +1,6 @@
 [build-system]
 build-backend = "setuptools.build_meta"
-requires = [ "setuptools", "wheel" ]
+requires = [ "setuptools" ]
 
 [project]
 name = "yfscreen"
@@ -36,3 +36,6 @@ urls.Source = "https://github.com/jasonjfoster/screen/tree/main/python"
 
 [tool.setuptools]
 package-data.yfscreen = [ "data/*.csv" ]
+
+[tool.coverage]
+run.source = [ "yfscreen" ]

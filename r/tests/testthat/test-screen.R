@@ -202,13 +202,17 @@ test_that("valid 'dfs'", {
   result_ls <- list()
   errors_ls <- list()
 
-  for (align in test_aligns) {
+  for (name in names(test_aligns)) {
+
+    args <- test_aligns[[name]]
+    dfs <- args[["dfs"]]
+    expected <- args[["expected"]]
 
     response <- tryCatch({
 
-      result <- process_align(align[["dfs"]])
+      result <- process_align(dfs)
 
-      if (identical(result, align[["expected"]])) {
+      if (identical(result, expected)) {
         "success"
       } else {
         NULL
@@ -222,7 +226,7 @@ test_that("valid 'dfs'", {
 
       errors_ls <- append(errors_ls, list(data.frame(
         call = "process_align",
-        value = align[["value"]]
+        value = name
       )))
 
     }

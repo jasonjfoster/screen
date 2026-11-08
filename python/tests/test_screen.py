@@ -1,10 +1,7 @@
-# import pytest
 import time
 import pandas as pd
 import yfscreen as yfs
 from yfscreen.screen import Process
-
-# @pytest.mark.skip(reason = "long-running test")
 
 # test arguments
 
@@ -18,9 +15,8 @@ test_sizes = {
 
 # aligned (shared columns) and misaligned (missing columns, mixed
 # types, and zero rows) data frames
-test_aligns = [
-  {
-    "value": "columns",
+test_aligns = {
+  "columns": {
     "dfs": [
       pd.DataFrame({
         "symbol": ["AAPL"],
@@ -36,8 +32,7 @@ test_aligns = [
       "price": [100.5, 200.25]
     })
   },
-  {
-    "value": "fill",
+  "fill": {
     "dfs": [
       pd.DataFrame({
         "symbol": ["AAPL", "MSFT"],
@@ -58,7 +53,7 @@ test_aligns = [
       "price.raw": [None, None, "100.5"]
     })
   }
-]
+}
 
 def test_that(): # valid 'sec_type', 'field', and 'sort_field'
 
@@ -209,13 +204,16 @@ def test_align(): # valid 'dfs'
   result_ls = []
   errors_ls = []
 
-  for align in test_aligns:
+  for name, args in test_aligns.items():
+
+    dfs = args["dfs"]
+    expected = args["expected"]
 
     try:
 
-      result = Process.align(align["dfs"])
+      result = Process.align(dfs)
 
-      pd.testing.assert_frame_equal(result, align["expected"])
+      pd.testing.assert_frame_equal(result, expected)
       response = "success"
 
     except:
@@ -225,7 +223,7 @@ def test_align(): # valid 'dfs'
 
       errors_ls.append({
         "call": "Process.align",
-        "value": align["value"]
+        "value": name
       })
 
   if (len(errors_ls) > 0):

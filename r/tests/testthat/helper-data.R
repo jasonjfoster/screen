@@ -11,8 +11,7 @@ test_sizes <- list(
 # aligned (shared columns) and misaligned (missing columns, mixed
 # types, and zero rows) data frames
 test_aligns <- list(
-  list(
-    value = "columns",
+  "columns" = list(
     dfs = list(
       data.frame(
         symbol = "AAPL",
@@ -31,8 +30,7 @@ test_aligns <- list(
       stringsAsFactors = FALSE
     )
   ),
-  list(
-    value = "fill",
+  "fill" = list(
     dfs = list(
       data.frame(
         symbol = c("AAPL", "MSFT"),
