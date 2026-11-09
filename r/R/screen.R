@@ -562,6 +562,8 @@ get_data <- function(payload = NULL, session = NULL) {
   api_url <- paste0("https://query1.finance.yahoo.com/v1/finance/screener", process_url(params))
 
   headers <- c(
+    `Accept` = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+    `User-Agent` = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
     `Content-Type` = "application/json",
     `Cookie` = paste0(cookies[["name"]], "=", cookies[["value"]], collapse = "; ")
   )

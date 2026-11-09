@@ -6,6 +6,8 @@
 
 * Added input checks for the `filters` and `top_operator` arguments of the `create_query` function and the `size`, `offset`, `sort_type`, and `top_operator` arguments of the `create_payload` function
 
+* Fixed an issue for the request headers in the `get_data` function
+
 * Fixed an issue for restoring the `CURL_SSL_BACKEND` environment variable in the `get_session` function
 
 * Added tests for batched requests, data frame alignment, and input checks
